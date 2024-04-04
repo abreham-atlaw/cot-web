@@ -1,0 +1,42 @@
+table{
+    height: inherit;
+    border-collapse: collapse;
+    width: 100%;
+}
+table td, table th{
+    border-bottom: 1px solid #ddd;
+   padding: 2rem;
+   white-space: nowrap; /* Prevent text wrapping */
+   text-overflow: ellipsis;
+} 
+/* table tr:nth-child(even){background-color: rgba(128, 120, 110, 0.244);} */
+table thead {
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+    text-align: left;
+    /* background-color: rgb(101, 99, 96); */
+    /* color: white; */
+  }
+.table_box{
+    padding: 3rem;
+    box-sizing: border-box;
+    /* box-shadow:4px 10px 5px rgba(0, 0, 0, 0.2); */ 
+}
+.all_bar{
+    align-items: center;
+    justify-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0.5rem;
+}
+.all_bar button{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    background-color: black;
+    color: white;
+    font-size: 2rem;
+}
+.all_bar h3{
+    font-size: 1.5rem;
+}

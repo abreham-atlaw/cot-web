@@ -1,0 +1,78 @@
+import { FaBug, FaTv } from "react-icons/fa";
+import { IoAnalytics, IoPerson } from "react-icons/io5";
+import { MdSearch, MdPeople, MdSettings } from "react-icons/md";
+import {
+	PiGitPullRequest,
+	PiHouse,
+	PiSquaresFourBold,
+	PiTree,
+} from "react-icons/pi";
+import styles from './SideBar.module.css'
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { JsxElement } from "typescript";
+
+function SideBar(){
+    // const [activeLink,setActiveLink] = useState<string>('/admin')
+	// const handleNavLinkClick = (path: string) => {
+	// 	setActiveLink(path);
+	//   };
+
+    const sidebar = [
+		{
+			title: "Dashboard",
+			icons: <FaTv />,
+			link: "/admin",
+		},
+		{
+			title: "Staff",
+			icons: <MdPeople />,
+			link: "/staffs",
+		},
+		{
+			title: "Property",
+			icons: <PiHouse />,
+			link: "/assets",
+		},
+		{
+			title: "Requests",
+			icons: <PiGitPullRequest />,
+			link: "/requests",
+		},
+		{
+			title: "Departments",
+			icons: <PiTree />,
+			link: "/departments",
+		},
+		{
+			title: "Category",
+			icons: <PiSquaresFourBold />,
+			link: "/categories",
+		},
+	];
+
+    return <nav className={styles.sidebar}>
+     <h1>Chain of Trust</h1>
+     <ul>
+        {sidebar.map((item,index)=>(
+            <li key={index} >
+                {/* <NavLink to={item.link}  className={({ isActive }) => (isActive ? styles.selected : '')} onClick={()=>handleNavLinkClick(item.link)} >
+              
+                <span>{item.icons}</span>
+                <p>{item.title}</p>
+                
+                
+                </NavLink> */}
+				<a href="">
+				<span>{item.icons}</span>
+                <p>{item.title}</p>
+				</a>
+				
+            </li>
+        ))}
+     </ul>
+
+    </nav>
+   
+}
+export default SideBar
