@@ -1,0 +1,43 @@
+.frame {
+    padding: 2rem;
+	display: flex;
+    justify-content: space-between;
+	align-items: center;
+	padding:1rem;
+	border-bottom: 0.14em rgb(216, 216, 216) solid;    
+}
+.frame div{	
+	display: flex;
+    position: relative;	
+    width: 60%;
+ 
+}
+.search_icon{
+     font-size: 2rem;
+     color: rgb(168, 168, 168);
+     position: absolute;
+     top: 50%;
+     left: 5px; /* Adjust left padding if needed */
+     transform: translateY(-50%);
+
+
+}
+.frame div span{
+    position: absolute;
+     top: 50%;
+     right: 5px; /* Adjust left padding if needed */
+     transform: translateY(-50%);
+}
+.frame div input{
+    background-color: rgb(230, 230, 230);
+    border: none;
+    width: 100%; /* Stretch input to fill remaining space */ 
+	font-size: 1.4rem;
+    padding: 1.5rem 1.5rem;
+    text-align: start;
+    border-radius: 25px;
+    padding-left: 3rem;
+}
+.frame span{
+    display: flex;
+}
