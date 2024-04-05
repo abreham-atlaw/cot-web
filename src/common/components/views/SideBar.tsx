@@ -13,10 +13,10 @@ import { useState } from "react";
 import { JsxElement } from "typescript";
 
 function SideBar(){
-    // const [activeLink,setActiveLink] = useState<string>('/admin')
-	// const handleNavLinkClick = (path: string) => {
-	// 	setActiveLink(path);
-	//   };
+    const [activeLink,setActiveLink] = useState<string>('/admin')
+	const handleNavLinkClick = (path: string) => {
+		setActiveLink(path);
+	  };
 
     const sidebar = [
 		{
@@ -56,18 +56,13 @@ function SideBar(){
      <ul>
         {sidebar.map((item,index)=>(
             <li key={index} >
-                {/* <NavLink to={item.link}  className={({ isActive }) => (isActive ? styles.selected : '')} onClick={()=>handleNavLinkClick(item.link)} >
+                <NavLink to={item.link}  className={({ isActive }) => (isActive ? styles.selected : '')} onClick={()=>handleNavLinkClick(item.link)} >
               
                 <span>{item.icons}</span>
                 <p>{item.title}</p>
                 
                 
-                </NavLink> */}
-				<a href="">
-				<span>{item.icons}</span>
-                <p>{item.title}</p>
-				</a>
-				
+                </NavLink>
             </li>
         ))}
      </ul>
