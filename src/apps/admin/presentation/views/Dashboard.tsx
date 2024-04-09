@@ -1,5 +1,5 @@
 import { IoPerson } from "react-icons/io5";
-import styles from './Dashboard.module.css';
+import styles from '../components/Dashboard.module.css';
 import { FaBug } from "react-icons/fa";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
