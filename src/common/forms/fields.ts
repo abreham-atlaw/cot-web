@@ -1,14 +1,13 @@
-import { sleep } from "../utils/time";
 
 export default class Field<T>{
 
 	public value :T | null = null;
 	public error : string | null = null;
 	public required: boolean;
-	public validator: Function | null;
+	public validator: ((value: T | null) => Promise<(string | null)>) | null;
 	public liveValidate: boolean;
 
-	constructor(required: boolean = true, validator: Function|null = null, liveValidate: boolean = true, validationGap: number = 2000){
+	constructor(required: boolean = true, validator: ((value: T | null) => Promise<(string | null)>) | null = null, liveValidate: boolean = true){
 		this.required = required;
 		this.validator = validator;
 		this.liveValidate = liveValidate;
@@ -50,7 +49,7 @@ export class TextField extends Field<string>{
 	private emptyAsNull: boolean;
 	constructor(
 		required: boolean = true, 
-		validator: Function|null = null, 
+		validator: ((value: string | null) => Promise<(string | null)>) | null = null, 
 		liveValidate: boolean = true,
 		emptyAsNull: boolean = true
 	){
@@ -64,6 +63,31 @@ export class TextField extends Field<string>{
 			return null;
 		}
 		return value;
+	}
+
+}
+
+
+export class EmailField extends TextField {
+    constructor(
+        required: boolean = true,
+        validator: ((value: string | null) => Promise<(string | null)>) | null = null,
+        liveValidate: boolean = true,
+        emptyAsNull: boolean = true
+    ) {
+        super(required, validator, liveValidate, emptyAsNull);
+    }
+
+	public async validate(): Promise<string | null> {
+		const error = await super.validate();
+		if(error != null){
+			return error;
+		}
+		const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if(!pattern.test(this.getValue()!)){
+			return "Not a valid email"; 
+		}
+		return null
 	}
 
 }

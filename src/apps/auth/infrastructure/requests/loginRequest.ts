@@ -9,10 +9,10 @@ export default class LoginRequest extends Request<KeyPair>{
 
     constructor(username: string, password: string){
         super({
-            url: "/auth/login",
+            url: "/auth/login/",
             method: "POST",
             data: {
-                "username": username,
+                "email": username,
                 "password": password
             }
         });

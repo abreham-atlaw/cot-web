@@ -1,9 +1,9 @@
-import './App.css'
-import TestView from './apps/test/presentation/views/TestView'
+// import './App.css'
+import CoTRouter from './Router'
 
 function App() {
   return (
-    <TestView/>
+    <CoTRouter/>
   )
 }
 

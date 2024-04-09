@@ -20,19 +20,31 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             return v.toString(16);
         });
     }
-    
 
     async create(instance: M){
         if(instance.id === undefined){
             instance.id = await this.generateId();
         }
         await this.preSave(instance);
-        await (await this.getWriteContract()).create(...this.serializer.serialize(instance));
+        const contract = await this.getWriteContract();
+        await contract.create(
+            ...this.serializer.serialize(instance), 
+            {
+                gasPrice: 0
+        
+            }
+        );
     } 
 
     async update(instance: M){
         await this.preSave(instance);
-        await (await this.getWriteContract()).update(...this.serializer.serialize(instance));
+        await (await this.getWriteContract()).update(
+            ...this.serializer.serialize(instance),
+            {
+                gasPrice: 0
+        
+            }
+        );
     }
 
     async getById(id: string): Promise<M>{
@@ -43,12 +55,13 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     }
 
     async getAll(): Promise<M[]>{
-        const response = await (await this.getReadContract()).getAll();
+        const contract = await this.getReadContract()
+        const response = await contract.getAll();
         const instances = this.serializer.deserializeMany(response);
         for(const instance of instances){
             await this.attachForeignKeys(instance);
         }
-        return instances;
+        return instances.filter((instance) => this.filterAll(instance));
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -59,6 +72,10 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async preSave(instance: M){
 
+    }
+
+    async filterAll(instance: M): Promise<boolean>{
+        return true;
     }
 
 }

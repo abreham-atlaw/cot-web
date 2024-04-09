@@ -9,17 +9,20 @@ import { AsyncStatus } from "../../state/asyncState";
 
 export default abstract class ViewModelView<V extends ViewModel<S>, P = {}, S extends BaseState = BaseState, SS=any> extends React.Component<P, S, SS>{
 	
-	private viewModel?: V
+	private _viewModel?: V
 
 	constructor(props: P){
 		super(props);
 		this.state = this.onCreateState()
-		this.viewModel = this.onCreateViewModel(this.state)
+		this._viewModel = this.onCreateViewModel(this.state)
 	}
 
+	protected get viewModel(): V{
+		return this._viewModel!;
+	}
 
 	protected getViewModel(): V{
-		return this.viewModel!
+		return this._viewModel!
 	}
 
 	abstract onCreateViewModel(state: S): V
