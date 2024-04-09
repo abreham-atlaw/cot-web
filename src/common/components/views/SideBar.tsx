@@ -1,6 +1,6 @@
-import { FaBug, FaTv } from "react-icons/fa";
-import { IoAnalytics, IoPerson } from "react-icons/io5";
-import { MdSearch, MdPeople, MdSettings } from "react-icons/md";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {  FaTv } from "react-icons/fa";
+import {  MdPeople } from "react-icons/md";
 import {
 	PiGitPullRequest,
 	PiHouse,
@@ -10,13 +10,11 @@ import {
 import styles from './SideBar.module.css'
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { JsxElement } from "typescript";
 
 function SideBar(){
     const [activeLink,setActiveLink] = useState<string>('/admin')
 	const handleNavLinkClick = (path: string) => {
-		setActiveLink(path);
-	  };
+		setActiveLink(path);};
 
     const sidebar = [
 		{
