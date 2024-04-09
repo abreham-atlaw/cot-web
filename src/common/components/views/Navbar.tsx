@@ -1,4 +1,4 @@
-import { MdSearch, MdPeople, MdSettings } from "react-icons/md";
+import { MdSearch, MdSettings } from "react-icons/md";
 import styles from './Navbar.module.css'
 function Navbar() {
     return <div className={styles.frame}>
