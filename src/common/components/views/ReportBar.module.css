@@ -1,0 +1,11 @@
+.report{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 7em;
+    margin-left: 65px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    flex-direction:column;
+    padding: 1em 0.5em;
+    border-radius: 15px; 
+}
