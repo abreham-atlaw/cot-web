@@ -4,6 +4,7 @@ import { Provider } from "ethers";
 import { JsonRpcProvider } from "ethers";
 import DataConfigs from "../configs/dataConfigs";
 import NetworkClient from "../common/network/NetworkClient";
+import KeyPair from "@/apps/auth/domain/models/keyPair";
 
 
 
@@ -21,11 +22,11 @@ export default class CoreProviders{
 
     static async provideWallet(): Promise<Wallet>{
         const keyPair = await AuthProviders.provideKeyPair();
-        // if(keyPair === null){
-        //     throw Error("Keypair not found");
-        // }
+        if(keyPair === null){
+            throw Error("Keypair not found");
+        }
 
-        return new Wallet(keyPair!.privateKey, CoreProviders.etherProvider);
+        return new Wallet(keyPair.privateKey, CoreProviders.etherProvider);
     }
 
     static provideNetworkClient(): NetworkClient{

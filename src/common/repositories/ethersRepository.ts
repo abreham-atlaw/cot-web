@@ -6,7 +6,7 @@ import { InterfaceAbi } from "ethers";
 
 export default class EthersRepository{
 
-    private wallet = CoreProviders.provideWallet();
+    
     private provider = CoreProviders.providerEtherProvider();
     private abi: InterfaceAbi;
     private address: string;
@@ -22,16 +22,20 @@ export default class EthersRepository{
     }
 
     async getWriteContract(): Promise<Contract>{
+        const wallet = CoreProviders.provideWallet();
         if(this._signerContract === undefined){
-            this._signerContract = new Contract(this.address, this.abi, await this.wallet);
+            this._signerContract = new Contract(this.address, this.abi, await wallet);
         }
         return this._signerContract!;
     }
 
     async getReadContract(): Promise<Contract>{
+        console.log(this._providerContract)
         if(this._providerContract === undefined){
             this._providerContract = new Contract(this.address, this.abi, this.provider);
         }
+        console.log(this._providerContract)
+        console.log(this.address,this.abi)
         return this._providerContract!;
     }
 

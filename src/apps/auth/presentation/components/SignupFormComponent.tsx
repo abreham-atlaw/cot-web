@@ -2,6 +2,7 @@ import AsyncButton from "@/common/components/buttons/AsyncButton"
 import SignupState from "../../application/states/signupState"
 import LabeledInputField from "@/common/components/form/LabeledInputField"
 import TextFieldComponent from "@/common/components/form/TextFieldComponent"
+import Field from "@/common/forms/fields";
 
 
 export interface SignupFormComponentProps{
@@ -26,7 +27,7 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFo
                     (field) => (
                         <div className="mt-10" key={field[0] as string}>
                             <LabeledInputField label={field[0] as string}>
-                                <TextFieldComponent field={field[1]} type={field[2] as string}/>
+                                <TextFieldComponent field={field[1]as Field<string>} type={field[2] as string}/>
                             </LabeledInputField>
                         </div>
                     )

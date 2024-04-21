@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Field from "@/lib/forms/fields";
 import { FieldComponent } from "./FieldComponent";
+import Field from "@/common/forms/fields";
 
 
 type PrefixInputFieldComponentProps = {

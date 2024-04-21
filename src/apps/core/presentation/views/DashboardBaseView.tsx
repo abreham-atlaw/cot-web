@@ -1,13 +1,17 @@
 import ViewModelView from "@/common/components/views/ViewModelView";
 import { AsyncState } from "@/common/state/asyncState";
 import ViewModel from "@/common/viewmodel/viewmodel";
-import { ReactNode } from "react";
 import SideBar from "../components/SideBar";
+import Content from "../components/Content";
+import { ReactNode } from "react";
+interface DashboardBaseViewProps {
+    children?: React.ReactNode;
+  
+}
 
 
 
-
-export default class DashboardBaseView extends ViewModelView<ViewModel<AsyncState>, unknown, AsyncState>{
+export default class DashboardBaseView extends ViewModelView<ViewModel<AsyncState>, DashboardBaseViewProps, AsyncState>{
     onCreateViewModel(state: AsyncState): ViewModel<AsyncState> {
         return new ViewModel<AsyncState>(state, this.setState.bind(this));
     }
@@ -19,9 +23,15 @@ export default class DashboardBaseView extends ViewModelView<ViewModel<AsyncStat
         return (
             <div className="flex">
                 <SideBar/>
-                <div className="overflow-scroll h-screen w-full">
-                    {this.props.children}
-                </div>
+                <Content>
+                {this.props.children}
+                </Content>
+                  
+                   
+                  
+                  
+                    
+              
             </div>
         )
     }

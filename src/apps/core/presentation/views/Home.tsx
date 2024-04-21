@@ -15,7 +15,6 @@ import { BsPersonFillGear } from "react-icons/bs";
 
 import image from "./home.jpeg";
 import image2 from "./home2.jpeg";
-import NavBar from "../components/Navbar";
 
 function Home() {
 	const services = [
@@ -54,57 +53,9 @@ function Home() {
 		},
 	];
 	const footer = ["pointone", "pointtwo", "pointthree", "pointfour"];
-	const servicesCategory = [
-		{
-			title: "Tracking proprty",
-			icons: <MdEventNote />,
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-		},
-		{
-			title: "Auction and bidding",
-			icons: <RiAuctionFill />,
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-		},
-		{
-			title: "Managing property",
-			icons: <ImTree />,
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-		},
-		{
-			title: "Simplifying work",
-			icons: <LiaHourglassHalfSolid />,
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-		},
-	];
-	const explore = [
-		{
-			title: "Property management",
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utnim ad minim veniam, quis nostrud exercitation ullamco laboris",
-		},
-		{
-			title: "Placing auction",
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utnim ad minim veniam, quis nostrud exercitation ullamco laboris",
-		},
-		{
-			title: "Register bidders",
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utnim ad minim veniam, quis nostrud exercitation ullamco laboris",
-		},
-		{
-			title: "Tracking companies property",
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utnim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-		},
-		{
-			title: "Managing request",
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utnim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-		},
-		{
-			title: "Managing employee",
-			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utnim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-		},
-	];
 	return (
-		<div className='home' id='home'>
-			<NavBar/>
+		
+		<div className='home' id="home">
 			<div className='content'>
 				<div className='part1'>
 					<h4> Accelerated solution </h4>
@@ -113,7 +64,7 @@ function Home() {
 							Reliable
 						</li>
 						<li style={{ color: "#001c55", width: "7.3em" }}>Property track</li>
-						<li style={{ width: "6.4em", borderTopRightRadius: "0" }}>
+						<li style={{ width: "34rem", borderTopRightRadius: "0" }}>
 							Made simple
 						</li>
 					</ul>
@@ -139,23 +90,7 @@ function Home() {
 					</div>
 				</div>
 			</div>
-			<div className='description'>
-				<h2> Lorem ipsum</h2>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-					minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-					aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit
-					amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-					labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-					adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-					magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-					ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-					irure Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				</p>
-			</div>
-			<div className='services' id='services'>
+			<div className='services' id="services">
 				<div className='title'>
 					<h4>
 						Evolutionary solutions <h3> For companies </h3>
@@ -173,86 +108,45 @@ function Home() {
 						</div>
 					))}
 				</div>
-
-				<h4> Explore services</h4>
-				<div className='part-two'>
-					{explore.map((item) => (
-						<div className='cols'>
-							<h2> {item.title} </h2>
-							<p> {item.desc} </p>
-							<div className='icon-wrapper'>
-								<span>
-									<LiaHourglassHalfSolid />
-								</span>
+				<div className='content'>
+					<h2> Lorem ipsum</h2>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+						ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+						aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor
+						sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit
+						amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+						nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure Lorem ipsum dolor sit amet, consectetur
+						adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+						dolore magna aliqua.
+					</p>
+				</div>
+			</div>
+			
+			<h1 className="about-title"> About us </h1>
+			<div className='about' id="about">
+			
+				<div className='col'>
+					
+					<div className='img-container'>
+						<img src={image2} alt='column' />
+					</div>
+					<p> Solution to management problems</p>
+				</div>
+				<div className='lists'>
+					{about.map((item) => (
+						<div className='map'>
+							<span> {item.icons} </span>
+							<div className='detail'>
+								<h2> {item.title} </h2>
+								<p> {item.desc} </p>
 							</div>
 						</div>
 					))}
-				</div>
-				<div className='part-three'>
-					<div className='title'>
-						<h5>
-							Revolutionary solutions <h3> For companies </h3>
-						</h5>
-						<span>
-							All in one place
-							<FaArrowRight style={{ marginLeft: "20px", color: "grey" }} />
-						</span>
-					</div>
-					<div className='lists'>
-						{servicesCategory.map((item) => (
-							<div className='mapped'>
-								<h2> {item.title} </h2>
-								<p> {item.desc} </p>
-								<span> {item.icons} </span>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-
-			<div className='about' id='about'>
-				<h1 className='title'> About us </h1>
-				<div className='part-one'>
-					<div className='col'>
-						<div className='img-container'>
-							<img src={image2} alt='column' />
-						</div>
-						<p> Solution to management problems</p>
-					</div>
-					<div className='lists'>
-						{about.map((item) => (
-							<div className='map'>
-								<span> {item.icons} </span>
-								<div className='detail'>
-									<h2> {item.title} </h2>
-									<p> {item.desc} </p>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-				<div className='part-two'>
-					<h2>The dynamic of the process</h2>
-					<div className='details'>
-						<div className='column1'>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-								enim ad minim veniam, quis nostrud exercitation ullamco laboris
-								nisi ut aliquip ex ea commodo consequat. Duis aute irure
-							</p>
-							<p className='content2'>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua
-							</p>
-						</div>
-						<div className='column2'>
-							<div className='layer'>
-								<h2>We are one</h2>
-								<h3>Call away</h3>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div className='footer'>
@@ -278,13 +172,13 @@ function Home() {
 					</div>
 					<ul className='footermenu'>
 						<li>
-							<a href='#home'>Home</a>
+							<a href='/'>Home</a>
 						</li>
 						<li>
-							<a href='#services'>Services</a>
+							<a href='/services'>Services</a>
 						</li>
 						<li>
-							<a href='#about'>About</a>
+							<a href='/about'>About</a>
 						</li>
 					</ul>
 					<div className='footerSection2'>
