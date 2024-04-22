@@ -12,7 +12,7 @@ export class ListUsersViewModel extends AsyncViewModel<ListUsersState>{
 
     public async onInit(): Promise<void> {
         await super.onInit();
-        this.state.users = await this.profileRepository.filterByOrg();
+        this.state.users = await this.profileRepository.getAll();
         this.state.invitations = await this.invitationRepository.getAll();
     }
 

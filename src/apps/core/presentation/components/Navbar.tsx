@@ -111,7 +111,7 @@ function NavBar() {
 						)}
 					</div>
 				) : (
-					<a href='/signin' className='signin'>
+					<a href='/auth/login' className='signin'>
 						{" "}
 						Login
 					</a>

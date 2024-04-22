@@ -25,7 +25,7 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
     }
 
     private goBack(){
-        RoutingUtils.redirect("/base/staff-management/list/")
+        RoutingUtils.redirect("/base/invitation/list/")
     }
 
     onCreateMain(): ReactNode {

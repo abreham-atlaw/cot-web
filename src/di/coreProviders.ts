@@ -21,10 +21,9 @@ export default class CoreProviders{
 
     static async provideWallet(): Promise<Wallet>{
         const keyPair = await AuthProviders.provideKeyPair();
-        // if(keyPair === null){
-        //     throw Error("Keypair not found");
-        // }
-
+        if(keyPair === null){
+            throw Error("Keypair not found");
+        }
         return new Wallet(keyPair!.privateKey, CoreProviders.etherProvider);
     }
 

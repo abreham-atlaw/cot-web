@@ -1,77 +1,36 @@
-import ViewModelView from "@/common/components/views/ViewModelView";
-import { ListUsersViewModel } from "../../application/viewModels/listUsersViewModel";
-import ListUsersState from "../../application/states/listUsersState";
-import { ReactNode } from "react";
-import Invitation from "@/apps/auth/domain/models/invitation";
-import Profile from "@/apps/auth/domain/models/profile";
-import UserListComponent from "../components/UserListComponent";
-import BaseButton from "@/common/components/buttons/BaseButton";
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
+import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
+import ListModelView from "@/apps/core/presentation/views/ListModelView";
+import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 
-
-
-
-export default class ListUsersView extends ViewModelView<ListUsersViewModel, unknown,  ListUsersState>{
-    onCreateViewModel(state: ListUsersState): ListUsersViewModel {
-        return new ListUsersViewModel(state, this.setState.bind(this));
-    }
-    onCreateState(): ListUsersState {
-        return new ListUsersState();
+export default class ListProfilesView extends ListModelView<Profile>{
+    
+    onCreateRepository(): EthersModelRepository<Profile> {
+        return new ProfileRepository();
     }
 
-    private invitationToProfile(invitation: Invitation): Profile{
-        return new Profile(
-            "Not Set",
-            invitation.role,
-            "",
-            invitation.to,
-            invitation.orgId,
-            invitation.id
-        )
+    getInstanceValues(instance: Profile): string[] {
+        return [instance.id!.split("-")[0], instance.name, instance.email, Role[instance.role].toUpperCase()];
     }
 
-    onCreateMain(): ReactNode {
-        return (
-            <div className="p-10">
-                <div className="flex">
-                    <h2 className="text-xl font-bold">Employees</h2>
-                    <a href="/base/staff-management/register/" className="ml-auto block">
-                        <BaseButton><i className="fa-solid fa-plus mr-5"></i> Add </BaseButton>
-                    </a>
-                </div>
+    getHeadings(): string[] {
+        return ["ID", "Name", "E-Mail", "Role"];
+    }
 
-                <div className="mt-10">
-                    <div className="flex px-5">
-                        {
-                            [
-                                "ID",
-                                "E-Mail",
-                                "Department",
-                                "Role",
-                                "Action"
-                            ].map(
-                                (title) => (
-                                    <h3 className="font-bold mx-auto px-10 w-1/5">{title}</h3>
-                                )
-                            )
-                        }
-                    </div>
-                    <div className="mt-10">
-                        
-                        {
-                            this.state.invitations!.map(
-                                (invitation) => <UserListComponent user={this.invitationToProfile(invitation)}/>
-                            )
-                        }
-                        {
-                            this.state.users!.map(
-                                (user) => <UserListComponent user={user}/>
-                            )
-                        }
+    getAddInstanceLink(): string {
+        return "/base/invitation/write";
+    }
 
-                    </div>
-                </div>
-            </div>
-        )
+    getEditInstanceLink(instance: Profile): string {
+        return `/base/Profile/edit/${instance.id!}`;
+    }
+    
+    onDelete(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    getTitle(): string {
+        return "Employees"
     }
 
 }

@@ -19,7 +19,7 @@ const CreateOrganizationFormComponent: React.FC<CreateOrganizationFormComponentP
             </LabeledInputField>
 
             <div className="mt-10">
-                <AsyncButton state={props.state}>FINISH</AsyncButton>
+                <AsyncButton bg="primary" state={props.state}>FINISH</AsyncButton>
             </div>
 
         </form>

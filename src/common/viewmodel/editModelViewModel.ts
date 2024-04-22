@@ -36,17 +36,21 @@ export default abstract class EditModelViewModel<M extends EtherModel, F extends
         this.syncModelToForm(this.state.instance!, this.state.form);
     }
 
+    public async commitChanges(){
+        if(this.state.isCreateMode){
+            await this.repository.create(this.state.instance!);
+        }
+        else{
+            await this.repository.update(this.state.instance!);
+        }
+    }
+
     public async save(){
         await this.asyncCall(
             async () => {
                 await this.state.form.validate(true);
                 this.syncFormToModel(this.state.form, this.state.instance!);
-                if(this.state.isCreateMode){
-                    await this.repository.create(this.state.instance!);
-                }
-                else{
-                    await this.repository.update(this.state.instance!);
-                }
+                await this.commitChanges();
             }
         )
 

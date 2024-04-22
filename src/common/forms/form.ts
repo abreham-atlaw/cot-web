@@ -4,7 +4,7 @@ import Field  from "./fields";
 export default abstract class Form{
 
 	
-	abstract getFields(): Array<Field<any>>
+	abstract getFields(): Array<Field<unknown>>
 
 
 	public async validate(throw_error: boolean = false): Promise<boolean>{

@@ -23,6 +23,10 @@ export default class AuthRepository{
         await this.keyPairStorage.store(keyPair);
     }
 
+    async logout(){
+        this.keyPairStorage.clean();
+    }
+
     async signup(
         username: string, 
         password: string,
@@ -84,7 +88,5 @@ export default class AuthRepository{
         }
         return this.orgId!;
     }
-
-
 
 }

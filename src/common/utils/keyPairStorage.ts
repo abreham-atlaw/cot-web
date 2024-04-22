@@ -8,6 +8,8 @@ export default abstract class KeyPairStorage{
 
 	abstract get(): Promise<KeyPair | null>
 
+    abstract clean(): Promise<void>;
+
 }
 
 
@@ -20,18 +22,29 @@ export class CookieKeyPairStorage extends KeyPairStorage{
 		await Cookies.set(CookieKeyPairStorage.PUBLIC_KEY, keyPair.publicKey);
 		await Cookies.set(CookieKeyPairStorage.PRIVATE_KEY, keyPair.privateKey);
 	}
-	async get(): Promise<KeyPair | null> {
 
+	async get(): Promise<KeyPair | null> {
         const keys = [CookieKeyPairStorage.PUBLIC_KEY, CookieKeyPairStorage.PRIVATE_KEY].map(
-            (key) => Cookies.get(key) ?? null
+            (key) => {
+                return Cookies.get(key) ?? null;
+            }
         )
         if(keys.includes(null)){
             return null;
         }
         return {
-            publicKey: keys[0],
-            privateKey: keys[1]
+            publicKey: keys[0] as string,
+            privateKey: keys[1] as string
         }
 	}
+
+    async clean(): Promise<void>{
+        [CookieKeyPairStorage.PUBLIC_KEY, CookieKeyPairStorage.PRIVATE_KEY].forEach(
+            (key) => {
+                Cookies.remove(key);
+            }
+        )
+    }
+
 
 }

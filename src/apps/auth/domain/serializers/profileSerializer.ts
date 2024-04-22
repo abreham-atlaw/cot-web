@@ -10,7 +10,7 @@ export default class ProfileSerializer extends Serializer<Profile, Array<unknown
     deserialize(data: unknown[]): Profile {
         return new Profile(
             data[2] as string,
-            data[0] as number,
+            Number(data[0]) as number,
             data[3] as string,
             data[4] as string,
             data[5] as string,

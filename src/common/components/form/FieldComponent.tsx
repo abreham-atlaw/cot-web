@@ -1,12 +1,11 @@
-import Field from "@/lib/forms/fields";
+import Field from "@/common/forms/fields";
 import React from "react";
 
 
 export interface FieldComponentProps<T>{
 
 	field: Field<T>
-	syncer?: Function
-	onChanged?: Function
+	onChanged?: (value: T|null) => void
 }
 
 export interface FieldComponentState<T>{
@@ -17,15 +16,13 @@ export interface FieldComponentState<T>{
 
 export abstract class FieldComponent<T, P extends FieldComponentProps<T>> extends React.Component<P, FieldComponentState<T>>{
 
-	private sync?: Function
-	private externalOnChanged?: Function
+	private externalOnChanged?: (value: T|null) => void
 
 	constructor(props: P){
 		super(props);
 		this.state = {
 			field: props.field
 		}
-		this.sync = props.syncer
 		this.externalOnChanged = props.onChanged
 	}
 
@@ -33,7 +30,7 @@ export abstract class FieldComponent<T, P extends FieldComponentProps<T>> extend
 		return this.props.field;
 	}
 
-	private onChange = async (value: T) => {
+	private onChange = async (value: T | null) => {
 		this.setState({
 			field: this.getField()
 		})
@@ -41,15 +38,12 @@ export abstract class FieldComponent<T, P extends FieldComponentProps<T>> extend
 		this.setState({
 			field: this.getField()
 		})
-		if(this.sync != undefined){
-			this.sync();
-		}
 		if(this.externalOnChanged != undefined){
 			this.externalOnChanged(value)
 		}
 	}
 
-	protected abstract constructInputNode(value: T|null, callback: Function): React.ReactNode
+	protected abstract constructInputNode(value: T|null, callback: (value: T|null) => void): React.ReactNode
 
 	protected constructErrorTextNode(value: T | null, error: string | null): React.ReactNode{
 		return (
