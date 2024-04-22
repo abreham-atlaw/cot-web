@@ -17,15 +17,16 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
         )
     }
 
-
-
     async getByUserKey(key: string): Promise<Profile>{
-        const all = await this.getAll();
-        return all.filter((profile) => profile.userKey === key)[0];
+        const response = await (await this.getReadContract()).getProfileByUserKey(key);
+        const instance = this.serializer.deserialize(response);
+        await this.attachForeignKeys(instance);
+        return instance;
     }
 
-    async filterByOrg(): Promise<Profile[]>{
-        const orgId = (await this.authRepository.whoAmI()).organizationId!;
-        return (await this.getAll()).filter((profile) => profile.organizationId === orgId);
+    async filterAll(instance: Profile): Promise<boolean> {
+        const orgId = await this.authRepository.getOrgId();
+        console.log(orgId);
+        return instance.organizationId === orgId;
     }
 }

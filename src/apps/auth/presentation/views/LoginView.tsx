@@ -62,8 +62,8 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
                         }
 
                         <div className="mt-10">
-                            <AsyncButton state={this.state}>
-                                SIGN UP
+                            <AsyncButton state={this.state} bg="primary">
+                                LOGIN
                             </AsyncButton>
                         </div>
                         <p className="mt-5">Dont have an account yet? <a href="/auth/signup" className="text-primaryLight font-bold">Sign up</a></p>

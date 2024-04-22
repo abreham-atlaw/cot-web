@@ -10,43 +10,44 @@ import EditModelViewModel from "@/common/viewmodel/editModelViewModel";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-
-interface EditModelViewProps{
+interface EditModelViewProps<M extends EtherModel, F extends Form> {
+    getBackLink: () => string;
+    getTitle: () => string;
+    onCreateFormComponent: (form: F, state: EditModelState<M, F>) => ReactNode;
+    onCreateForm: () => F;
+    onCreateViewModel: (state: EditModelState<M, F>) =>  EditModelViewModel<M, F>;
     id?: string;
 }
 
-
-export default abstract class EditModelView<M extends EtherModel, F extends Form> extends ViewModelView<EditModelViewModel<M, F>, EditModelViewProps, EditModelState<M, F>>{
+export class EditModelInnerView<M extends EtherModel, F extends Form> extends ViewModelView<EditModelViewModel<M, F>, EditModelViewProps<M, F>, EditModelState<M, F>>{
     
-    abstract getBackLink(): string;
-
-    abstract onCreateFormComponent(form: F): ReactNode;
-
-    abstract onCreateForm(): F;
+    onCreateViewModel(state: EditModelState<M, F>): EditModelViewModel<M, F> {
+        return this.props.onCreateViewModel(state);
+    }
 
     onCreateState(): EditModelState<M, F> {
-        return new EditModelState<M, F>(this.onCreateForm(), this.props.id);
+        return new EditModelState<M, F>(this.props.onCreateForm(), this.props.id ?? undefined);
     }
 
     onCreateMain(): ReactNode {
         if(this.state.status === AsyncStatus.done){
-            RoutingUtils.redirect(this.getBackLink());
+            RoutingUtils.redirect(this.props.getBackLink());
         }
         return (
             <div className="h-screen w-full flex">
                 <div className="m-auto w-1/2">
 
-                    <h1 className="text-4xl mb-16">Register User</h1>
+                    <h1 className="text-4xl mb-16">{this.props.getTitle()}</h1>
 
                     <p className="my-5 text-danger">{ this.state.error?.message ?? ""}</p>
 
                     {
-                        this.onCreateFormComponent(this.state.form)
+                        this.props.onCreateFormComponent(this.state.form, this.state)
                     }
 
                     <div className="mt-10 flex">
                         <div className="mx-auto">
-                            <Link to={this.getBackLink()}>
+                            <Link to={this.props.getBackLink()}>
                                 <BaseButton>
                                     CANCEL
                                 </BaseButton>
@@ -54,7 +55,7 @@ export default abstract class EditModelView<M extends EtherModel, F extends Form
                         </div>
                         <div className="mx-auto" onClick={() => {this.viewModel.save()}}>
                             <AsyncButton  state={this.state}>
-                                CREATE
+                                {(this.state.isCreateMode) ? 'CREATE' : 'SAVE'}
                             </AsyncButton>
                         </div>
                     </div>
@@ -65,3 +66,17 @@ export default abstract class EditModelView<M extends EtherModel, F extends Form
     }
 
 }
+
+
+
+import { useLocation } from "react-router-dom";
+
+function EditModelView<M extends EtherModel, F extends Form>(props: Omit<EditModelViewProps<M, F>, 'id'>) {
+    const location = useLocation();
+    const id = new URLSearchParams(location.search).get('id');
+
+    return <EditModelInnerView {...props} id={id??undefined} />;
+}
+
+
+export default EditModelView;

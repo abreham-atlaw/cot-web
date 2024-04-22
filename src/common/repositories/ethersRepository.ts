@@ -39,4 +39,9 @@ export default class EthersRepository{
         return this._providerContract!;
     }
 
+    async getNonce(): Promise<number> {
+        const transactionCount = await this.provider.getTransactionCount(this.address);
+        return transactionCount + 2;
+    }
+
 }

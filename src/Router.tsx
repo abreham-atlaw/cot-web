@@ -4,11 +4,23 @@ import SignupView, { RoutedSignupView } from "./apps/auth/presentation/views/Sig
 import LoginView from "./apps/auth/presentation/views/LoginView";
 import DashboardBaseView from "./apps/core/presentation/views/DashboardBaseView";
 import ListUsersView from "./apps/staffManagement/presentation/views/ListUsersView";
-import TestView from "./apps/test/presentation/views/TestView";
 import ListAssetCategoriesView from "./apps/asset/presentation/views/ListAssetCategoriesView";
+<<<<<<< HEAD
 import CreateAssetCategoryView from "./apps/asset/presentation/views/CreateAssetCategoryView";
 import Home from "./apps/core/presentation/views/Home";
 import MainSecond from "./apps/core/presentation/views/MainSecond";
+=======
+import CreateAssetCategoryView from "./apps/asset/presentation/views/EditAssetCategoryView";
+import SplashScreen from "./apps/core/presentation/views/SplashScreen";
+import DashboardView from "./apps/core/presentation/views/DashboardView";
+import Home from "./apps/core/presentation/views/Home";
+import CreateAssetView from "./apps/asset/presentation/views/EditAssetView";
+import ListAssetsView from "./apps/asset/presentation/views/ListAssetsView";
+import ListInvitationsView from "./apps/staffManagement/presentation/views/ListInvitationsView";
+import EditAssetRequestView from "./apps/asset/presentation/views/EditAssetRequestView";
+import ListAssetRequestsView from "./apps/asset/presentation/views/ListAssetRequestsView";
+import LogoutView from "./apps/auth/presentation/views/LogoutView";
+>>>>>>> 9eae48818fc4550ca61f2da16fc22e1c8ed0bc66
 
 
 export default class CoTRouter extends React.Component{
@@ -17,6 +29,7 @@ export default class CoTRouter extends React.Component{
 
 		return (
 			<Routes>
+<<<<<<< HEAD
 				<Route path="/" element={<MainSecond child={<Home/>}></MainSecond>}/>
 				<Route path="/test" element={<TestView/>} />
                 <Route path="/auth/login" element={<LoginView/>}/>
@@ -27,6 +40,37 @@ export default class CoTRouter extends React.Component{
 				<Route path="/base/staff-management/list" element={<DashboardBaseView><ListUsersView/></DashboardBaseView>}/>
 				<Route path="/base/asset-category/list" element={<DashboardBaseView><ListAssetCategoriesView/></DashboardBaseView>}/>
 				<Route path="/base/asset-category/write" element={<DashboardBaseView><CreateAssetCategoryView/></DashboardBaseView>}/>
+=======
+				<Route path="/" element={<SplashScreen/>}/>
+
+				<Route path="/core/home" element={<Home/>}/>
+                
+				<Route path="/auth/login" element={<LoginView/>}/>
+				<Route path="/auth/logout" element={<LogoutView/>}/>
+                <Route path="/auth/signup/:invitationId" element={<RoutedSignupView/>}/>
+                <Route path="/auth/signup/" element={<SignupView/>}/>
+				
+				<Route path="/base" element={<DashboardBaseView/>}>
+
+					<Route path="dashboard" element={<DashboardView/>}/>
+					
+					<Route path="staff-management/list" element={<ListUsersView/>}/>
+
+					<Route path="invitation/write" element={<RegisterUserView/>}/>
+					<Route path="invitation/list" element={<ListInvitationsView/>}/>
+					
+					<Route path="asset-category/list" element={<ListAssetCategoriesView/>}/>
+					<Route path="asset-category/write" element={<CreateAssetCategoryView/>}/>
+
+					<Route path="asset/list" element={<ListAssetsView/>}/>
+					<Route path="asset/write" element={<CreateAssetView/>}/>
+
+					<Route path="asset-request/list" element={<ListAssetRequestsView/>}/>
+					<Route path="asset-request/write" element={<EditAssetRequestView/>}/>
+
+				</Route>
+
+>>>>>>> 9eae48818fc4550ca61f2da16fc22e1c8ed0bc66
 			</Routes>
 		)
 	}

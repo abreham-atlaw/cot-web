@@ -12,15 +12,9 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
 
 
     private authRepository = new AuthRepository();
-    private orgRepository = new OrganizationRepository();
-    private invitationRepositoy = new InvitationRepository();
 
     public async onInit(): Promise<void> {
         await super.onInit();
-        if(!this.state.adminMode){
-            this.state.invitation = await this.invitationRepositoy.getById(this.state.invitationId!);
-            this.state.organizationId = this.state.invitation.orgId;
-        }
     }
 
     async signup(){
@@ -32,6 +26,11 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
                     this.state.form.email.getValue()!,
                     this.state.form.password.getValue()!
                 )
+                if(!this.state.adminMode){
+                    const invitationRepositoy = new InvitationRepository();
+                    this.state.invitation = await invitationRepositoy.getById(this.state.invitationId!);
+                    this.state.organizationId = this.state.invitation.orgId;
+                }
                 if(this.state.organizationId === undefined){
                     this.state.stage = Stage.organization;
                 }
@@ -46,9 +45,10 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
     async createOrganization(){
         await this.asyncCall(
             async () => {
+                const orgRepository = new OrganizationRepository();
                 await this.state.orgForm.validate(true);
                 const org = new Organization(this.state.orgForm.name.getValue()!);
-                await this.orgRepository.create(org);
+                await orgRepository.create(org);
                 this.state.organizationId = org.id;
                 await this.completeSignup();
             }

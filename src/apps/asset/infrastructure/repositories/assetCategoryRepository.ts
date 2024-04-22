@@ -19,10 +19,17 @@ export default class AssetCategoryRepository extends EthersModelRepository<Asset
 
     async preSave(instance: AssetCategory): Promise<void> {
        instance.orgId = await this.authRepository.getOrgId(); 
+       instance.parentId = instance.parent?.id ?? instance.parentId;
     }
 
     async filterAll(instance: AssetCategory): Promise<boolean> {
         return (instance.orgId === (await this.authRepository.getOrgId()));
+    }
+
+    async attachForeignKeys(instance: AssetCategory): Promise<void> {
+        if(instance.parentId != undefined){
+            instance.parent = await this.getById(instance.parentId!);
+        }
     }
 
 }

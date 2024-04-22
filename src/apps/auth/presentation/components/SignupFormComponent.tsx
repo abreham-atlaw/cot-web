@@ -35,7 +35,7 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFo
             }
 
             <div className="mt-10">
-                <AsyncButton state={props.state}>
+                <AsyncButton state={props.state} bg="primary">
                     SIGN UP
                 </AsyncButton>
             </div>

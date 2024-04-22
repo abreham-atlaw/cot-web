@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import ViewModelView from "@/common/components/views/ViewModelView";
 import { ListUsersViewModel } from "../../application/viewModels/listUsersViewModel";
 import ListUsersState from "../../application/states/listUsersState";
@@ -18,19 +19,24 @@ export default class ListUsersView extends ViewModelView<ListUsersViewModel, unk
     }
     onCreateState(): ListUsersState {
         return new ListUsersState();
+=======
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
+import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
+import ListModelView from "@/apps/core/presentation/views/ListModelView";
+import EthersModelRepository from "@/common/repositories/ethersModelRepository";
+
+export default class ListProfilesView extends ListModelView<Profile>{
+    
+    onCreateRepository(): EthersModelRepository<Profile> {
+        return new ProfileRepository();
+>>>>>>> 9eae48818fc4550ca61f2da16fc22e1c8ed0bc66
     }
 
-    private invitationToProfile(invitation: Invitation): Profile{
-        return new Profile(
-            "Not Set",
-            invitation.role,
-            "",
-            invitation.to,
-            invitation.orgId,
-            invitation.id
-        )
+    getInstanceValues(instance: Profile): string[] {
+        return [instance.id!.split("-")[0], instance.name, instance.email, Role[instance.role].toUpperCase()];
     }
 
+<<<<<<< HEAD
 
     onCreateMain(): ReactNode {
 
@@ -128,6 +134,26 @@ export default class ListUsersView extends ViewModelView<ListUsersViewModel, unk
             </>
             
         )
+=======
+    getHeadings(): string[] {
+        return ["ID", "Name", "E-Mail", "Role"];
+    }
+
+    getAddInstanceLink(): string {
+        return "/base/invitation/write";
+    }
+
+    getEditInstanceLink(instance: Profile): string {
+        return `/base/Profile/edit/${instance.id!}`;
+    }
+    
+    onDelete(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    getTitle(): string {
+        return "Employees"
+>>>>>>> 9eae48818fc4550ca61f2da16fc22e1c8ed0bc66
     }
 
 }
