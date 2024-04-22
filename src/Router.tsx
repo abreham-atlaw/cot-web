@@ -18,6 +18,7 @@ export default class CoTRouter extends React.Component{
 		return (
 			<Routes>
 				<Route path="/" element={<MainSecond child={<Home/>}></MainSecond>}/>
+				<Route path="/test" element={<TestView/>} />
                 <Route path="/auth/login" element={<LoginView/>}/>
                 <Route path="/auth/signup/:invitationId" element={<RoutedSignupView/>}/>
                 <Route path="/auth/signup/" element={<SignupView/>}/>

@@ -27,7 +27,7 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
 
     onCreateMain(): ReactNode {
         if(this.state.status === AsyncStatus.done){
-            RoutingUtils.redirect("/");
+            RoutingUtils.redirect("/base/staff-management/list");
         }
         return (
             <div className="flex text-light h-screen">
