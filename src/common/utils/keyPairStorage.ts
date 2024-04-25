@@ -33,13 +33,8 @@ export class CookieKeyPairStorage extends KeyPairStorage{
             return null;
         }
         return {
-<<<<<<< HEAD
-            publicKey: keys[0]!,
-            privateKey: keys[1]!
-=======
             publicKey: keys[0] as string,
             privateKey: keys[1] as string
->>>>>>> 9eae48818fc4550ca61f2da16fc22e1c8ed0bc66
         }
 	}
 

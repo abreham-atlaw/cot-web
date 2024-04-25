@@ -2,10 +2,16 @@ import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import AssetRepository from "../../infrastructure/repositories/assetRepository";
 import Asset from "../../domain/models/asset";
+import { ReactNode } from "react";
+import EditAssetView from "./EditAssetView";
 
 
 
 export default class ListAssetsView extends ListModelView<Asset>{
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getModalChild(modalClose: () => void):ReactNode {
+        return <EditAssetView closeModal={modalClose}/>
+    }
     
     onCreateRepository(): EthersModelRepository<Asset> {
         return new AssetRepository();

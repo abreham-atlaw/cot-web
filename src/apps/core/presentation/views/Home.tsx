@@ -15,12 +15,9 @@ import { BsPersonFillGear } from "react-icons/bs";
 
 import image from "./home.jpeg";
 import image2 from "./home2.jpeg";
-<<<<<<< HEAD
-=======
-import NavBar from "../components/Navbar";
+// import NavBar from "../components/Navbar";
 import '../../../../App.css';
 import '../../../../index.css';
->>>>>>> 9eae48818fc4550ca61f2da16fc22e1c8ed0bc66
 
 function Home() {
 	const services = [

@@ -5,7 +5,13 @@ import AssetRequestRepository from "../../infrastructure/repositories/assetReque
 
 
 
+
+
 export default class ListAssetRequestsView extends ListModelView<AssetRequest>{
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getModalChild(modalClose: () => void) {
+        return null
+    }
     
     onCreateRepository(): EthersModelRepository<AssetRequest> {
         return new AssetRequestRepository();

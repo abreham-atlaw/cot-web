@@ -1,12 +1,21 @@
 import { ReactNode } from "react";
 import { useMediaQuery } from "react-responsive";
 interface MyComponentProps {
-    children?: ReactNode; // Optional children prop with ReactNode type
+  children?: ReactNode; // Optional children prop with ReactNode type
 }
-const Content: React.FC<MyComponentProps> = ({ children }) =>{
-    const isTabletSize = useMediaQuery({ query: "(max-width: 800px)" });
-    return  <div className={`overflow-auto h-screen w-full flex-1 ${isTabletSize ? "ml-32" : "ml-72"}`}>
-        {children}
-        </div>
-}
-export default Content
+const Content: React.FC<MyComponentProps> = ({ children }) => {
+  const isTabletSize = useMediaQuery({
+    query: "(min-width: 630px) and (max-width: 940px)",
+  });
+  const isMobileSize = useMediaQuery({ query: "(max-width: 630px)" });
+  return (
+    <div
+      className={`overflow-auto h-screen w-full ${
+        !isTabletSize ? "" : "ml-[10%]"
+      } ${isMobileSize ? "ml-[0%]" : "ml-[20%]"} `}
+    >
+      {children}
+    </div>
+  );
+};
+export default Content;

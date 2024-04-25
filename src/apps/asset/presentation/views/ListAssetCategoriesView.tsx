@@ -10,6 +10,10 @@ import ListAssetCategoriesViewModel from "../../application/viewModels/listAsset
 
 
 export default class ListAssetCategoriesView extends ListModelView<AssetCategory>{
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getModalChild(modalClose: () => void) {
+        return null
+    }
     
     onCreateRepository(): EthersModelRepository<AssetCategory> {
         return new AssetCategoryRepository();

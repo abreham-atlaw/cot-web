@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 9eae48818fc4550ca61f2da16fc22e1c8ed0bc66
 import Field from "@/common/forms/fields";
 import React from "react";
 

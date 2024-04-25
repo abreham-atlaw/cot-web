@@ -55,7 +55,7 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                     </div>
 
                     
-                    <div className="mt-10 flex">
+                    <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
                             
                                 <BaseButton onClick={this.props.onCloseModal} >
@@ -64,12 +64,15 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                            
                         </div>
                         <div className="mx-auto" onClick={() => {this.viewModel.registerUser()}}>
+                            
                             <AsyncButton  state={this.state}>
                                 REGISTER
                             </AsyncButton>
                         </div>
                     </div>
                 </div>
+          
+            
 
             </div>
         )
