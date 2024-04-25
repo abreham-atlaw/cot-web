@@ -2,10 +2,12 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import SignupView, { RoutedSignupView } from "./apps/auth/presentation/views/SignupView";
 import LoginView from "./apps/auth/presentation/views/LoginView";
-import RegisterUserView from "./apps/staffManagement/presentation/views/RegisterUserView";
 import DashboardBaseView from "./apps/core/presentation/views/DashboardBaseView";
 import ListUsersView from "./apps/staffManagement/presentation/views/ListUsersView";
 import ListAssetCategoriesView from "./apps/asset/presentation/views/ListAssetCategoriesView";
+// import CreateAssetCategoryView from "./apps/asset/presentation/views/CreateAssetCategoryView";
+// import Home from "./apps/core/presentation/views/Home";
+import MainSecond from "./apps/core/presentation/views/MainSecond";
 import CreateAssetCategoryView from "./apps/asset/presentation/views/EditAssetCategoryView";
 import SplashScreen from "./apps/core/presentation/views/SplashScreen";
 import DashboardView from "./apps/core/presentation/views/DashboardView";
@@ -16,6 +18,8 @@ import ListInvitationsView from "./apps/staffManagement/presentation/views/ListI
 import EditAssetRequestView from "./apps/asset/presentation/views/EditAssetRequestView";
 import ListAssetRequestsView from "./apps/asset/presentation/views/ListAssetRequestsView";
 import LogoutView from "./apps/auth/presentation/views/LogoutView";
+import RegisterUserView from "./apps/staffManagement/presentation/views/RegisterUserView";
+import TestView from "./apps/test/presentation/views/TestView";
 
 
 export default class CoTRouter extends React.Component{
@@ -24,6 +28,16 @@ export default class CoTRouter extends React.Component{
 
 		return (
 			<Routes>
+				<Route path="/" element={<MainSecond child={<Home/>}></MainSecond>}/>
+				<Route path="/test" element={<TestView/>} />
+                <Route path="/auth/login" element={<LoginView/>}/>
+                <Route path="/auth/signup/:invitationId" element={<RoutedSignupView/>}/>
+                <Route path="/auth/signup/" element={<SignupView/>}/>
+				
+				{/* <Route path="/base/staff-management/register" element={<DashboardBaseView><RegisterUserView/></DashboardBaseView>}/> */}
+				<Route path="/base/staff-management/list" element={<DashboardBaseView><ListUsersView/></DashboardBaseView>}/>
+				<Route path="/base/asset-category/list" element={<DashboardBaseView><ListAssetCategoriesView/></DashboardBaseView>}/>
+				<Route path="/base/asset-category/write" element={<DashboardBaseView><CreateAssetCategoryView/></DashboardBaseView>}/>
 				<Route path="/" element={<SplashScreen/>}/>
 
 				<Route path="/core/home" element={<Home/>}/>
@@ -39,7 +53,9 @@ export default class CoTRouter extends React.Component{
 					
 					<Route path="staff-management/list" element={<ListUsersView/>}/>
 
-					<Route path="invitation/write" element={<RegisterUserView/>}/>
+					<Route path="invitation/write" element={<RegisterUserView onCloseModal={function (): void {
+						throw new Error("Function not implemented.");
+					} }/>}/>
 					<Route path="invitation/list" element={<ListInvitationsView/>}/>
 					
 					<Route path="asset-category/list" element={<ListAssetCategoriesView/>}/>

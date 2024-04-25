@@ -8,6 +8,7 @@ import AsyncButton from "@/common/components/buttons/AsyncButton";
 import { AsyncStatus } from "@/common/state/asyncState";
 import LoginState from "../../application/states/loginState";
 import LoginViewModel from "../../application/viewModels/loginViewModel";
+import Field from "@/common/forms/fields";
 
 
 
@@ -26,7 +27,7 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
 
     onCreateMain(): ReactNode {
         if(this.state.status === AsyncStatus.done){
-            RoutingUtils.redirect("/");
+            RoutingUtils.redirect("/base/staff-management/list");
         }
         return (
             <div className="flex text-light h-screen">
@@ -53,7 +54,7 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
                                 (field) => (
                                     <div className="mt-10" key={field[0] as string}>
                                         <LabeledInputField label={field[0] as string}>
-                                            <TextFieldComponent field={field[1]} type={field[2] as string}/>
+                                            <TextFieldComponent field={field[1] as Field<string>} type={field[2] as string}/>
                                         </LabeledInputField>
                                     </div>
                                 )

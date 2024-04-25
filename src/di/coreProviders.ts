@@ -4,6 +4,7 @@ import { Provider } from "ethers";
 import { JsonRpcProvider } from "ethers";
 import DataConfigs from "../configs/dataConfigs";
 import NetworkClient from "../common/network/NetworkClient";
+// import KeyPair from "@/apps/auth/domain/models/keyPair";
 
 
 

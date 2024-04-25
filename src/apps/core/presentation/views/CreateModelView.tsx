@@ -8,7 +8,7 @@ import EditModelState from "@/common/state/editModelState";
 import RoutingUtils from "@/common/utils/routing";
 import EditModelViewModel from "@/common/viewmodel/editModelViewModel";
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+
 
 interface EditModelViewProps<M extends EtherModel, F extends Form> {
     getBackLink: () => string;
@@ -17,6 +17,7 @@ interface EditModelViewProps<M extends EtherModel, F extends Form> {
     onCreateForm: () => F;
     onCreateViewModel: (state: EditModelState<M, F>) =>  EditModelViewModel<M, F>;
     id?: string;
+    closeModal: ()=> void;
 }
 
 export class EditModelInnerView<M extends EtherModel, F extends Form> extends ViewModelView<EditModelViewModel<M, F>, EditModelViewProps<M, F>, EditModelState<M, F>>{
@@ -34,10 +35,10 @@ export class EditModelInnerView<M extends EtherModel, F extends Form> extends Vi
             RoutingUtils.redirect(this.props.getBackLink());
         }
         return (
-            <div className="h-screen w-full flex">
-                <div className="m-auto w-1/2">
+            <div className=" w-full flex">
+                <div className="m-auto w-full">
 
-                    <h1 className="text-4xl mb-16">{this.props.getTitle()}</h1>
+                    <h1 className="text-4xl mb-16 text-center">{this.props.getTitle()}</h1>
 
                     <p className="my-5 text-danger">{ this.state.error?.message ?? ""}</p>
 
@@ -45,13 +46,13 @@ export class EditModelInnerView<M extends EtherModel, F extends Form> extends Vi
                         this.props.onCreateFormComponent(this.state.form, this.state)
                     }
 
-                    <div className="mt-10 flex">
+                    <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
-                            <Link to={this.props.getBackLink()}>
-                                <BaseButton>
+                          
+                                <BaseButton onClick={this.props.closeModal}>
                                     CANCEL
                                 </BaseButton>
-                            </Link>
+                           
                         </div>
                         <div className="mx-auto" onClick={() => {this.viewModel.save()}}>
                             <AsyncButton  state={this.state}>

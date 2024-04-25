@@ -3,8 +3,14 @@ import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRe
 import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 
+
+
 export default class ListProfilesView extends ListModelView<Profile>{
-    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getModalChild(modalClose: () => void) {
+        return null
+    }
+  
     onCreateRepository(): EthersModelRepository<Profile> {
         return new ProfileRepository();
     }
@@ -32,5 +38,6 @@ export default class ListProfilesView extends ListModelView<Profile>{
     getTitle(): string {
         return "Employees"
     }
+
 
 }

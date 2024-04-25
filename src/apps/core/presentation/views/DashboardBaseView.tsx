@@ -7,6 +7,8 @@ import DashboardBaseState from "../../application/states/dashboardBaseState";
 import AuthenticatedComponent from "@/common/components/views/AuthenticatedComponent";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import DashboardNavBar from "../components/TopBar";
+import Content from "../components/Content";
+// import Content from "../components/Content";
 
 
 
@@ -23,15 +25,18 @@ export default class DashboardBaseView extends ViewModelView<DashboardBaseViewMo
     
     onCreateMain(): ReactNode {
         return (
+          
 
             <AuthenticatedComponent validStatus={Object.values(AuthenticationStatus).filter(status => status !== AuthenticationStatus.none) as AuthenticationStatus[]}>
 
                 <div className="flex">
                     <SideBar status={this.state.status!}/>
-                    <div className="overflow-scroll h-screen w-full">
+                    <Content>
                         <DashboardNavBar user={this.state.user!}/>
+                        <div className="mt-24">
                         <Outlet/>
-                    </div>
+                        </div>  
+                    </Content>
                 </div>
 
             </AuthenticatedComponent>

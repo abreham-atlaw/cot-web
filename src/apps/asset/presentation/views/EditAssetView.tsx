@@ -12,9 +12,11 @@ import EditAssetState from "../../application/states/editAssetState";
 import ProfileSelectionFieldComponent from "../components/ProfileSelectionFIeldComponent";
 import NumberFieldComponent from "@/common/components/form/NumberFieldComponent";
 
-
-export default class EditAssetView extends React.Component{
-    
+interface EditAssetViewProps {
+    closeModal:()=>void
+}
+export default class EditAssetView extends React.Component<EditAssetViewProps>{
+ 
     getBackLink(): string {
         return "/base/asset/list"
     }
@@ -73,6 +75,7 @@ export default class EditAssetView extends React.Component{
             onCreateViewModel={this.onCreateViewModel}
             getBackLink={this.getBackLink}
             getTitle={this.getTitle}
+            closeModal={this.props.closeModal}
                 />
         )
     }
