@@ -45,7 +45,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
 			title: "Asset",
 			icons: <PiHouse />,
 			link: "/base/asset/list",
-			validStatuses: [AuthenticationStatus.admin, AuthenticationStatus.inventory]
+			validStatuses: [AuthenticationStatus.admin, AuthenticationStatus.inventory, AuthenticationStatus.staff]
 		},
 		{
 			title: "Requests",

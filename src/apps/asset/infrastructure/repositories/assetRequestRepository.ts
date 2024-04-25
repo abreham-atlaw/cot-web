@@ -2,7 +2,7 @@ import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import AssetRequest from "../../domain/models/assetRequest";
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import AssetCategoryRepository from "./assetCategoryRepository";
-import contract from "@/assets/contactBuilds/asset/src_contracts_assetRequestContract_sol_AssetRequest.json"
+import contract from "@/assets/contactBuilds/asset/src_contracts_AssetRequest_sol_AssetRequest.json"
 import AssetRequestSerializer from "../../domain/serializers/assetRequestSerializer";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 

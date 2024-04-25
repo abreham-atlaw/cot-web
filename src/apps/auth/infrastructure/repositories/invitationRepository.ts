@@ -1,5 +1,5 @@
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
-import contract from "@/assets/contactBuilds/auth/src_contracts_invitationContract_sol_Invitation.json"
+import contract from "@/assets/contactBuilds/auth/src_contracts_Invitation_sol_Invitation.json"
 import Invitation from "../../domain/models/invitation";
 import InvitationSerializer from "../../domain/serializers/invitationSerializer";
 import CoreProviders from "@/di/coreProviders";

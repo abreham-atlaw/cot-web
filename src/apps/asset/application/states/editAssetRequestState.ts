@@ -8,5 +8,6 @@ import AssetCategory from "../../domain/models/assetCategory";
 export class EditAssetRequestState extends EditModelState<AssetRequest, AssetRequestForm>{
 
     categories?: AssetCategory[];
+    resolveMode?: boolean;
 
 }

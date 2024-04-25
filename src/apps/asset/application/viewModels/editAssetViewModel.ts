@@ -45,8 +45,12 @@ export default class CreateAssetViewModel extends EditModelViewModel<Asset, Asse
         if(this.state.isCreateMode){
             const quantity = this.state.form.quantity.getValue()!;
             for(let i=0; i<quantity; i++){
+                this.state.instance!.id = undefined;
                 await super.commitChanges();
             }
+        }
+        else{
+            await super.commitChanges();
         }
     }
 
