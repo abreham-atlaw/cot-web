@@ -9,12 +9,15 @@ import EditModelViewModel from "@/common/viewmodel/editModelViewModel"
 import EditAssetRequestViewModel from "../../application/viewModels/editAssetRequestViewModel"
 import AssetCategorySelectionFieldComponent from "../components/AssetCategorySelectionFieldComponent"
 import EditModelView from "@/apps/core/presentation/views/CreateModelView"
+import RequestStatusSelectionFieldComponent from "../components/RequestStatusSelectionFieldComponent"
 
 interface EditAssetRequestViewProps {
     closeModal:()=>void
 }
 export default class EditAssetRequestView extends React.Component<EditAssetRequestViewProps>{
     
+    
+
     getBackLink(): string {
         return "/base/asset-request/list"
     }
@@ -23,7 +26,30 @@ export default class EditAssetRequestView extends React.Component<EditAssetReque
         return "AssetRequest"
     }
     
-    onCreateFormComponent = (form: AssetRequestForm): ReactNode => {
+    onCreateFormComponent = (form: AssetRequestForm, state: EditAssetRequestState): ReactNode => {
+
+        if(state.resolveMode!){
+            return (
+                <>  
+                    <LabeledInputField label="Requested By">
+                        <p>{state.instance!.user!.name}</p>
+                    </LabeledInputField>
+
+                    <LabeledInputField label="Asset Type">
+                        <p>{state.instance!.category!.name}</p>
+                    </LabeledInputField>
+
+                    <LabeledInputField label="Note">
+                        <p>{state.instance!.note}</p>
+                    </LabeledInputField>
+
+                    <LabeledInputField label="Status">
+                        <RequestStatusSelectionFieldComponent field={form.status}/>
+
+                    </LabeledInputField>
+                </>
+            )
+        }
         return (
             <>
 

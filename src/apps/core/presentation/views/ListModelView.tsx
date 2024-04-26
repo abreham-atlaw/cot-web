@@ -49,7 +49,8 @@ export default abstract class ListModelView<M extends EtherModel> extends ViewMo
 
 
     onCreateMain(): ReactNode {
-
+        
+        console.log("HEre");
         const cols = this.getHeadings().length + 1;
 
         return (

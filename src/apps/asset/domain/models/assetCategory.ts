@@ -6,6 +6,8 @@ export default class AssetCategory {
     orgId?: string;
     parentId?: string;
 
+    parent?: AssetCategory;
+
     constructor(name: string, id?: string, orgId?: string, parentId?: string) {
         this.name = name;
         this.id = id;

@@ -20,6 +20,7 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
     }
 
     getInstanceValues(instance: AssetCategory): string[] {
+        console.log("AssetCategory")
         const count = (this.state as ListAssetCategoriesState).counts!.get(instance)!;
         return [
             instance.id!, 

@@ -64,6 +64,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
       validStatuses: [
         AuthenticationStatus.admin,
         AuthenticationStatus.inventory,
+        AuthenticationStatus.staff,
       ],
     },
     {
