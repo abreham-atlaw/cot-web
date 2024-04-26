@@ -1,3 +1,4 @@
+
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import Profile from "../../domain/models/profile";
 import contract from "@/assets/contactBuilds/auth/src_contracts_Profile_sol_Profile.json"
@@ -18,7 +19,7 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
     }
 
     async getByUserKey(key: string): Promise<Profile>{
-        const response = await (await this.getReadContract()).getByUserKey(key);
+        const response = await (await this.getReadContract()).getProfileByUserKey(key);
         const instance = this.serializer.deserialize(response);
         await this.attachForeignKeys(instance);
         return instance;

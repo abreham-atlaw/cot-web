@@ -10,7 +10,8 @@ import EditAssetCategoryViewModel from "../../application/viewModels/editAssetCa
 import AssetCategorySelectionFieldComponent from "../components/AssetCategorySelectionFieldComponent";
 import EditAssetCategoryState from "../../application/states/editAssetCategoryState";
 interface EditAssetCategoryViewProps {
-    closeModal:()=>void
+     closeModal:()=>void,
+     instance?: AssetCategory
 }
 
 export default class EditAssetCategoryView extends React.Component<EditAssetCategoryViewProps> {
@@ -27,12 +28,12 @@ export default class EditAssetCategoryView extends React.Component<EditAssetCate
         return (
             <>
                 <LabeledInputField label="Category Title">
-                    <TextFieldComponent field={form.name}/>
+                    <TextFieldComponent field={form.name} value={this.props.instance?.name}/>
                 </LabeledInputField>
                 
                 <LabeledInputField label="Parent Category">
 
-                    <AssetCategorySelectionFieldComponent field={form.parent} nullable={true} categories={(this.state as EditAssetCategoryState).categories!}/>
+                    <AssetCategorySelectionFieldComponent field={form.parent} nullable={true} categories={(this.state as EditAssetCategoryState).categories!} value={this.props.instance?.parent}/>
 
                 </LabeledInputField>
 

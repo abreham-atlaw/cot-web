@@ -25,17 +25,18 @@ export default class EthersRepository{
         const wallet = CoreProviders.provideWallet();
         if(this._signerContract === undefined){
             this._signerContract = new Contract(this.address, this.abi, await wallet);
+       
         }
         return this._signerContract!;
     }
 
     async getReadContract(): Promise<Contract>{
-        console.log(this._providerContract)
+       
         if(this._providerContract === undefined){
             this._providerContract = new Contract(this.address, this.abi, this.provider);
         }
-        console.log(this._providerContract)
-        console.log(this.address,this.abi)
+ 
+       
         return this._providerContract!;
     }
 

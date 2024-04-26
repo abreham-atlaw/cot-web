@@ -49,6 +49,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     }
 
     async getById(id: string): Promise<M>{
+       
         const response = await (await this.getReadContract()).getById(id);
         const instance = this.serializer.deserialize(response);
         await this.attachForeignKeys(instance);
@@ -57,7 +58,9 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
     async getAll(): Promise<M[]>{
         const contract = await this.getReadContract()
+        console.log(contract)
         const response = await contract.getAll();
+        console.log(response)
         const instances = this.serializer.deserializeMany(response);
         const filtered = [];
         for(const instance of instances){

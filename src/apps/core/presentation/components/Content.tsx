@@ -12,7 +12,10 @@ const Content: React.FC<MyComponentProps> = ({ children }) => {
     <div
       className={`overflow-auto h-screen w-full ${
         !isTabletSize ? "" : "ml-[10%]"
-      } ${isMobileSize ? "ml-[0%]" : "ml-[20%]"} `}
+      } ${isMobileSize ? "ml-[0%]" : " "}
+      ${!(isMobileSize || isTabletSize) ? "ml-[20%] w-full": ""}
+      `}
+      
     >
       {children}
     </div>

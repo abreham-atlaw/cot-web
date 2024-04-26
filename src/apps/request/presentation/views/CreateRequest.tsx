@@ -1,10 +1,10 @@
 import { useState } from "react"
-import AvaliableAssetDropdown from "../components/AvaliableAssetDropdown"
-import ReasonTextArea from "../components/ReasonTextArea"
-import { Asset } from "../../Domain/Asset/Asset"
-import { AssetRequest } from "../../Domain/AssetRequest/AssetRequest"
-import { Role, User } from "../../Domain/User/User"
-import { initalDepartments } from "../../Domain/list"
+// import AvaliableAssetDropdown from "../components/AvaliableAssetDropdown"
+// import ReasonTextArea from "../components/ReasonTextArea"
+// import { Asset } from "../../Domain/Asset/Asset"
+// import { AssetRequest } from "../../Domain/AssetRequest/AssetRequest"
+// import { Role, User } from "../../Domain/User/User"
+// import { initalDepartments } from "../../Domain/list"
 import CreateAssetRequest from "./CreateAssetRequest"
 
 interface Props{

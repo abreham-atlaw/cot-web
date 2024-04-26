@@ -13,7 +13,9 @@ import ProfileSelectionFieldComponent from "../components/ProfileSelectionFIeldC
 import NumberFieldComponent from "@/common/components/form/NumberFieldComponent";
 
 interface EditAssetViewProps {
-    closeModal:()=>void
+    closeModal:()=>void,
+    instance?: Asset
+
 }
 export default class EditAssetView extends React.Component<EditAssetViewProps>{
  
@@ -26,22 +28,24 @@ export default class EditAssetView extends React.Component<EditAssetViewProps>{
     }
     
     onCreateFormComponent = (form: AssetForm, state: EditModelState<Asset, AssetForm>): ReactNode => {
+       
         return (
+            
             <>
                 <LabeledInputField label="Asset Name">
 
-                    <TextFieldComponent field={form.name}/>
+                    <TextFieldComponent field={form.name} value={this.props.instance?.name}  />
 
                 </LabeledInputField>
 
                 <LabeledInputField label="Category">
 
-                    <AssetCategorySelectionFieldComponent field={form.category} categories={(state as EditAssetState).categories!}/>
+                    <AssetCategorySelectionFieldComponent field={form.category} categories={(state as EditAssetState).categories!} value={this.props.instance?.category}/>
 
                 </LabeledInputField>
 
                 <LabeledInputField label="Owner">
-                    <ProfileSelectionFieldComponent field={form.owner} profiles={(state as EditAssetState).staff!}/>
+                    <ProfileSelectionFieldComponent field={form.owner} profiles={(state as EditAssetState).staff!} value={this.props.instance?.currentOwner}/>
                 </LabeledInputField>
                 {
                     (state.isCreateMode)?
@@ -76,6 +80,8 @@ export default class EditAssetView extends React.Component<EditAssetViewProps>{
             getBackLink={this.getBackLink}
             getTitle={this.getTitle}
             closeModal={this.props.closeModal}
+            instance={this.props.instance?.id}
+            
                 />
         )
     }

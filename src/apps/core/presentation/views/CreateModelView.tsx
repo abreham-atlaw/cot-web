@@ -18,6 +18,7 @@ interface EditModelViewProps<M extends EtherModel, F extends Form> {
     onCreateViewModel: (state: EditModelState<M, F>) =>  EditModelViewModel<M, F>;
     id?: string;
     closeModal: ()=> void;
+    instance?:string;
 }
 
 export class EditModelInnerView<M extends EtherModel, F extends Form> extends ViewModelView<EditModelViewModel<M, F>, EditModelViewProps<M, F>, EditModelState<M, F>>{
@@ -70,13 +71,13 @@ export class EditModelInnerView<M extends EtherModel, F extends Form> extends Vi
 
 
 
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 function EditModelView<M extends EtherModel, F extends Form>(props: Omit<EditModelViewProps<M, F>, 'id'>) {
-    const location = useLocation();
-    const id = new URLSearchParams(location.search).get('id');
+    // const location = useLocation();
+    // const id = new URLSearchParams(location.search).get('id');
 
-    return <EditModelInnerView {...props} id={id??undefined} />;
+    return <EditModelInnerView {...props} id={props.instance??undefined} />;
 }
 
 

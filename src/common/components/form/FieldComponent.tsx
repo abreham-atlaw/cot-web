@@ -5,25 +5,33 @@ import React from "react";
 export interface FieldComponentProps<T>{
 
 	field: Field<T>
-	onChanged?: (value: T|null) => void
+	onChanged?: (value: T|null) => void,
+	value?: T | null
+	
 }
 
 export interface FieldComponentState<T>{
 
-	field: Field<T>
+	field: Field<T>,
+	
+	
 
 }
 
 export abstract class FieldComponent<T, P extends FieldComponentProps<T>> extends React.Component<P, FieldComponentState<T>>{
-
+	
 	private externalOnChanged?: (value: T|null) => void
-
+    
 	constructor(props: P){
 		super(props);
 		this.state = {
-			field: props.field
+			field: props.field,
+		
+
 		}
+
 		this.externalOnChanged = props.onChanged
+		this.getField().setValue(this.props.value!)
 	}
 
 	protected getField(): Field<T>{
@@ -32,7 +40,8 @@ export abstract class FieldComponent<T, P extends FieldComponentProps<T>> extend
 
 	private onChange = async (value: T | null) => {
 		this.setState({
-			field: this.getField()
+			field: this.getField(),
+			
 		})
 		await this.getField().setValue(value);
 		this.setState({

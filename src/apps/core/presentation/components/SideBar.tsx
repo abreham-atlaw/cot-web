@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { FaBars, FaTv } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
+import { FaBars, FaSignInAlt, FaTv } from "react-icons/fa";
 import { MdPeople, MdPeopleAlt } from "react-icons/md";
 import {
   PiGitPullRequest,
@@ -11,6 +11,7 @@ import {
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 // import BaseButton from "@/common/components/buttons/BaseButton";
 import { useMediaQuery } from "react-responsive";
+import BaseButton from "@/common/components/buttons/BaseButton";
 
 interface SideBarProps {
   status: AuthenticationStatus;
@@ -30,6 +31,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
   const handleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+
   const sidebar = [
     {
       title: "Dashboard",
@@ -46,7 +48,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
     {
       title: "Staff",
       icons: <MdPeople />,
-      link: "/base/staff-management/list",
+      link: "/base/staffs/list",
       validStatuses: [AuthenticationStatus.hr, AuthenticationStatus.admin],
     },
     {
@@ -84,7 +86,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
     {
       title: "Category",
       icons: <PiSquaresFourBold />,
-      link: "/base/asset-category/list",
+      link: "/base/category/list",
       validStatuses: [
         AuthenticationStatus.admin,
         AuthenticationStatus.inventory,
@@ -94,7 +96,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
 
   return !isMobileSize ? (
     <nav
-      className={`border-r fixed top-0 left-0 bottom-0 ${
+      className={`border-r fixed top-0 left-0 bottom-0 overflow-auto ${
         isTabletSize ? " w-[10%] " : "w-1/5"
       }`}
     >
@@ -114,17 +116,27 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
               <li key={index} className="">
                 <NavLink
                   to={item.link}
-                  className={`${
-                    activeLink === item.link ? "bg-light" : "bg-white"
-                  } hover:bg-light flex py-5
+                  className={({ isActive }) => `${
+                    isActive
+                      ? "bg-purple-100 border-l-8 border-purple-700"
+                      : "bg-white"
+                  } hover:bg-purple-50 flex py-5
 						  ${isTabletSize ? "px-8" : "px-16"}`}
                   onClick={() => handleNavLinkClick(item.link)}
                 >
                   {isTabletSize ? (
-                    <span className="mr-5 text-2xl">{item.icons}</span>
+                    <span
+                      className={`mr-5 text-2xl ${
+                        activeLink === item.link ? " bg-purple-100" : ""
+                      }`}
+                    >
+                      {item.icons}
+                    </span>
                   ) : (
                     <>
-                      <span className="mr-5 text-2xl">{item.icons}</span>
+                      <span className="mr-5 text-2xl color-purple-700">
+                        {item.icons}
+                      </span>
                       <p>{item.title}</p>
                     </>
                   )}
@@ -133,21 +145,31 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
             )
         )}
       </ul>
-      {/* <div className="mt-auto px-10">
-        <Link to={"/auth/logout"} className="mt-5 w-full block">
-          <BaseButton className="text-center block w-full">Logout</BaseButton>
-        </Link>
-      </div> */}
+
+      {isTabletSize && (
+        <li className="hover:bg-light px-8 flex py-5">
+          <span>
+            <FaSignInAlt />
+          </span>
+        </li>
+      )}
+      {!(isTabletSize || isMobileSize) && (
+        <div className="mt-auto  px-10">
+          <Link to={"/auth/logout"} className="mt-5 w-full block">
+            <BaseButton className="text-center block w-full">Logout</BaseButton>
+          </Link>
+        </div>
+      )}
     </nav>
   ) : (
     <nav
-      className={`border-b fixed top-0 left-0  z-10 ${
-        showSidebar ? "h-screen" : "h-[10%] w-1/5"
+      className={` fixed top-0 left-0  z-10 ${
+        showSidebar ? "h-screen shadow-md" : "w-1/5"
       } bg-white`}
     >
       <div className="flex">
-        <button onClick={handleSidebar} className="p-6">
-          <FaBars className="w-8 h-8" />
+        <button onClick={handleSidebar} className="p-5 m-2">
+          <FaBars className="w-8 h-8 " />
         </button>
         {showSidebar && (
           <h1 className="text-2xl text-center font-bold mt-6">
@@ -157,7 +179,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
       </div>
 
       {showSidebar && (
-        <ul className="mt-4 bg-white ">
+        <ul className="mt-16 bg-white ">
           {sidebar.map(
             (item, index) =>
               item.validStatuses.includes(status) && (
@@ -182,6 +204,13 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
                 </li>
               )
           )}
+          <Link to={"/auth/logout"} className=" w-full block">
+            <div className="mt-auto px-10">
+              <BaseButton className="text-center block w-full">
+                Logout
+              </BaseButton>
+            </div>
+          </Link>
         </ul>
       )}
     </nav>
