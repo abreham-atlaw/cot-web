@@ -9,9 +9,11 @@ import EditModelViewModel from "@/common/viewmodel/editModelViewModel";
 import EditAssetCategoryViewModel from "../../application/viewModels/editAssetCategoryViewModel";
 import AssetCategorySelectionFieldComponent from "../components/AssetCategorySelectionFieldComponent";
 import EditAssetCategoryState from "../../application/states/editAssetCategoryState";
+interface EditAssetCategoryViewProps {
+    closeModal:()=>void
+}
 
-
-export default class EditAssetCategoryView extends React.Component {
+export default class EditAssetCategoryView extends React.Component<EditAssetCategoryViewProps> {
     
     getBackLink = (): string => {
         return "/base/asset-category/list"
@@ -57,6 +59,7 @@ export default class EditAssetCategoryView extends React.Component {
                 onCreateViewModel={this.onCreateViewModel}
                 getBackLink={this.getBackLink}
                 getTitle={this.getTitle}
+                closeModal={this.props.closeModal}
             />
         )
     }

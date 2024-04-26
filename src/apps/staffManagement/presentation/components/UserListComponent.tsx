@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Profile from "@/apps/auth/domain/models/profile";
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
 
 interface UserListComponent {
     user: Profile;
@@ -20,17 +20,19 @@ const UserListComponent: React.FC<UserListComponent> = (props: UserListComponent
         setShowDropdown(!showDropdown);
     };
 
-    return (
-        <div className="flex px-5 py-5 hover:bg-light">
+    return (<>
+       
+        <tr>
             {
                 [
                     props.user.id?.split("-")[0],
                     props.user.email,
                     "Not Assigned",
-                    props.user.role.toString(),
+                   Role[props.user.role],
+                   
                 ].map(
                     (title) => (
-                        <div className="mx-auto w-1/5">{title}</div>
+                        <td className="px-4 text-start py-2 truncate overflow-hidden whitespace-nowrap">{title}</td>
                     )
                 )
             }
@@ -51,7 +53,8 @@ const UserListComponent: React.FC<UserListComponent> = (props: UserListComponent
                     </div>
                 )}
             </div>
-        </div>
+        </tr>
+        </>
     )
 }
 

@@ -57,7 +57,7 @@ export abstract class FieldComponent<T, P extends FieldComponentProps<T>> extend
 
 	render(): React.ReactNode {
 		return(
-			<div>
+			<div className="w-full">
 			{this.constructInputNode(this.getField().getValue(), this.onChange)}
 			{
 				(this.getField().error != null)?this.constructErrorTextNode(this.getField().getValue(), this.getField().error):<></>

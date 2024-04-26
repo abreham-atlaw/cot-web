@@ -11,8 +11,10 @@ import AssetCategorySelectionFieldComponent from "../components/AssetCategorySel
 import EditModelView from "@/apps/core/presentation/views/CreateModelView"
 import RequestStatusSelectionFieldComponent from "../components/RequestStatusSelectionFieldComponent"
 
-
-export default class EditAssetRequestView extends React.Component{
+interface EditAssetRequestViewProps {
+    closeModal:()=>void
+}
+export default class EditAssetRequestView extends React.Component<EditAssetRequestViewProps>{
     
     
 
@@ -85,6 +87,7 @@ export default class EditAssetRequestView extends React.Component{
             onCreateViewModel={this.onCreateViewModel}
             getBackLink={this.getBackLink}
             getTitle={this.getTitle}
+            closeModal={this.props.closeModal}
                 />
         )
     }

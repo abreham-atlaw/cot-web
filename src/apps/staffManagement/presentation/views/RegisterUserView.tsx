@@ -6,15 +6,18 @@ import LabeledInputField from "@/common/components/form/LabeledInputField";
 import TextFieldComponent from "@/common/components/form/TextFieldComponent";
 import RoleSelectionFieldComponent from "../components/RoleSelectionFieldComponent";
 import AsyncButton from "@/common/components/buttons/AsyncButton";
-import { Link } from "react-router-dom";
 import BaseButton from "@/common/components/buttons/BaseButton";
 import RoutingUtils from "@/common/utils/routing";
 import { AsyncStatus } from "@/common/state/asyncState";
 
+interface RegisterUserViewProps{
+    onCloseModal: ()=>void
+}
 
 
+export default class RegisterUserView extends ViewModelView<RegisterUserViewModel, RegisterUserViewProps, RegisterUserState>{
 
-export default class RegisterUserView extends ViewModelView<RegisterUserViewModel, unknown, RegisterUserState>{
+  
     
     onCreateViewModel(state: RegisterUserState): RegisterUserViewModel {
         return new RegisterUserViewModel(state, this.setState.bind(this));
@@ -28,15 +31,16 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
         RoutingUtils.redirect("/base/invitation/list/")
     }
 
+
     onCreateMain(): ReactNode {
         if(this.state.status === AsyncStatus.done){
             this.goBack();
         }
         return (
-            <div className="h-screen w-full flex">
-                <div className="m-auto w-1/2">
+            <div className=" w-full flex">
+                <div className="m-auto w-full">
 
-                    <h1 className="text-4xl mb-16">Register User</h1>
+                    <h1 className="text-4xl mb-16 text-center">Register User</h1>
 
                     <p className="my-5 text-danger">{ this.state.error?.message ?? ""}</p>
 
@@ -51,21 +55,24 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                     </div>
 
                     
-                    <div className="mt-10 flex">
+                    <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
-                            <Link to="/base/staff-management/list">
-                                <BaseButton>
+                            
+                                <BaseButton onClick={this.props.onCloseModal} >
                                     CANCEL
                                 </BaseButton>
-                            </Link>
+                           
                         </div>
                         <div className="mx-auto" onClick={() => {this.viewModel.registerUser()}}>
+                            
                             <AsyncButton  state={this.state}>
                                 REGISTER
                             </AsyncButton>
                         </div>
                     </div>
                 </div>
+          
+            
 
             </div>
         )

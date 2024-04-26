@@ -3,8 +3,13 @@ import { Role } from "@/apps/auth/domain/models/profile";
 import InvitationRepository from "@/apps/auth/infrastructure/repositories/invitationRepository";
 import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
+import { ReactNode } from "react";
+import RegisterUserView from "./RegisterUserView";
 
 export default class ListInvitationsView extends ListModelView<Invitation>{
+    getModalChild(modalClose: () => void): ReactNode {
+        return <RegisterUserView onCloseModal={modalClose}/>
+    }
     
     onCreateRepository(): EthersModelRepository<Invitation> {
         return new InvitationRepository();
