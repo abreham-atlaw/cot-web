@@ -8,6 +8,7 @@ import AuthenticatedComponent from "@/common/components/views/AuthenticatedCompo
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import DashboardNavBar from "../components/TopBar";
 import Content from "../components/Content";
+import ListAssetCategoriesView from "@/apps/asset/presentation/views/ListAssetCategoriesView";
 // import Content from "../components/Content";
 
 
@@ -35,6 +36,7 @@ export default class DashboardBaseView extends ViewModelView<DashboardBaseViewMo
                         <DashboardNavBar user={this.state.user!}/>
                         <div className="mt-24">
                         <Outlet/>
+                        {/* <ListAssetCategoriesView/> */}
                         </div>  
                     </Content>
                 </div>

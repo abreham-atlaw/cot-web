@@ -8,17 +8,21 @@ interface TextFieldComponentProps extends FieldComponentProps<string>{
 	placeHolder?: string;
 	type?: string;
 	className?:string;
+	
 }
 
 export default class TextFieldComponent extends FieldComponent<string, TextFieldComponentProps>{
-	
+
 	protected constructInputNode(value: string | null, callback: (value: string) => void): ReactNode { 
+		
 		return (
 			<input 
 			className={`${this.props.className ?? " w-full rounded px-3 py-2 text-black placeholder-[#575757] border-[#D6D6D6] border-[3px]  "}`} 
 			type={this.props.type ?? "text"}
-			onChange={(event) => {callback(event.target.value)}} value={(value === null)?"":value} 
+			onChange={(event) => {callback(event.target.value)}} 
+			value={(value === null)?"":value} 
 			placeholder={this.props.placeHolder??""}
+			
 			/>
 		)
 	}

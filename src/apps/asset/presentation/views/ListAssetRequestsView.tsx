@@ -2,6 +2,7 @@ import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import AssetRequest, { Status } from "../../domain/models/assetRequest";
 import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import AssetRequestRepository from "../../infrastructure/repositories/assetRequestRepository";
+import EditAssetRequestView from "./EditAssetRequestView";
 
 
 
@@ -10,7 +11,7 @@ import AssetRequestRepository from "../../infrastructure/repositories/assetReque
 export default class ListAssetRequestsView extends ListModelView<AssetRequest>{
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getModalChild(modalClose: () => void) {
-        return null
+        return <EditAssetRequestView closeModal={modalClose}/>
     }
     
     onCreateRepository(): EthersModelRepository<AssetRequest> {

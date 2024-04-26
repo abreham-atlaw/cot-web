@@ -19,14 +19,7 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
     }
 
     async getByUserKey(key: string): Promise<Profile>{
-<<<<<<< HEAD
-        const contract = await this.getReadContract()
-        console.log(key)
-        const response = await contract.getProfileByUserKey(key);
-        console.log(response)
-=======
-        const response = await (await this.getReadContract()).getByUserKey(key);
->>>>>>> 36d815a4593837953cdac88b5f450542148151cc
+        const response = await (await this.getReadContract()).getProfileByUserKey(key);
         const instance = this.serializer.deserialize(response);
         await this.attachForeignKeys(instance);
         return instance;

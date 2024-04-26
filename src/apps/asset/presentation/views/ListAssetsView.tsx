@@ -9,8 +9,8 @@ import EditAssetView from "./EditAssetView";
 
 export default class ListAssetsView extends ListModelView<Asset>{
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getModalChild(modalClose: () => void):ReactNode {
-        return <EditAssetView closeModal={modalClose}/>
+    getModalChild(modalClose: () => void,instance?:Asset):ReactNode {
+        return <EditAssetView closeModal={modalClose} instance={instance}/>
     }
     
     onCreateRepository(): EthersModelRepository<Asset> {
