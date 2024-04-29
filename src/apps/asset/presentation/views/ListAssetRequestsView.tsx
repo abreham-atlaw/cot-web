@@ -10,8 +10,8 @@ import EditAssetRequestView from "./EditAssetRequestView";
 
 export default class ListAssetRequestsView extends ListModelView<AssetRequest>{
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getModalChild(modalClose: () => void) {
-        return <EditAssetRequestView closeModal={modalClose}/>
+    getModalChild(modalClose: () => void,instance:AssetRequest) {
+        return <EditAssetRequestView closeModal={modalClose} instance={instance}/>
     }
     
     onCreateRepository(): EthersModelRepository<AssetRequest> {
@@ -19,7 +19,7 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest>{
     }
 
     getInstanceValues(instance: AssetRequest): string[] {
-        return [instance.id!, instance.user!.name, instance.category!.name, Status[instance.status].toUpperCase()];
+        return [instance.id!.split("-")[0], instance.user!.name, instance.category!.name, Status[instance.status].toUpperCase()];
     }
 
     getHeadings(): string[] {

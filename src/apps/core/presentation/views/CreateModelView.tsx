@@ -76,7 +76,6 @@ export class EditModelInnerView<M extends EtherModel, F extends Form> extends Vi
 function EditModelView<M extends EtherModel, F extends Form>(props: Omit<EditModelViewProps<M, F>, 'id'>) {
     // const location = useLocation();
     // const id = new URLSearchParams(location.search).get('id');
-
     return <EditModelInnerView {...props} id={props.instance??undefined} />;
 }
 

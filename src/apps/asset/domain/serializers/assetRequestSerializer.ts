@@ -6,6 +6,7 @@ export default class AssetRequestSerializer extends Serializer<AssetRequest, Arr
 
 
     serialize(instance: AssetRequest): unknown[] {
+      
         return [
             instance.id, 
             instance.categoryId, 

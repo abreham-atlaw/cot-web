@@ -84,23 +84,24 @@ export default abstract class ListModelView<M extends EtherModel> extends ViewMo
                         {
                             this.state.values!.map(
                                 (instance: M) => (
-                                    <tr className="">
+                                    <tr className="border-b py-5">
                                         {
                                            this.getInstanceValues(instance).map(
                                                 (title) => (
-                                                    <td className={`px-5 w-[${100/cols}%] text-ellipsis overflow-clip px-4 text-start py-2 truncate overflow-hidden whitespace-nowrap`}>{title}</td>
+                                                    <td className={`px-5 w-[${100/cols}%] text-ellipsis overflow-clip px-4 text-start py-2 truncate overflow-hidden whitespace-nowrap  `}>{title}</td>
                                                 )
                                             )
                                         }
-                                        <td className="flex">
+                                        <td className="flex ">
                                             {
                                                 [
                                                     [(instance: M) => {console.log(instance); this.setState({editModalClicked: !this.state.editModalClicked,selectedInstance: instance}); console.log("rr") }, "fa-solid fa-pen",this.modalClicked],
                                                     [(instance: M) => {this.onDelete(instance)}, "fa-solid fa-trash hover:bg-danger hover:text-light"]
                                                 ].map(
                                                     (value) => (
+
                                                         <button onClick={() => {(value[0] as (m: M) => void)(instance);}} className="mr-5">
-                                                            <i className={`${value[1]} p-5 border border-grey rounded-full hover:bg-white`}></i>
+                                                            <i className={`${value[1]} p-2 border border-grey rounded-full hover:bg-white`}></i>
                                                         </button>
                                                     )
                                                 )
