@@ -61,6 +61,7 @@ export default class EditAssetCategoryView extends React.Component<EditAssetCate
                 getBackLink={this.getBackLink}
                 getTitle={this.getTitle}
                 closeModal={this.props.closeModal}
+                instance={this.props.instance?.id}
             />
         )
     }

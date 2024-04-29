@@ -25,14 +25,16 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         if(instance.id === undefined){
             instance.id = await this.generateId();
         }
-        await this.preSave(instance);
+     await this.preSave(instance);
         const contract = await this.getWriteContract();
+
         const transaction = await contract.create(
             ...this.serializer.serialize(instance), 
             {
                 gasPrice: 0
             }
         );
+       
         await transaction.wait()
     } 
 
@@ -50,7 +52,8 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
     async getById(id: string): Promise<M>{
        
-        const response = await (await this.getReadContract()).getById(id);
+        const response = await (await this.getReadContract()).getById(id); //return the admin
+        
         const instance = this.serializer.deserialize(response);
         await this.attachForeignKeys(instance);
         return instance;
@@ -58,9 +61,9 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
     async getAll(): Promise<M[]>{
         const contract = await this.getReadContract()
-        console.log(contract)
+    
         const response = await contract.getAll();
-        console.log(response)
+    
         const instances = this.serializer.deserializeMany(response);
         const filtered = [];
         for(const instance of instances){
@@ -69,6 +72,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
                 filtered.push(instance);
             }
         }
+       
         return filtered;
     }
 

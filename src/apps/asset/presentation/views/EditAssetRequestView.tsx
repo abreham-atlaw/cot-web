@@ -12,7 +12,8 @@ import EditModelView from "@/apps/core/presentation/views/CreateModelView"
 import RequestStatusSelectionFieldComponent from "../components/RequestStatusSelectionFieldComponent"
 
 interface EditAssetRequestViewProps {
-    closeModal:()=>void
+    closeModal:()=>void,
+    instance?: AssetRequest
 }
 export default class EditAssetRequestView extends React.Component<EditAssetRequestViewProps>{
     
@@ -55,14 +56,14 @@ export default class EditAssetRequestView extends React.Component<EditAssetReque
 
                 <LabeledInputField label="Category">
 
-                    <AssetCategorySelectionFieldComponent field={form.category} categories={(this.state as EditAssetRequestState).categories!}/>
+                    <AssetCategorySelectionFieldComponent field={form.category} categories={(this.state as EditAssetRequestState).categories!} value={this.props.instance?.category}/>
 
                 </LabeledInputField>
 
                 
                 <LabeledInputField label="Note">
 
-                    <TextBoxComponent field={form.note}/>
+                    <TextBoxComponent field={form.note} value={this.props.instance?.note}/>
 
                 </LabeledInputField>
             </>
@@ -88,6 +89,7 @@ export default class EditAssetRequestView extends React.Component<EditAssetReque
             getBackLink={this.getBackLink}
             getTitle={this.getTitle}
             closeModal={this.props.closeModal}
+            instance={this.props.instance?.id}
                 />
         )
     }
