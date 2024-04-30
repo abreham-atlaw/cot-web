@@ -58,7 +58,13 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                     <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
                             
-                                <BaseButton onClick={this.props.onCloseModal} >
+                                <BaseButton 
+
+                                onClick={()=>{
+                                    if(this.state.initState.status !== AsyncStatus.loading){
+                                        this.props.onCloseModal()             
+                                      }
+                                }} >
                                     CANCEL
                                 </BaseButton>
                            

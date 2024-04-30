@@ -24,7 +24,7 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
     async preSave(instance: AssetRequest): Promise<void> {
        instance.categoryId = instance.category?.id ?? instance.categoryId;
        if(instance.userId === undefined){
-        console.log("userrrrrrr")
+        
         
         instance.user = await this.authRepository.whoAmI();
        
@@ -38,10 +38,9 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
 
     async attachForeignKeys(instance: AssetRequest): Promise<void> {
         instance.category = await this.categoryRepository.getById(instance.categoryId);
-        console.log(instance.userId)
+
         instance.user = await this.profileRepository.getById(instance.userId!)
-        console.log("asdfghj")
-        console.log(instance)
+      
     }
 
 }

@@ -2,6 +2,7 @@ import BaseButton from "@/common/components/buttons/BaseButton";
 import ViewModelView from "@/common/components/views/ViewModelView";
 import EtherModel from "@/common/model/model";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
+import { AsyncStatus } from "@/common/state/asyncState";
 import ModelListState from "@/common/state/modelListState";
 // import RoutingUtils from "@/common/utils/routing";
 import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
@@ -46,6 +47,7 @@ export default abstract class ListModelView<M extends EtherModel> extends ViewMo
         this.setState({modalClicked: !this.state.modalClicked})
     }
     editModalClicked = ()=>{
+        
         this.setState({editModalClicked: !this.state.editModalClicked})
     }
  
@@ -95,7 +97,9 @@ export default abstract class ListModelView<M extends EtherModel> extends ViewMo
                                         <td className="flex ">
                                             {
                                                 [
-                                                    [(instance: M) => {console.log(instance); this.setState({editModalClicked: !this.state.editModalClicked,selectedInstance: instance}); console.log("rr") }, "fa-solid fa-pen",this.modalClicked],
+                                                    [(instance: M) => {console.log(instance); 
+                                                      
+                                                        this.setState({editModalClicked: !this.state.editModalClicked,selectedInstance: instance}); console.log("rr") }, "fa-solid fa-pen",this.modalClicked],
                                                     [(instance: M) => {this.onDelete(instance)}, "fa-solid fa-trash hover:bg-danger hover:text-light"]
                                                 ].map(
                                                     (value) => (
@@ -124,7 +128,7 @@ export default abstract class ListModelView<M extends EtherModel> extends ViewMo
                      <Modal
             isOpen={this.state.modalClicked}
             className='modal-content custome-property'
-            onRequestClose={this.modalClicked}
+            // onRequestClose={this.modalClicked}
             overlayClassName='modal-overlay'>
                {/* <RegisterUserView onCloseModal={this.modalClicked} /> */}
                <div>
@@ -137,7 +141,7 @@ export default abstract class ListModelView<M extends EtherModel> extends ViewMo
             <Modal
             isOpen={this.state.editModalClicked}
             className='modal-content custome-property'
-            onRequestClose={this.editModalClicked}
+            // onRequestClose={this.editModalClicked}
             overlayClassName='modal-overlay'>
                {/* <RegisterUserView onCloseModal={this.modalClicked} /> */}
                <div>

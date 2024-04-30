@@ -7,6 +7,7 @@ interface AsyncButtonProps {
     bg?: string;
     loadingColor?: string;
     children?: ReactNode;
+   
 }
 
 const AsyncButton: React.FC<AsyncButtonProps> = ({ state, bg, children }) => {
