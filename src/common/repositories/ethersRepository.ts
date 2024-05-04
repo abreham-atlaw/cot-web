@@ -30,12 +30,9 @@ export default class EthersRepository{
     }
 
     async getReadContract(): Promise<Contract>{
-        console.log(this._providerContract)
         if(this._providerContract === undefined){
             this._providerContract = new Contract(this.address, this.abi, this.provider);
         }
-        console.log(this._providerContract)
-        console.log(this.address,this.abi)
         return this._providerContract!;
     }
 

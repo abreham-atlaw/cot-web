@@ -24,6 +24,7 @@ export default class CreateAssetCategoryViewModel extends EditModelViewModel<Ass
     }
     protected createInstance(): AssetCategory {
         return new AssetCategory(
+            undefined,
             ""
         );
     }

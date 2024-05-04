@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import RegisterUserView from "./RegisterUserView";
 
 export default class ListInvitationsView extends ListModelView<Invitation>{
+    
     getModalChild(modalClose: () => void): ReactNode {
         return <RegisterUserView onCloseModal={modalClose}/>
     }

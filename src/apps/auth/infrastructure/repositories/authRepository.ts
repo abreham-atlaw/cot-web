@@ -85,7 +85,6 @@ export default class AuthRepository{
     async getOrgId(): Promise<string>{
         if(this.orgId === undefined){
             this.orgId = (await this.whoAmI()).organizationId!;
-            console.log(this.orgId)
         }
         return this.orgId!;
     }

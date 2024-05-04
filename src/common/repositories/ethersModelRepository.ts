@@ -8,6 +8,8 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
     protected readonly serializer: Serializer<M, Array<unknown>>;
 
+    public attachMode: boolean = true;
+
     constructor(abi: object[], address: string, serializer: Serializer<M, Array<unknown>>){
         super(abi, address);
         this.serializer = serializer;
@@ -48,10 +50,21 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         await transaction.wait();
     }
 
+    async delete(instance: M){
+        const transaction = await (await this.getWriteContract()).deleteInstance(
+            instance.id!,
+            {
+                gasPrice: 0
+            }
+        );
+        await transaction.wait();
+    }
+
     async getById(id: string): Promise<M>{
-        const response = await (await this.getReadContract()).getById(id);
+        const contract = await this.getReadContract();
+        const response = await contract.getById(id);
         const instance = this.serializer.deserialize(response);
-        await this.attachForeignKeys(instance);
+        await this.prepareInstance(instance);
         return instance;
     }
 
@@ -61,12 +74,19 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         const instances = this.serializer.deserializeMany(response);
         const filtered = [];
         for(const instance of instances){
-            await this.attachForeignKeys(instance);
+            await this.prepareInstance(instance);
             if(await this.filterAll(instance)){
                 filtered.push(instance);
             }
         }
         return filtered;
+    }
+
+   
+    async prepareInstance(instance: M){
+        if(this.attachMode){
+            await this.attachForeignKeys(instance);
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

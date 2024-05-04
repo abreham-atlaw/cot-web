@@ -6,7 +6,7 @@ interface LabeledInputFieldProps {
 }
 
 const LabeledInputField: React.FC<LabeledInputFieldProps> = ({ label, children }) => (
-  <label className="block">
+  <label className="block my-10">
     <span className="block">{label}</span>
     <div className="mt-3">
       {children}

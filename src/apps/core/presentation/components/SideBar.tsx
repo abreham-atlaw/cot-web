@@ -46,7 +46,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
     {
       title: "Staff",
       icons: <MdPeople />,
-      link: "/base/staff-management/list",
+      link: "/base/staff/list",
       validStatuses: [AuthenticationStatus.hr, AuthenticationStatus.admin],
     },
     {
@@ -78,7 +78,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
     {
       title: "Departments",
       icons: <PiTree />,
-      link: "/departments",
+      link: "/base/department/list",
       validStatuses: [AuthenticationStatus.admin, AuthenticationStatus.hr],
     },
     {

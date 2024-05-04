@@ -18,7 +18,10 @@ export default class EditModelState<M extends EtherModel, F extends Form> extend
     }
 
     get isCreateMode(): boolean{
-        return this.id === undefined;
+        if(this.id == undefined){
+            return true;
+        }
+        return false;
     }
 
 }

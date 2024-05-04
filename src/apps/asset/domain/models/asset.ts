@@ -28,5 +28,9 @@ export default class Asset implements EtherModel {
         }
         return this.ownersId[this.ownersId.length - 1];
     }
+
+    get isAllocated(): bool{
+        return (this.currentOwnerId !== null);
+    }
     
 }

@@ -4,15 +4,15 @@ import Form from "@/common/forms/form";
 
 
 
-export default class UserForm extends Form{
+export default class InvitationForm extends Form{
 
     email = new EmailField();
     role = new Field<Role>();
 
-    getFields(): Field<any>[] {
+    getFields(): Field<unknown>[] {
         return [
             this.email,
             this.role
-        ];
+        ] as Field<unknown>[];
     }
 }

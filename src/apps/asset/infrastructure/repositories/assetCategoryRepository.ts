@@ -1,5 +1,5 @@
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
-import contract from "@/assets/contactBuilds/asset/src_contracts_AssetCategory_sol_AssetCategoryContract.json"
+import contract from "@/assets/contactBuilds/asset/src_contracts_AssetCategory_sol_AssetCategory.json"
 import AssetCategorySerializer from "../../domain/serializers/assetCategorySerializer";
 import AssetCategory from "../../domain/models/assetCategory";
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";

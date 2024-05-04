@@ -6,7 +6,7 @@ import AssetSerializer from "../../domain/serializers/assetSerializer";
 import AssetCategoryRepository from "./assetCategoryRepository";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import AssetCategory from "../../domain/models/assetCategory";
-import { Role } from "@/apps/auth/domain/models/profile";
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
 
 
 export default class AssetRepository extends EthersModelRepository<Asset>{
@@ -50,6 +50,12 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
     async filterByCategory(category: AssetCategory): Promise<Asset[]>{
         return (await this.getAll()).filter(
             (asset: Asset) => asset.categoryId === category.id!
+        );
+    }
+
+    async filterByCurrentOwner(owner: Profile): Promise<Asset[]>{
+        return (await this.getAll()).filter(
+            (asset: Asset) => asset.currentOwnerId === owner.id
         );
     }
 

@@ -6,7 +6,7 @@ import AsyncViewModel from "./asyncViewModel";
 
 export default class ModelDetailViewModel<M extends EtherModel> extends AsyncViewModel<ModelDetailState<M>>{
 
-    private repository: EthersModelRepository<M>;
+    protected repository: EthersModelRepository<M>;
 
     constructor(state: ModelDetailState<M>, repository: EthersModelRepository<M>, syncState: (state: ModelDetailState<M>) => void){
         super(state, syncState);

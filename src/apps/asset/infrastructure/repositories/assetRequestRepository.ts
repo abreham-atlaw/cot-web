@@ -5,6 +5,7 @@ import AssetCategoryRepository from "./assetCategoryRepository";
 import contract from "@/assets/contactBuilds/asset/src_contracts_AssetRequest_sol_AssetRequest.json"
 import AssetRequestSerializer from "../../domain/serializers/assetRequestSerializer";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
+import Profile from "@/apps/auth/domain/models/profile";
 
 
 export default class AssetRequestRepository extends EthersModelRepository<AssetRequest>{
@@ -36,6 +37,12 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
     async attachForeignKeys(instance: AssetRequest): Promise<void> {
         instance.category = await this.categoryRepository.getById(instance.categoryId);
         instance.user = await this.profileRepository.getById(instance.userId!)
+    }
+
+    async filterByUser(user: Profile): Promise<AssetRequest[]>{
+        return (await this.getAll()).filter(
+            (request) => request.userId === user.id!
+        );
     }
 
 }

@@ -13,6 +13,10 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
 
     private authRepository = new AuthRepository();
 
+    private get invitationRepository(): InvitationRepository{
+        return new InvitationRepository();
+    }
+
     public async onInit(): Promise<void> {
         await super.onInit();
     }
@@ -27,8 +31,7 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
                     this.state.form.password.getValue()!
                 )
                 if(!this.state.adminMode){
-                    const invitationRepositoy = new InvitationRepository();
-                    this.state.invitation = await invitationRepositoy.getById(this.state.invitationId!);
+                    this.state.invitation = await this.invitationRepository.getById(this.state.invitationId!);
                     this.state.organizationId = this.state.invitation.orgId;
                 }
                 if(this.state.organizationId === undefined){
@@ -36,6 +39,7 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
                 }
                 else{
                     await this.completeSignup();
+                    await this.invitationRepository.delete(this.state.invitation!);
                 }
             }
         );

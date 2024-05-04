@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import AssetRequestForm from "../../application/forms/assetRequestForm"
 import LabeledInputField from "@/common/components/form/LabeledInputField"
 import { TextBoxComponent } from "@/common/components/form/TextFieldComponent"
@@ -8,25 +8,17 @@ import AssetRequest from "../../domain/models/assetRequest"
 import EditModelViewModel from "@/common/viewmodel/editModelViewModel"
 import EditAssetRequestViewModel from "../../application/viewModels/editAssetRequestViewModel"
 import AssetCategorySelectionFieldComponent from "../components/AssetCategorySelectionFieldComponent"
-import EditModelView from "@/apps/core/presentation/views/CreateModelView"
+import { EditModelView } from "@/apps/core/presentation/views/CreateModelView"
 import RequestStatusSelectionFieldComponent from "../components/RequestStatusSelectionFieldComponent"
 
-interface EditAssetRequestViewProps {
-    closeModal:()=>void
-}
-export default class EditAssetRequestView extends React.Component<EditAssetRequestViewProps>{
-    
-    
 
-    getBackLink(): string {
-        return "/base/asset-request/list"
-    }
+export default class EditAssetRequestView extends EditModelView<AssetRequest, AssetRequestForm>{
 
     getTitle(): string {
         return "AssetRequest"
     }
     
-    onCreateFormComponent = (form: AssetRequestForm, state: EditAssetRequestState): ReactNode => {
+    onCreateFormComponent(form: AssetRequestForm, state: EditAssetRequestState): ReactNode {
 
         if(state.resolveMode!){
             return (
@@ -53,7 +45,7 @@ export default class EditAssetRequestView extends React.Component<EditAssetReque
         return (
             <>
 
-                <LabeledInputField label="Category">
+                <LabeledInputField label="Asset Type">
 
                     <AssetCategorySelectionFieldComponent field={form.category} categories={(this.state as EditAssetRequestState).categories!}/>
 
@@ -68,29 +60,15 @@ export default class EditAssetRequestView extends React.Component<EditAssetReque
             </>
         )
     }
-    onCreateViewModel = (state: EditModelState<AssetRequest, AssetRequestForm>): EditModelViewModel<AssetRequest, AssetRequestForm> => {
+    onCreateViewModel(state: EditModelState<AssetRequest, AssetRequestForm>): EditModelViewModel<AssetRequest, AssetRequestForm>{
         return new EditAssetRequestViewModel(
             state, 
             this.setState.bind(this)
         );
     }
     
-    onCreateForm = (): AssetRequestForm => {
+    onCreateForm(): AssetRequestForm{
         return new AssetRequestForm();
     }
-
-    render(): React.ReactNode {
-        return (
-            <EditModelView
-            onCreateForm={this.onCreateForm}
-            onCreateFormComponent={this.onCreateFormComponent}
-            onCreateViewModel={this.onCreateViewModel}
-            getBackLink={this.getBackLink}
-            getTitle={this.getTitle}
-            closeModal={this.props.closeModal}
-                />
-        )
-    }
-
 
 }

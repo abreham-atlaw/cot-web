@@ -6,13 +6,14 @@ import ModelListState from "@/common/state/modelListState";
 import ListAssetCategoriesState from "../../application/states/listAssetCategoriesState";
 import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import ListAssetCategoriesViewModel from "../../application/viewModels/listAssetCategoriesViewModel";
+import EditAssetCategoryView from "./EditAssetCategoryView";
 
 
 
 export default class ListAssetCategoriesView extends ListModelView<AssetCategory>{
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getModalChild(modalClose: () => void) {
-        return null
+    
+    getModalChild(modalClose: () => void, instance?: AssetCategory) {
+        return <EditAssetCategoryView closeModal={modalClose} id={instance?.id}/>
     }
     
     onCreateRepository(): EthersModelRepository<AssetCategory> {
@@ -20,10 +21,9 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
     }
 
     getInstanceValues(instance: AssetCategory): string[] {
-        console.log("AssetCategory")
         const count = (this.state as ListAssetCategoriesState).counts!.get(instance)!;
         return [
-            instance.id!, 
+            instance.id!.split("-")[0], 
             instance.name, 
             instance.parent?.name ?? "", 
             count.allocated.toString(),

@@ -8,8 +8,8 @@ export default class AssetCategorySerializer extends Serializer<AssetCategory, A
    
     serialize(instance: AssetCategory): unknown[] {
         return [
-            instance.name,
             instance.id,
+            instance.name,
             instance.orgId, 
             this.parentSerializer.serialize(instance.parentId ?? null)
         ];

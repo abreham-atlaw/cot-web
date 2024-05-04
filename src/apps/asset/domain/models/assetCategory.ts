@@ -8,7 +8,7 @@ export default class AssetCategory {
 
     parent?: AssetCategory;
 
-    constructor(name: string, id?: string, orgId?: string, parentId?: string) {
+    constructor(id: string | undefined, name: string, orgId?: string, parentId?: string) {
         this.name = name;
         this.id = id;
         this.orgId = orgId;

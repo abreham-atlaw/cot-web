@@ -3,6 +3,8 @@ import Profile from "../../domain/models/profile";
 import contract from "@/assets/contactBuilds/auth/src_contracts_Profile_sol_Profile.json"
 import ProfileSerializer from "../../domain/serializers/profileSerializer";
 import AuthRepository from "./authRepository";
+import DepartmentRepository from "@/apps/core/infrastructure/repositories/departmentRepository";
+import Department from "@/apps/core/domain/models/department";
 
 
 export default class ProfileRepository extends EthersModelRepository<Profile>{
@@ -14,7 +16,13 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
             contract.abi,
             contract.address,
             new ProfileSerializer()
-        )
+        );
+    }
+
+    get departmentRepository(): DepartmentRepository{
+        const repository = new DepartmentRepository();
+        repository.attachMode = false;
+        return repository;
     }
 
     async getByUserKey(key: string): Promise<Profile>{
@@ -26,7 +34,17 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
 
     async filterAll(instance: Profile): Promise<boolean> {
         const orgId = await this.authRepository.getOrgId();
-        console.log(orgId);
         return instance.organizationId === orgId;
     }
+
+    async preSave(instance: Profile): Promise<void> {
+        instance.departmentId = instance.department?.id ?? instance.departmentId;
+    }
+
+    async attachForeignKeys(instance: Profile): Promise<void> {
+        if(instance.departmentId != undefined){
+            instance.department = await this.departmentRepository.getById(instance.departmentId!);
+        }
+    }
+
 }

@@ -34,7 +34,7 @@ export default class DashboardBaseView extends ViewModelView<DashboardBaseViewMo
                     <Content>
                         <DashboardNavBar user={this.state.user!}/>
                         <div className="mt-24">
-                        <Outlet/>
+                            <Outlet/>
                         </div>  
                     </Content>
                 </div>

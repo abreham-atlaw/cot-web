@@ -1,12 +1,12 @@
 import { AsyncState } from "@/common/state/asyncState";
-import UserForm from "../forms/userForm";
+import InvitationForm from "../forms/invitationForm";
 
 
 
 
 export default class RegisterUserState extends AsyncState{
 
-    form = new UserForm();
+    form = new InvitationForm();
     
 
 
