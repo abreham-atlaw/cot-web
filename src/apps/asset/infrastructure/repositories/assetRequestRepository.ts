@@ -43,4 +43,11 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
       
     }
 
+    async filterByUser(userId:string): Promise<AssetRequest[]>{
+           return (await this.getAll()).filter(
+            (request:AssetRequest)=> request.userId === userId
+           )
+    }
+    
+
 }

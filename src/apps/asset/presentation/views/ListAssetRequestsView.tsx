@@ -31,7 +31,7 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest>{
     }
 
     getEditInstanceLink(instance: AssetRequest): string {
-        return `/base/asset-request/write?id=${instance.id!}`;
+        return `/base/asset-request/list/${instance.id!}`;
     }
     
     onDelete(): void {

@@ -4,7 +4,9 @@ import BaseState from "./baseState";
 export default class ModelDetailState<M extends EtherModel> extends BaseState{
 
     id: string;
-    instance?: M
+    instance?: M;
+    editModalClicked = false;
+    
 
     constructor(id: string){
         super();

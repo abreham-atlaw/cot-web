@@ -1,205 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
-import { Link, useParams } from 'react-router-dom';
-import { Role, User } from '@/FakeTypes/User';
-import { Asset } from '@/FakeTypes/Asset';
-import { AssetMaintenanceRequest } from '@/FakeTypes/AssetMaintenanceRequest';
-import { AssetRequest } from '@/FakeTypes/AssetRequest';
-import { initialStaffs, initialAssets, initialAssetRequest, initialMaintenanceRequest } from '@/FakeTypes/list';
-import EditStaff from '../components/EditStaff';
-import DeleteStaff from '../components/DeleteStaff';
+import { Role } from '@/apps/auth/domain/models/profile';
+import DetailUserState from '@/apps/staffManagement/application/states/detailUserState';
 
-const StaffDetail = () => {
-    const { staffId } = useParams();
+interface StaffDetailProps{
+    state: DetailUserState;
+}
 
-    const [staff, setStaff] = useState<User>();
-    const [assets, setAssets] = useState<Asset[]>([]);
-    const [maintenanceRequests, setMaintenanceRequests] = useState<AssetMaintenanceRequest[]>([]);
-    const [assetRequests, setAssetRequests] = useState<AssetRequest[]>([]);
+const StaffDetail = (props:StaffDetailProps) => {
+    
+  //  const features= [props.state.instance?.name,props.state.instance?.id!.split("-")[0],props.state.instance?.email,Role[props.state.instance?.role as number]];
+  
+    const assetHeading = ['Asset Id', "category","name","status"]
+    const requestHeading = ['Request Id',"Asset Id","Status","Request_date"]
+    console.log(props.state.assets)
+    const cols = assetHeading.length + 1;
+ return  <div>
+ 
+ <ul>
+  <li className="flex my-2">
+    <span className="font-bold text-lg mr-2">Employee Name:</span>
+    <span>{props.state.instance?.name}</span>
+  </li>
+  <li className="flex  my-2">
+    <span className="font-bold text-lg mr-2">Employee Id:</span>
+    <span>{props.state.instance?.id?.split('-')[0]}</span>
+  </li>
+  <li className="flex  my-2">
+    <span className="font-bold text-lg mr-2">Email:</span>
+    <span>{props.state.instance?.email}</span>
+  </li>
+  <li className="flex  my-2">
+    <span className="font-bold text-lg mr-2">Role:</span>
+    <span>{(Role[props.state.instance?.role as number]).toUpperCase()}</span>
+  </li>
+</ul>
 
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [currentRequestType, setCurrentRequestType] = useState(0); // 0 for AssetRequest, 1 for MaintenanceRequest
-
-    useEffect(() => {
-        // Fetch data based on staffId
-        const fetchData = async () => {
-            try {
-                const staff = initialStaffs.find((user) => user.id === staffId);
-                const assets = initialAssets.filter((asset) => asset.owner?.id === staffId);
-                const requests = initialAssetRequest.filter((request) => request.user.id === staffId);
-                const maintenanceRequests = initialMaintenanceRequest.filter((request) => request.user.id === staffId);
-
-                setStaff(staff);
-                setAssets(assets);
-                setAssetRequests(requests);
-                setMaintenanceRequests(maintenanceRequests);
-            } catch (error) {
-                // Handle any errors during data fetching
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [staffId]);
-
-    const handleEditClicked = () => {
-        setIsEditModalOpen(true);
-    };
-
-    const handleDeleteClicked = () => {
-        setIsDeleteModalOpen(true);
-    };
-
-    const handleRequestTypeClicked = (requestType: 0 | 1) => {
-        setCurrentRequestType(requestType);
-    };
-    const renderRequestTable = () => {
-        if (currentRequestType === 0) {
-            return (
-                <table>
-                    <thead>
-                        <tr key="employee-request">
-                            <th>Request ID</th>
-                            <th>Asset ID</th>
-                            <th>Created Date</th>
-                            <th>Resolved Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {assetRequests.map((request) => (
-                            <tr key={request.id}>
-                                <td>{request.id}</td>
-                                <td>{request.asset.id}</td>
-                                <td>{request.createDatetime.toLocaleDateString()}</td>
-                                <td>{request.resolveDatetime === undefined ? "-" : request.resolveDatetime.toLocaleDateString()}</td>
-                                <td>Detail</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            );
-        } else {
-            return (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Asset ID</th>
-                            <th>Created Date</th>
-                            <th>Approved</th>
-                            <th>Resolved Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {maintenanceRequests.map((request) => (
-                            <tr key={request.id}>
-                                <td>{request.id}</td>
-                                <td>{request.asset.title}</td>
-                                <td>{request.createDatetime.toLocaleDateString()}</td>
-                                <td>{request.approved === false && request.rejected === false ? "pending" : ""}</td>
-                                <td>{request.resolveDatetime === undefined ? "-" : request.resolveDatetime.toLocaleDateString()}</td>
-                                <td>Detail</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            );
-        }
-    };
-
-    return (
-        <div className='staff-detail'>
-            <div className='body'>
-                <section className='one'>
-                    <div className='col'>
-                        <h4> {staff?.id} </h4>
-                        <p> {staff?.firstName} </p>
-                        <p> {staff?.lastName} </p>
-                        <p> {staff?.email} </p>
-                        <p>{Role[staff?.role!]} </p>
-                    </div>
-                    <div>
-                        <div>
-                            <button onClick={handleEditClicked} style={{ backgroundColor: '#011b33', color: 'white' }}>
-                                Edit
-                            </button>
-                            <button onClick={handleDeleteClicked} style={{ color: 'black' }}>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Edit Modal */}
-                    <Modal
-                        isOpen={isEditModalOpen}
-                        onRequestClose={() => setIsEditModalOpen(false)}
-                        className='modal-content custom-property'
-                        overlayClassName='modal-overlay'
-                    >
-                        <EditStaff onCloseModal={() => setIsEditModalOpen(false)} staff={staff!} />
-                    </Modal>
+   <div className='my-20 '>
+    <h3 className='text-center font-bold text-lg'>Owned Asset</h3>
+    <table className='table-auto w-full border-collapse h-1/2 ml-8 mt-8'> 
+        <thead>
+            {assetHeading.map((heading)=>(
+                <th
+                className={`truncate overflow-hidden whitespace-nowrap py-4 border-b text-start font-bold w-[${
+                  100 / cols
+                }%]`}
+              >
+                {heading}
+              </th>
+            ))}
+        </thead>
+        <tbody>
+           
+            {props.state.assets?.map((asset)=>(
+                <tr className='text-start border-b '>
+                   <td className='py-4'>{asset.id?.split("-")[0]}</td>
+                   <td>{asset.category?.name}</td>
+                   <td>{asset.name}</td>
+                   <td>"used"</td>
+                  
+                </tr>
+                
+            
+            ))}
+            
+           
+        </tbody>
+    </table>
+   </div>
 
 
-                    {/* Delete Modal */}
-                    <Modal
-                        isOpen={isDeleteModalOpen}
-                        onRequestClose={() => setIsDeleteModalOpen(false)}
-                        className='modal-content custom-property'
-                        overlayClassName='modal-overlay'
-                    >
-                        <DeleteStaff staff={staff!} onCloseModal={() => setIsDeleteModalOpen(false)} />
-                    </Modal>
+   <div className='my-20 '>
+    <h3 className='text-center font-bold text-lg'>Request Asset</h3>
+    <table className='table-auto w-full border-collapse h-10 ml-8 mt-8'> 
+        <thead>
+            {requestHeading.map((heading)=>(
+                <th
+                className={`truncate overflow-hidden whitespace-nowrap py-4 border-b text-start font-bold w-[${
+                  100 / cols
+                }%]`}
+              >
+                {heading}
+              </th>
+            ))}
+        </thead>
+        <tbody>
+           
+            {props.state.assets?.map((asset)=>(
+                <tr className='text-start border-b '>
+                   <td className='py-4'>{asset.id?.split("-")[0]}</td>
+                   <td>{asset.category?.name}</td>
+                   <td>{asset.name}</td>
+                   <td>"used"</td>
+                  
+                </tr>
+                
+            
+            ))}
+            
+           
+        </tbody>
+    </table>
+   </div>
 
-                </section>
 
-                <section className='two'>
-                    <h3> Owned Asset </h3>
-                    <div className="list-box">
-                        <table>
-                            <thead>
-                                <tr key={"employee asset"}>
-                                    <th>Asset ID</th>
-                                    <th>Asset Type</th>
-                                    <th>Status</th>
-                                    <th>Created Date</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {assets.map((asset) => (
-                                    <tr key={asset.id}>
-                                        <td>{asset.id}</td>
-                                        <td>{asset.type}</td>
-                                        <td>{asset.active ? "In Use" : "Avaliable"}</td>
-                                        <td>{asset.addDateTime.toLocaleDateString()}</td>
-                                        <td>Detail</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
 
-                </section>
-                <section className='three'>
-                    <h3>
-                        <span className={`${currentRequestType === 0 ? "selected-request" : "unselected-request"}`} onClick={() => handleRequestTypeClicked(0)}>
-                            AssetRequest
-                        </span>
-                        <span className={`${currentRequestType === 1 ? "selected-request" : "unselected-request"}`} onClick={() => handleRequestTypeClicked(1)}>
-                            Maintenance Request
-                        </span>
-                    </h3>
-                    <div className="list-box">
-                        {renderRequestTable()}
-                    </div>
-                </section>
-            </div>
-        </div>
-
-    );
+   
+ </div>
 }
 
 export default StaffDetail;

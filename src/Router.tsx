@@ -16,6 +16,9 @@ import LogoutView from "./apps/auth/presentation/views/LogoutView";
 import RegisterUserView from "./apps/staffManagement/presentation/views/RegisterUserView";
 import TestView from "./apps/test/presentation/views/TestView";
 import EditAssetCategoryView from "./apps/asset/presentation/views/EditAssetCategoryView";
+import UserDetailView, { UserDetail } from "./apps/staffManagement/presentation/views/DetailUserView";
+import { AssetDetailView } from "./apps/asset/presentation/views/DetailAssetView";
+import { RequestAssetDetail } from "./apps/asset/presentation/views/DetailAssetRequestView";
 
 
 export default class CoTRouter extends React.Component{
@@ -48,10 +51,15 @@ export default class CoTRouter extends React.Component{
 					<Route path="dashboard" element={<DashboardView/>}/>
 					
 					<Route path="staffs/list" element={<ListUsersView/>}/>
+					<Route path="staffs/list/:id" element={<UserDetail/>}/>
+
+					<Route path="asset/list/:id" element={<AssetDetailView/>}/>
+					
 
 					{/* <Route path="invitation/write" element={<RegisterUserView onCloseModal={function (): void {
 						throw new Error("Function not implemented.");
 					} }/>}/> */}
+
 					<Route path="invitation/list" element={<ListInvitationsView/>}/>
 					
 					<Route path="category/list" element={<ListAssetCategoriesView/>}/>
@@ -61,7 +69,7 @@ export default class CoTRouter extends React.Component{
 					{/* <Route path="asset/write" element={<CreateAssetView/>}/> */}
 
 					<Route path="asset-request/list" element={<ListAssetRequestsView/>}/>
-					{/* <Route path="asset-request/write" element={<EditAssetRequestView/>}/> */}
+					<Route path="asset-request/list/:id" element={<RequestAssetDetail/>}/>
 
 					<Route path="asset/list" element={<ListAssetsView/>}/>
 

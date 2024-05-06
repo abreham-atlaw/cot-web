@@ -30,7 +30,7 @@ export default class ListAssetsView extends ListModelView<Asset>{
     }
 
     getEditInstanceLink(instance: Asset): string {
-        return `/base/asset/write?id=${instance.id!}`;
+        return `/base/asset/list/${instance.id!}`;
     }
     
     onDelete(): void {

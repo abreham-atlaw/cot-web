@@ -16,7 +16,7 @@ export default class ListProfilesView extends ListModelView<Profile>{
     }
 
     getInstanceValues(instance: Profile): string[] {
-        return [instance.id!, instance.name, instance.email, Role[instance.role].toUpperCase()];
+        return [instance.id!.split('-')[0], instance.name, instance.email, Role[instance.role].toUpperCase()];
     }
 
     getHeadings(): string[] {
@@ -28,7 +28,7 @@ export default class ListProfilesView extends ListModelView<Profile>{
     }
 
     getEditInstanceLink(instance: Profile): string {
-        return `/base/Profile/edit/${instance.id!}`;
+        return `/base/staffs/list/${instance.id!}`;
     }
     
     onDelete(): void {
