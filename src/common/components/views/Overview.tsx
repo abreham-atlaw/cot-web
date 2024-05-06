@@ -1,7 +1,7 @@
 interface OverviewProps{
     stat:{
     title:string;
-    value:number;
+    value?:number;
     }[]
 }
 interface TitleProps{
@@ -17,7 +17,7 @@ function Overview(props:OverviewProps){
         {props.stat.map((item)=>(
             <div className='listed'>
                 <p>{item.title} </p>
-                <h2>{item.value}</h2>
+                <h2>{item.value??'-'}</h2>
             </div>
             ))}
             </div>

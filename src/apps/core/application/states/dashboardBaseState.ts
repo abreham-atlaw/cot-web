@@ -8,5 +8,15 @@ export default class DashboardBaseState extends BaseState{
 
     status?: AuthenticationStatus;
     user?: Profile;
+    totalasset?: number;
+    totalrequest?:number
+    avaliableasset?: number;
+    assignedasset?:number;
+    resolvedrequest?:number;
+    pendingrequest?:number;
+    pendingmaintenace?:number;
+    resolvedmaintenance?:number;
+    notifications?:[];
+    
 
 }

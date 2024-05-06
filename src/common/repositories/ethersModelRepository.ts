@@ -61,6 +61,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
     async getAll(): Promise<M[]>{
         const contract = await this.getReadContract()
+       
     
         const response = await contract.getAll();
     

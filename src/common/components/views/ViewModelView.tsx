@@ -33,6 +33,9 @@ export default abstract class ViewModelView<V extends ViewModel<S>, P = {}, S ex
 		this.getViewModel().initialize()
 	}
 
+	
+	
+
 	onCreateMain(): React.ReactNode{
 		return (<></>);
 	}
