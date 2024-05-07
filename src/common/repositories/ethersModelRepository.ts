@@ -105,3 +105,8 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     }
 
 }
+
+
+export class InstanceNotFoundException extends Error{
+    
+}

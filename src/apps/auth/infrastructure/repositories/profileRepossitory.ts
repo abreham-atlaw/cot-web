@@ -1,10 +1,9 @@
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
-import Profile from "../../domain/models/profile";
+import Profile, { Role } from "../../domain/models/profile";
 import contract from "@/assets/contactBuilds/auth/src_contracts_Profile_sol_Profile.json"
 import ProfileSerializer from "../../domain/serializers/profileSerializer";
 import AuthRepository from "./authRepository";
 import DepartmentRepository from "@/apps/core/infrastructure/repositories/departmentRepository";
-import Department from "@/apps/core/domain/models/department";
 
 
 export default class ProfileRepository extends EthersModelRepository<Profile>{
@@ -35,6 +34,12 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
     async filterAll(instance: Profile): Promise<boolean> {
         const orgId = await this.authRepository.getOrgId();
         return instance.organizationId === orgId;
+    }
+
+    async filterByRole(role: Role): Promise<Profile[]>{
+        return (await this.getAll()).filter(
+            (profile) => profile.role === role
+        );
     }
 
     async preSave(instance: Profile): Promise<void> {

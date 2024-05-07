@@ -5,6 +5,7 @@ import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import DepartmentRepository from "../../infrastructure/repositories/departmentRepository";
 import EditDepartmentState from "../states/editDepartmentState";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
+import { Role } from "@/apps/auth/domain/models/profile";
 
 
 
@@ -36,7 +37,7 @@ export default class EditDepartmentViewModel extends EditModelViewModel<Departme
 
     public async onInit(): Promise<void> {
         await super.onInit();
-        (this.state as EditDepartmentState).users = await this.profileRepository.getAll();
+        (this.state as EditDepartmentState).users = await this.profileRepository.filterByRole(Role.department);
     }
 
 }

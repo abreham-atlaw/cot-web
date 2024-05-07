@@ -1,3 +1,4 @@
+import DepartmentRepository from "@/apps/core/infrastructure/repositories/departmentRepository";
 import AuthProviders from "../../../../di/authProviders";
 import CoreProviders from "../../../../di/coreProviders";
 import AuthenticationStatus from "../../domain/models/authenticationStatus";
@@ -16,6 +17,10 @@ export default class AuthRepository{
 
     get profileRepository(): ProfileRepository{
         return new ProfileRepository();
+    }
+
+    get departmentRepository(): DepartmentRepository{
+        return new DepartmentRepository();
     }
 
     async login(username: string, password: string){

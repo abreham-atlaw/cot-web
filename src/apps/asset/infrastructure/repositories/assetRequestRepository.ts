@@ -1,11 +1,11 @@
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
-import AssetRequest from "../../domain/models/assetRequest";
+import AssetRequest, { Status } from "../../domain/models/assetRequest";
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import AssetCategoryRepository from "./assetCategoryRepository";
 import contract from "@/assets/contactBuilds/asset/src_contracts_AssetRequest_sol_AssetRequest.json"
 import AssetRequestSerializer from "../../domain/serializers/assetRequestSerializer";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
-import Profile from "@/apps/auth/domain/models/profile";
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
 
 
 export default class AssetRequestRepository extends EthersModelRepository<AssetRequest>{
@@ -31,7 +31,15 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
     }
 
     async filterAll(instance: AssetRequest): Promise<boolean> {
-        return (instance.category!.orgId === (await this.authRepository.getOrgId()));
+        const me = await this.authRepository.whoAmI();
+        return (
+            (instance.category!.orgId === (await this.authRepository.getOrgId())) &&
+            (
+                (me.role === Role.department && instance.user!.departmentId === me.departmentId) ||
+                ([Role.admin, Role.inventory].includes(me.role) && instance.departmentStatus === Status.approved) ||
+                (instance.userId === me.id)
+            )
+        );
     }
 
     async attachForeignKeys(instance: AssetRequest): Promise<void> {

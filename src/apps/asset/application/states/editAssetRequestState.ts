@@ -9,5 +9,6 @@ export class EditAssetRequestState extends EditModelState<AssetRequest, AssetReq
 
     categories?: AssetCategory[];
     resolveMode?: boolean;
+    isDepartment?: boolean;
 
 }

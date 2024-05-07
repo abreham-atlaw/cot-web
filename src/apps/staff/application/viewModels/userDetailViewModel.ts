@@ -25,7 +25,7 @@ export default class UserDetailViewModel extends ModelDetailViewModel<Profile>{
 
     public async onInit(): Promise<void> {
         await super.onInit();
-        (this.state as UserDetailState).assets = await this.assetRepository.filterByCurrentOwner((this.state as UserDetailState).instance);
+        (this.state as UserDetailState).assets = await this.assetRepository.filterByCurrentOwner((this.state as UserDetailState).instance!);
         // (this.state as UserDetailState).requests = await this.requestRepository.filterByUser(me);
 
     }

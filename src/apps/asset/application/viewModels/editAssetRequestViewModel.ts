@@ -12,7 +12,7 @@ import { Role } from "@/apps/auth/domain/models/profile";
 
 export default class EditAssetRequestViewModel extends EditModelViewModel<AssetRequest, AssetRequestForm>{
     
-    private static readonly RESOLVE_ROLES = [Role.admin, Role.inventory];    
+    private static readonly RESOLVE_ROLES = [Role.admin, Role.inventory, Role.department];    
 
     private categoryRepository = new AssetCategoryRepository();
     private authRepository = new AuthRepository();
@@ -20,13 +20,19 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
     protected syncFormToModel(form: AssetRequestForm, model: AssetRequest): void {
         model.category = form.category.getValue()!;
         model.note = form.note.getValue()!;
-        model.status = form.status.getValue()!;
+        if((this.state as EditAssetRequestState).isDepartment){
+            model.departmentStatus = form.status.getValue()!;
+        }
+        else{
+            model.status = form.status.getValue()!;
+        }
     }
     
     protected syncModelToForm(model: AssetRequest, form: AssetRequestForm): void {
         form.category.value = model.category!;
         form.note.value = model.note;
         form.status.value = model.status;
+
     }
     
     protected initRepository(): EthersModelRepository<AssetRequest> {
@@ -38,13 +44,16 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
             undefined,
             (this.state as EditAssetRequestState).categories![0]!.id!,
             "",
+            Status.pending,
             Status.pending
         )
     }
 
     public async onInit(): Promise<void> {
+        const me = await this.authRepository.whoAmI();
         (this.state as EditAssetRequestState).categories = await this.categoryRepository.getAll();
-        (this.state as EditAssetRequestState).resolveMode = (!this.state.isCreateMode) && EditAssetRequestViewModel.RESOLVE_ROLES.includes((await this.authRepository.whoAmI()).role);
+        (this.state as EditAssetRequestState).resolveMode = (!this.state.isCreateMode) && EditAssetRequestViewModel.RESOLVE_ROLES.includes(me.role);
+        (this.state as EditAssetRequestState).isDepartment = me.role === Role.department;
         await super.onInit();
     }
 

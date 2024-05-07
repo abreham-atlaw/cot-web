@@ -1,26 +1,78 @@
 import ViewModelView from "@/common/components/views/ViewModelView";
-import AsyncViewModel from "@/common/viewmodel/asyncViewModel";
-import { AsyncState } from "@/common/state/asyncState";
 import { ReactNode } from "react";
+import DashboardViewModel from "../../application/viewModels/dashboardViewModel";
+import DashboardState from "../../application/states/dashboardState";
+import DashboardStatComponent from "../components/DashboardStatComponent";
+import DashboardCategoryChart from "../components/DashboardCategoryChart";
 
 
 
 
-export default class DashboardView extends ViewModelView<AsyncViewModel<AsyncState>, unknown, AsyncState>{
+export default class DashboardView extends ViewModelView<DashboardViewModel, unknown, DashboardState>{
     
-    onCreateViewModel(state: AsyncState): AsyncViewModel<AsyncState> {
-        return new AsyncViewModel(state, this.setState.bind(this));
+    onCreateViewModel(state: DashboardState): DashboardViewModel {
+        return new DashboardViewModel(state, this.setState.bind(this));
     }
-    onCreateState(): AsyncState {
-        return new AsyncState();
+
+    onCreateState(): DashboardState {
+        return new DashboardState();
     }
+
+
 
     onCreateMain(): ReactNode {
         return (
-            <div className="flex">
-                <div className="m-auto">
-                    Dashboard
-                </div>
+            <div className="p-16">
+                <section className="">
+                    <h2>Quick Stats</h2>
+                    <div className="flex mt-7">
+                        {
+                            [
+                                ["Total Assets", this.state.totalAssets!],
+                                ["Available Assets", this.state.availableAssets!],
+                                ["Allocated Assets", this.state.assignedAssets!]
+                            ].map(
+                                (value: (string | number)[]) => (
+                                    <div className="mr-10">
+                                        <DashboardStatComponent title={value[0] as string} value={value[1] as number}/>
+                                    </div>
+                                )
+                            )
+                        }
+                    </div>
+                </section>
+
+                <section className="mt-16">
+                    <h2>Requests Overview</h2>
+                    <div className="flex mt-7">
+                        {
+                            [
+                                ["Total Requests", this.state.totalRequests!],
+                                ["Pending Requests", this.state.pendingRequests!],
+                                ["Approved Requests", this.state.approvedRequests!],
+                                ["Rejected Requests", this.state.rejectedRequests!]
+                            ].map(
+                                (value: (string | number)[]) => (
+                                    <div className="mr-10">
+                                        <DashboardStatComponent title={value[0] as string} value={value[1] as number}/>
+                                    </div>
+                                )
+                            )
+                        }
+                    </div>
+                </section>
+
+
+                <section className="mt-16">
+                    <div className="flex">
+                        <div className="w-[46%] mr-auto">
+                            <DashboardCategoryChart data={this.state.categoryAssetCounts!}/>
+                        </div>
+                        <div className="w-[46%] mr-auto">
+                            <DashboardCategoryChart data={this.state.categoryAssetCounts!}/>
+                        </div>
+                    </div>
+                </section>
             </div>
         )
     }

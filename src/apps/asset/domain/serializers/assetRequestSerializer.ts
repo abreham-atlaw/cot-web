@@ -11,7 +11,8 @@ export default class AssetRequestSerializer extends Serializer<AssetRequest, Arr
             instance.categoryId, 
             instance.note,
             instance.status,
-            instance.userId
+            instance.userId,
+            instance.departmentStatus
         ];
     }
 
@@ -20,7 +21,8 @@ export default class AssetRequestSerializer extends Serializer<AssetRequest, Arr
             data[0] as string,
             data[1] as string,
             data[2] as string,
-            data[3] as number,
+            Number(data[3]) as number,
+            Number(data[5]) as number,
             data[4] as string
         );
     }
