@@ -7,6 +7,7 @@ import {
   PiHouse,
   PiSquaresFourBold,
   PiTree,
+  PiWrench,
 } from "react-icons/pi";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 // import BaseButton from "@/common/components/buttons/BaseButton";
@@ -74,6 +75,16 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
         AuthenticationStatus.inventory,
         AuthenticationStatus.staff,
         AuthenticationStatus.department
+      ],
+    },
+    {
+      title: "Maintenance",
+      icons: <PiWrench />,
+      link: "/base/asset-maintenance-request/list",
+      validStatuses: [
+        AuthenticationStatus.admin,
+        AuthenticationStatus.inventory,
+        AuthenticationStatus.staff,
       ],
     },
     {

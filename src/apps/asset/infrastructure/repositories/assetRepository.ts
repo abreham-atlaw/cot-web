@@ -15,7 +15,7 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
     private categoryRepository = new AssetCategoryRepository();
     private profileRepository = new ProfileRepository();
 
-    private static readonly ADMIN_ROLES = [
+    public static readonly ADMIN_ROLES = [
         Role.admin, Role.inventory
     ];
 

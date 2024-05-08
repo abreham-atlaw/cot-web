@@ -1,3 +1,4 @@
+import Profile from "@/apps/auth/domain/models/profile";
 import BaseButton from "@/common/components/buttons/BaseButton";
 import ViewModelView from "@/common/components/views/ViewModelView";
 import EtherModel from "@/common/model/model";
@@ -28,6 +29,18 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getInitFilters(props: P): Map<string, unknown>{
         return new Map();
+    }
+
+    allowEdit(instance: M, me: Profile): boolean{
+        return true;
+    }
+
+    allowDetail(instance: M, me: Profile): boolean{
+        return true;
+    }
+
+    allowDelete(instance: M, me: Profile): boolean{
+        return true;
     }
 
     onCreateViewModel(state: ModelListState<M>): ModelListViewModel<M> {
@@ -91,18 +104,31 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                                                     [
                                                         (instance: M) => {
                                                             RoutingUtils.redirect(this.getDetailLink(instance));
-                                                        }, "fa-solid fa-file-lines"
+                                                        }, 
+                                                        "fa-solid fa-file-lines", 
+                                                        this.allowDetail(instance, this.state.me!)
                                                     ],
                                                     [
                                                         (instance: M) => {
                                                             this.modalClicked(instance);
-                                                        }, "fa-solid fa-pen"],
-                                                    [(instance: M) => {this.onDelete(instance)}, "fa-solid fa-trash hover:bg-danger hover:text-light"]
+                                                        }, 
+                                                        "fa-solid fa-pen",
+                                                        this.allowEdit(instance, this.state.me!)
+                                                    ],
+                                                    [
+                                                        (instance: M) => {
+                                                            this.onDelete(instance)
+                                                        }, 
+                                                        "fa-solid fa-trash hover:bg-danger hover:text-light",
+                                                        this.allowDelete(instance,this.state.me!)
+                                                    ]
                                                 ].map(
                                                     (value) => (
+                                                        (value[2])?
                                                         <button onClick={() => {(value[0] as (m: M) => void)(instance)}} className="mr-5">
                                                             <i className={`${value[1]} p-5 border border-grey rounded-full hover:bg-white`}></i>
-                                                        </button>
+                                                        </button>:
+                                                        <></>
                                                     )
                                                 )
                                             }

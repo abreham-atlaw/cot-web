@@ -6,7 +6,7 @@ import EditAssetRequestView from "./EditAssetRequestView";
 import ModelListState from "@/common/state/modelListState";
 import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import ListAssetRequestsViewModel from "../../application/viewModels/listAssetRequestViewModel";
-import Profile from "@/apps/auth/domain/models/profile";
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
 
 
 interface ListAssetRequestsProps{
@@ -52,6 +52,22 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
         return new Map([
             ["user", props.user]
         ])
+    }
+
+    private allowWrite(instance: AssetRequest, me: Profile): boolean{
+        return (
+            (AssetRequestRepository.ADMIN_ROLES.includes(me.role)) ||
+            (me.role === Role.department && instance.status === Status.pending) ||
+            (me.role === Role.staff && instance.departmentStatus === Status.pending)
+        )
+    }
+
+    allowDelete(instance: AssetRequest, me: Profile): boolean {
+        return this.allowWrite(instance, me);
+    }
+
+    allowEdit(instance: AssetRequest, me: Profile): boolean {
+        return this.allowWrite(instance, me);
     }
 
 }

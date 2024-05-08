@@ -1,3 +1,4 @@
+import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import EtherModel from "../model/model";
 import EthersModelRepository from "../repositories/ethersModelRepository";
 import { AsyncStatus } from "../state/asyncState";
@@ -11,6 +12,8 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
 
     protected repository: EthersModelRepository<M>;
 
+    private authRepository = new AuthRepository();
+
     constructor(state: ModelListState<M>, repository: EthersModelRepository<M>, syncState: (state: ModelListState<M>) => void){
         super(state, syncState);
         this.repository = repository;
@@ -18,6 +21,7 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
 
     public async onInit(): Promise<void> {
         await super.onInit();
+        this.state.me = await this.authRepository.whoAmI();
         this.state.allValues = await this.repository.getAll();
         this.state.values = await this.filterItems(this.state.allValues!, this.state.filters);
     }

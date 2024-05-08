@@ -63,5 +63,13 @@ export default class ListAssetsView extends ListModelView<Asset, ListAssetViewPr
         ])
     }
 
+    allowDelete(instance: Asset, me: Profile): boolean {
+        return AssetRepository.ADMIN_ROLES.includes(me.role);
+    }
+
+    allowEdit(instance: Asset, me: Profile): boolean {
+        return AssetRepository.ADMIN_ROLES.includes(me.role);
+    }
+
 
 }

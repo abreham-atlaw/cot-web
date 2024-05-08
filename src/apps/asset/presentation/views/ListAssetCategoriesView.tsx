@@ -11,6 +11,11 @@ import EditAssetCategoryView from "./EditAssetCategoryView";
 
 
 export default class ListAssetCategoriesView extends ListModelView<AssetCategory>{
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getDetailLink(instance: AssetCategory): string {
+        throw Error("Unimplemtend");
+    }
     
     getModalChild(modalClose: () => void, instance?: AssetCategory) {
         return <EditAssetCategoryView closeModal={modalClose} id={instance?.id}/>

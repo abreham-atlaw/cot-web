@@ -14,6 +14,11 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
     private categoryRepository = new AssetCategoryRepository();
     private profileRepository = new ProfileRepository();
 
+    public static readonly ADMIN_ROLES = [
+        Role.admin,
+        Role.inventory
+    ]
+
     constructor(){
         super(
             contract.abi,
@@ -36,7 +41,7 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
             (instance.category!.orgId === (await this.authRepository.getOrgId())) &&
             (
                 (me.role === Role.department && instance.user!.departmentId === me.departmentId) ||
-                ([Role.admin, Role.inventory].includes(me.role) && instance.departmentStatus === Status.approved) ||
+                (AssetRequestRepository.ADMIN_ROLES.includes(me.role) && instance.departmentStatus === Status.approved) ||
                 (instance.userId === me.id)
             )
         );
