@@ -20,7 +20,6 @@ export default class DepartmentRepository extends EthersModelRepository<Departme
     }
 
     async preSave(instance: Department): Promise<void> {
-        
         instance.orgId = await this.authRepository.getOrgId(); 
         instance.headId = instance.head?.id ?? instance.headId;
         instance.head!.department = instance;
@@ -29,6 +28,14 @@ export default class DepartmentRepository extends EthersModelRepository<Departme
 
     async attachForeignKeys(instance: Department): Promise<void> {
         instance.head = await this.profileRepository.getById(instance.headId);
+    }
+
+    async preDelete(instance: Department): Promise<void> {
+        for(const user of (await this.profileRepository.filterByDepartment(instance))){
+            user.department = undefined;
+            user.departmentId = undefined;
+            this.profileRepository.update(user);
+        }
     }
 
     async filterAll(instance: Department): Promise<boolean> {
@@ -44,5 +51,7 @@ export default class DepartmentRepository extends EthersModelRepository<Departme
         }
         return departments[0];
     }
+
+    
 
 }

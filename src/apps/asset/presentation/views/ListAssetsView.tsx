@@ -8,10 +8,14 @@ import Profile from "@/apps/auth/domain/models/profile";
 import ModelListState from "@/common/state/modelListState";
 import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import ListAssetsViewModel from "../../application/viewModels/listAssetViewModel";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
+import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import AssetCategory from "../../domain/models/assetCategory";
 
 
 interface ListAssetViewProps{
     user?: Profile,
+    category?: AssetCategory
 }
 
 
@@ -49,27 +53,37 @@ export default class ListAssetsView extends ListModelView<Asset, ListAssetViewPr
         return `/base/asset/write?id=${instance.id!}`;
     }
     
-    onDelete(): void {
-        throw new Error("Method not implemented.");
-    }
 
     getTitle(): string {
-        return "Assets";
+        if(this.props.category === undefined){
+            return "Assets"
+        }
+        return `Assets(${this.props.category.name})`;
     }
 
     getInitFilters(props: ListAssetViewProps): Map<string, unknown> {
-        return new Map([
-            ["user", props.user]
+        return new Map<string, unknown>([
+            ["user", props.user],
+            ["category", props.category]
         ])
     }
 
-    allowDelete(instance: Asset, me: Profile): boolean {
+    allowDelete(_instance: Asset, me: Profile): boolean {
         return AssetRepository.ADMIN_ROLES.includes(me.role);
     }
 
-    allowEdit(instance: Asset, me: Profile): boolean {
+    allowEdit(_instance: Asset, me: Profile): boolean {
         return AssetRepository.ADMIN_ROLES.includes(me.role);
     }
 
+    allowAdd(me: Profile): boolean {
+        return (
+            (AssetRepository.ADMIN_ROLES.includes(me.role))
+        )
+    }
+
+    getAllowedAuthenticationStatus(): AuthenticationStatus[] {
+        return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.asset)!;
+    }
 
 }

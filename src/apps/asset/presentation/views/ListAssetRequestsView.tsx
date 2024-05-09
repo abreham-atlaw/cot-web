@@ -7,6 +7,8 @@ import ModelListState from "@/common/state/modelListState";
 import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import ListAssetRequestsViewModel from "../../application/viewModels/listAssetRequestViewModel";
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
+import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 
 
 interface ListAssetRequestsProps{
@@ -40,9 +42,6 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
         return ["ID", "User Name", "Asset Category", "Status"];
     }
 
-    onDelete(): void {
-        throw new Error("Method not implemented.");
-    }
 
     getTitle(): string {
         return "Asset Requests"
@@ -68,6 +67,10 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
 
     allowEdit(instance: AssetRequest, me: Profile): boolean {
         return this.allowWrite(instance, me);
+    }
+
+    getAllowedAuthenticationStatus(): AuthenticationStatus[] {
+        return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.request)!;
     }
 
 }

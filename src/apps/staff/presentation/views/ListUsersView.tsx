@@ -40,9 +40,6 @@ export default class ListProfilesView extends ListModelView<Profile>{
         return `/base/Profile/edit/${instance.id!}`;
     }
     
-    onDelete(): void {
-        throw new Error("Method not implemented.");
-    }
 
     getTitle(): string {
         return "Employees"

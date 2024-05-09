@@ -7,14 +7,15 @@ import ListAssetCategoriesState from "../../application/states/listAssetCategori
 import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import ListAssetCategoriesViewModel from "../../application/viewModels/listAssetCategoriesViewModel";
 import EditAssetCategoryView from "./EditAssetCategoryView";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
+import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 
 
 
 export default class ListAssetCategoriesView extends ListModelView<AssetCategory>{
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getDetailLink(instance: AssetCategory): string {
-        throw Error("Unimplemtend");
+        return `/base/asset-category/detail?id=${instance.id}`;
     }
     
     getModalChild(modalClose: () => void, instance?: AssetCategory) {
@@ -55,10 +56,6 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
     getEditInstanceLink(instance: AssetCategory): string {
         return `/base/asset-category/write?id=${instance.id!}`;
     }
-    
-    onDelete(): void {
-        throw new Error("Method not implemented.");
-    }
 
     getTitle(): string {
         return "Asset Categories"
@@ -73,6 +70,10 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
             state,
             this.setState.bind(this)
         )
+    }
+
+    getAllowedAuthenticationStatus(): AuthenticationStatus[] {
+        return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.category)!;
     }
 
 }

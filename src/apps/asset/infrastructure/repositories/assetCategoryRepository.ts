@@ -43,6 +43,12 @@ export default class AssetCategoryRepository extends EthersModelRepository<Asset
         }
     }
 
+    async preDelete(instance: AssetCategory): Promise<void> {
+        for(const asset of (await this.assetRepository.filterByCategory(instance))){
+            await this.assetRepository.delete(asset);
+        }
+    }
+
     async getCategoryCount(givenCategories?: AssetCategory[]): Promise<Map<AssetCategory, CategoryCount>>{
         let categories: AssetCategory[];
         if(givenCategories === undefined){
@@ -67,5 +73,7 @@ export default class AssetCategoryRepository extends EthersModelRepository<Asset
         return counts;
 
     }
+
+
 
 }

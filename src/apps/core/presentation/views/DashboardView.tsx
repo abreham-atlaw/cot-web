@@ -63,12 +63,10 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
                 </section>
 
 
-                <section className="mt-16">
-                    <div className="flex">
-                        <div className="w-[46%] mr-auto">
-                            <DashboardCategoryChart data={this.state.categoryAssetCounts!}/>
-                        </div>
-                        <div className="w-[46%] mr-auto">
+                <section className="mt-24">
+                    <h2>Categories</h2>
+                    <div className="flex mt-10">
+                        <div className="w-[80%]">
                             <DashboardCategoryChart data={this.state.categoryAssetCounts!}/>
                         </div>
                     </div>

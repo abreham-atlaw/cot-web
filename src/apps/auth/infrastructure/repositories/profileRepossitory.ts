@@ -4,6 +4,10 @@ import contract from "@/assets/contactBuilds/auth/src_contracts_Profile_sol_Prof
 import ProfileSerializer from "../../domain/serializers/profileSerializer";
 import AuthRepository from "./authRepository";
 import DepartmentRepository from "@/apps/core/infrastructure/repositories/departmentRepository";
+import AssetRequestRepository from "@/apps/asset/infrastructure/repositories/assetRequestRepository";
+import AssetMaintenanceRequestRepository from "@/apps/asset/infrastructure/repositories/assetMaintenanceRequestRepository";
+import AssetRepository from "@/apps/asset/infrastructure/repositories/assetRepository";
+import Department from "@/apps/core/domain/models/department";
 
 
 export default class ProfileRepository extends EthersModelRepository<Profile>{
@@ -22,6 +26,18 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
         const repository = new DepartmentRepository();
         repository.attachMode = false;
         return repository;
+    }
+    
+    get assetRequestRepository(): AssetRequestRepository{
+        return new AssetRequestRepository();
+    }
+
+    get assetMaintenanceRequestRepository(): AssetMaintenanceRequestRepository{
+        return new AssetMaintenanceRequestRepository();
+    }
+
+    get assetRepository(): AssetRepository{
+        return new AssetRepository();
     }
 
     async getByUserKey(key: string): Promise<Profile>{
@@ -42,6 +58,12 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
         );
     }
 
+    async filterByDepartment(department: Department): Promise<Profile[]>{
+        return (await this.getAll()).filter(
+            (profile) => profile.departmentId === department.id
+        );
+    }
+
     async preSave(instance: Profile): Promise<void> {
         instance.departmentId = instance.department?.id ?? instance.departmentId;
     }
@@ -49,6 +71,19 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
     async attachForeignKeys(instance: Profile): Promise<void> {
         if(instance.departmentId != undefined){
             instance.department = await this.departmentRepository.getById(instance.departmentId!);
+        }
+    }
+
+    async preDelete(instance: Profile): Promise<void> {
+        for(const asset of (await this.assetRepository.filterByCurrentOwner(instance))){
+            asset.setOwner();
+            await this.assetRepository.update(asset);
+        }
+        for(const request of (await this.assetRequestRepository.filterByUser(instance))){
+            await this.assetRequestRepository.delete(request);
+        }
+        for(const request of (await this.assetMaintenanceRequestRepository.filterByUser(instance))){
+            await this.assetMaintenanceRequestRepository.delete(request);
         }
     }
 

@@ -1,5 +1,5 @@
 import Invitation from "@/apps/auth/domain/models/invitation";
-import { Role } from "@/apps/auth/domain/models/profile";
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import InvitationRepository from "@/apps/auth/infrastructure/repositories/invitationRepository";
 import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
@@ -7,6 +7,11 @@ import { ReactNode } from "react";
 import RegisterUserView from "./RegisterUserView";
 
 export default class ListInvitationsView extends ListModelView<Invitation>{
+    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getDetailLink(_instance: Invitation): string {
+        throw new Error("Method not implemented.");
+    }
     
     getModalChild(modalClose: () => void): ReactNode {
         return <RegisterUserView onCloseModal={modalClose}/>
@@ -32,12 +37,14 @@ export default class ListInvitationsView extends ListModelView<Invitation>{
         return `/base/invitation/edit/${instance.id!}`;
     }
     
-    onDelete(): void {
-        throw new Error("Method not implemented.");
-    }
 
     getTitle(): string {
         return "Invitations"
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    allowDetail(_instance: Invitation, _me: Profile): boolean {
+        return false;
     }
 
 }

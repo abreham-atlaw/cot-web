@@ -52,4 +52,14 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
         this.syncState();
     }
 
+    async delete(instance: M){
+        await this.asyncCall(
+            async () =>{
+                await this.repository.delete(instance);
+                await this.refresh();
+            },
+            this.state.deleteState
+        );
+    }
+
 }

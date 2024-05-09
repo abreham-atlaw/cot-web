@@ -3,6 +3,7 @@ import AssetRepository from "../../infrastructure/repositories/assetRepository";
 import ModelListState from "@/common/state/modelListState";
 import Asset from "../../domain/models/asset";
 import Profile from "@/apps/auth/domain/models/profile";
+import AssetCategory from "../../domain/models/assetCategory";
 
 
 
@@ -23,6 +24,10 @@ export default class ListAssetsViewModel extends ModelListViewModel<Asset>{
                 (
                     filters.get("user") == undefined ||
                     (filters.get("user") as Profile).id === value.currentOwnerId
+                ) && 
+                (
+                    filters.get("category") == undefined ||
+                    (filters.get("category") as AssetCategory).id === value.categoryId
                 )
             )
         )

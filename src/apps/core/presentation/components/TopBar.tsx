@@ -13,7 +13,7 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
   const isMobileSize = useMediaQuery({ query: "(max-width: 630px)" });
   return (
     <div
-      className={`border-b fixed h-[10%]  border-bottom-2 py-4 px-10 flex justify-between items-center ${
+      className={`border-b fixed h-[10%] bg-white border-bottom-2 py-4 px-10 flex justify-between items-center ${
         isTabletSize ? " w-[90%]" : " "
       } ${isMobileSize ? "w-full" : " w-4/5"}`}
     >

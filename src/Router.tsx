@@ -16,8 +16,8 @@ import RegisterUserView from "./apps/staff/presentation/views/RegisterUserView";
 import ListDepartmentsView from "./apps/core/presentation/views/ListDepartmentView";
 import AssetDetailView from "./apps/asset/presentation/views/AssetDetailView";
 import UserDetailView from "./apps/staff/presentation/views/UserDetailView";
-import ListAssetMaintenanceRequestsViewModel from "./apps/asset/application/viewModels/listAssetMaintenanceRequestViewModel";
 import ListAssetMaintenanceRequestsView from "./apps/asset/presentation/views/ListAssetMaintenanceRequestView";
+import AssetCategoryDetailView from "./apps/asset/presentation/views/AssetCategoryDetailView";
 
 
 export default class CoTRouter extends React.Component{
@@ -48,6 +48,7 @@ export default class CoTRouter extends React.Component{
 					<Route path="invitation/list" element={<ListInvitationsView/>}/>
 					
 					<Route path="asset-category/list" element={<ListAssetCategoriesView/>}/>
+					<Route path="asset-category/detail" element={<AssetCategoryDetailView/>}/>
 
 					<Route path="asset/list" element={<ListAssetsView/>}/>
 					<Route path="asset/detail" element={<AssetDetailView/>}/>

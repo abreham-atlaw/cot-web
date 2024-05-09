@@ -52,8 +52,8 @@ const DashboardCategoryChart: React.FC<Props> = ({ data }) => {
       {
         label: 'Total Count',
         data: dataset,
-        backgroundColor: 'rgba(75,150,150,0.4)',
-        borderColor: 'rgba(75,150,150,1)',
+        backgroundColor: 'rgba(10,60,150,0.3)',
+        borderColor: 'rgba(10,60,150,1)',
         borderWidth: 1,
       },
     ],

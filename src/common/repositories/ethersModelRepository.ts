@@ -51,6 +51,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     }
 
     async delete(instance: M){
+        await this.preDelete(instance);
         const transaction = await (await this.getWriteContract()).deleteInstance(
             instance.id!,
             {
@@ -102,6 +103,11 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async filterAll(instance: M): Promise<boolean>{
         return true;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async preDelete(instance: M){
+
     }
 
 }

@@ -1,5 +1,7 @@
+import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import Profile from "@/apps/auth/domain/models/profile";
 import BaseButton from "@/common/components/buttons/BaseButton";
+import AuthenticatedComponent from "@/common/components/views/AuthenticatedComponent";
 import ViewModelView from "@/common/components/views/ViewModelView";
 import EtherModel from "@/common/model/model";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
@@ -18,7 +20,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
     abstract getHeadings(): string[];
 
-    abstract onDelete(instance: M): void;
+    
 
     abstract getTitle(): string;
 
@@ -31,14 +33,27 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
         return new Map();
     }
 
+    getAllowedAuthenticationStatus(): AuthenticationStatus[]{
+        return Object.values(AuthenticationStatus)
+        .filter(status => status !== AuthenticationStatus.none) as AuthenticationStatus[]
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    allowAdd(me: Profile): boolean{
+        return true;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     allowEdit(instance: M, me: Profile): boolean{
         return true;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     allowDetail(instance: M, me: Profile): boolean{
         return true;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     allowDelete(instance: M, me: Profile): boolean{
         return true;
     }
@@ -57,23 +72,37 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
         return state;
     }
 
+    onDelete(instance: M): void{
+        this.viewModel.delete(instance);
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     modalClicked = (activeItem?: M) =>{
         this.viewModel.toggleEditMode(activeItem);
     }
 
     onCreateMain(): ReactNode {
-        
+
+        console.log("Authenticated Status", this.getAllowedAuthenticationStatus());
+
         const cols = this.getHeadings().length + 1;
 
         return (
-            <>
+            <AuthenticatedComponent
+                validStatus={this.getAllowedAuthenticationStatus()}
+                >
+                    <>
             <div className="p-10">
                 <div className="flex">
                     <h2 className="text-2xl font-bold">{ this.getTitle() }</h2>
-                    <div onClick={() => this.modalClicked()} className="ml-auto block">
-                        <BaseButton><i className="fa-solid fa-plus mr-5"></i> Add </BaseButton>
-                    </div>
+                    {
+                        this.allowAdd(this.state.me!)?
+                        <div onClick={() => this.modalClicked()} className="ml-auto block">
+                            <BaseButton><i className="fa-solid fa-plus mr-5"></i> Add </BaseButton>
+                        </div>:
+                        <></>
+                    }
+                    
                 </div>
 
                 <div className="mt-10">
@@ -161,6 +190,9 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
              
             </Modal>
             </>
+
+            </AuthenticatedComponent>
+            
         )
     }
     

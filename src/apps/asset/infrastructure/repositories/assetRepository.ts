@@ -7,6 +7,7 @@ import AssetCategoryRepository from "./assetCategoryRepository";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import AssetCategory from "../../domain/models/assetCategory";
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
+import AssetMaintenanceRequestRepository from "./assetMaintenanceRequestRepository";
 
 
 export default class AssetRepository extends EthersModelRepository<Asset>{
@@ -25,6 +26,10 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
             contract.address,
             new AssetSerializer()
         );
+    }
+
+    get assetMaintenanceRequestRepository(): AssetMaintenanceRequestRepository{
+        return new AssetMaintenanceRequestRepository();
     }
 
     async preSave(instance: Asset): Promise<void> {
@@ -47,6 +52,12 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
         }
     }
 
+    async preDelete(instance: Asset): Promise<void> {
+        for(const request of (await this.assetMaintenanceRequestRepository.filterByAsset(instance))){
+            await this.assetMaintenanceRequestRepository.delete(request);
+        }
+    }
+
     async filterByCategory(category: AssetCategory): Promise<Asset[]>{
         return (await this.getAll()).filter(
             (asset: Asset) => asset.categoryId === category.id!
@@ -58,5 +69,7 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
             (asset: Asset) => asset.currentOwnerId === owner.id
         );
     }
+
+
 
 }

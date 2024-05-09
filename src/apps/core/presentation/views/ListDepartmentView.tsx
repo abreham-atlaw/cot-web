@@ -3,6 +3,8 @@ import Department from "../../domain/models/department";
 import DepartmentRepository from "../../infrastructure/repositories/departmentRepository";
 import EditDepartmentView from "./EditDepartmentView";
 import ListModelView from "./ListModelView";
+import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 
 
 
@@ -34,12 +36,13 @@ export default class ListDepartmentsView extends ListModelView<Department>{
         return `/base/asset-request/write?id=${instance.id!}`;
     }
     
-    onDelete(): void {
-        throw new Error("Method not implemented.");
-    }
 
     getTitle(): string {
         return "Asset Requests"
+    }
+
+    getAllowedAuthenticationStatus(): AuthenticationStatus[] {
+        return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.department)!;
     }
 
 }

@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FaBars, FaTv } from "react-icons/fa";
 import { MdPeople, MdPeopleAlt } from "react-icons/md";
 import {
@@ -12,6 +12,8 @@ import {
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 // import BaseButton from "@/common/components/buttons/BaseButton";
 import { useMediaQuery } from "react-responsive";
+import BaseButton from "@/common/components/buttons/BaseButton";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 
 interface SideBarProps {
   status: AuthenticationStatus;
@@ -36,77 +38,55 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
       title: "Dashboard",
       icons: <FaTv />,
       link: "/base/dashboard",
-      validStatuses: [
-        AuthenticationStatus.admin,
-        AuthenticationStatus.hr,
-        AuthenticationStatus.inventory,
-        AuthenticationStatus.staff,
-        AuthenticationStatus.department,
-      ],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.dashboard)!,
     },
     {
       title: "Staff",
       icons: <MdPeople />,
       link: "/base/staff/list",
-      validStatuses: [AuthenticationStatus.hr, AuthenticationStatus.admin],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.staff)!,
     },
     {
       title: "Invitations",
       icons: <MdPeopleAlt />,
       link: "/base/invitation/list",
-      validStatuses: [AuthenticationStatus.admin, AuthenticationStatus.hr],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.invitation)!,
     },
     {
       title: "Asset",
       icons: <PiHouse />,
       link: "/base/asset/list",
-      validStatuses: [
-        AuthenticationStatus.admin,
-        AuthenticationStatus.inventory,
-        AuthenticationStatus.staff,
-      ],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.asset)!,
     },
     {
       title: "Requests",
       icons: <PiGitPullRequest />,
       link: "/base/asset-request/list",
-      validStatuses: [
-        AuthenticationStatus.admin,
-        AuthenticationStatus.inventory,
-        AuthenticationStatus.staff,
-        AuthenticationStatus.department
-      ],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.request)!,
     },
     {
       title: "Maintenance",
       icons: <PiWrench />,
       link: "/base/asset-maintenance-request/list",
-      validStatuses: [
-        AuthenticationStatus.admin,
-        AuthenticationStatus.inventory,
-        AuthenticationStatus.staff,
-      ],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.maintenance)!,
     },
     {
       title: "Departments",
       icons: <PiTree />,
       link: "/base/department/list",
-      validStatuses: [AuthenticationStatus.admin, AuthenticationStatus.hr],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.department)!,
     },
     {
       title: "Category",
       icons: <PiSquaresFourBold />,
       link: "/base/asset-category/list",
-      validStatuses: [
-        AuthenticationStatus.admin,
-        AuthenticationStatus.inventory,
-      ],
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.category)!,
     },
   ];
 
   return !isMobileSize ? (
     <nav
-      className={`border-r fixed top-0 left-0 bottom-0 ${
+      className={`border-r fixed top-0 left-0 bottom-0 flex flex-col ${
         isTabletSize ? " w-[10%] " : "w-1/5"
       }`}
     >
@@ -145,6 +125,16 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
             )
         )}
       </ul>
+			<div className="mt-auto px-10 mb-10">
+				
+
+				<Link to={"/auth/logout"} className="mt-5 w-full block">
+					<BaseButton className="text-center block w-full">
+						Logout
+					</BaseButton>
+				</Link>
+				
+			</div>
       {/* <div className="mt-auto px-10">
         <Link to={"/auth/logout"} className="mt-5 w-full block">
           <BaseButton className="text-center block w-full">Logout</BaseButton>
