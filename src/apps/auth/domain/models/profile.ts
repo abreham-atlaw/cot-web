@@ -38,4 +38,6 @@ export default class Profile implements EtherModel {
     get hasOrganization(): boolean {
         return !!this.organizationId;
     }
+
+    
 }
