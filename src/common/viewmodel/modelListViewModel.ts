@@ -32,7 +32,6 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
     }
 
     async toggleEditMode(activeItem?: M){
-        console.log("Toggling Edit Mode: ", this.state.modalClicked);
         this.state.modalClicked = !this.state.modalClicked;
         this.state.activeItem = activeItem;
         this.syncState();
@@ -52,6 +51,12 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
         this.syncState();
     }
 
+    async toggleDeleteMode(item?: M){
+        this.state.deleteState.mode = !this.state.deleteState.mode;
+        this.state.deleteState.item = item;
+        this.syncState();
+    }
+
     async delete(instance: M){
         await this.asyncCall(
             async () =>{
@@ -60,6 +65,7 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
             },
             this.state.deleteState
         );
+        await this.toggleDeleteMode();
     }
 
 }

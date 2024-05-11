@@ -5,6 +5,13 @@ import { AsyncState } from "./asyncState";
 
 
 
+class DeleteItemState<T> extends AsyncState{
+
+    item?: T;
+    mode = false;
+
+}
+
 export default class ModelListState<T extends EtherModel> extends BaseState{
 
 
@@ -16,6 +23,6 @@ export default class ModelListState<T extends EtherModel> extends BaseState{
 
     filters: Map<string, unknown> = new Map();
 
-    deleteState = new AsyncState();
+    deleteState = new DeleteItemState<T>();
 
 }

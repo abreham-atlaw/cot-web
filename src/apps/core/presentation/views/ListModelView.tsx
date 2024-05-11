@@ -1,5 +1,6 @@
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import Profile from "@/apps/auth/domain/models/profile";
+import AsyncButton from "@/common/components/buttons/AsyncButton";
 import BaseButton from "@/common/components/buttons/BaseButton";
 import AuthenticatedComponent from "@/common/components/views/AuthenticatedComponent";
 import ViewModelView from "@/common/components/views/ViewModelView";
@@ -20,13 +21,21 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
     abstract getHeadings(): string[];
 
-    
-
     abstract getTitle(): string;
 
     abstract getModalChild(modalClose: () => void, instance?: M): ReactNode;
 
     abstract getDetailLink(instance: M): string;
+
+    getDeleteItemDescription(instance: M): Map<string, string>{
+      const map = new Map<string, string>();
+      const headers = this.getHeadings();
+      const values = this.getInstanceValues(instance);
+      for(let i=0; i<headers.length; i++){
+        map.set(headers[i], values[i]);
+      }
+      return map;
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getInitFilters(props: P): Map<string, unknown>{
@@ -74,6 +83,10 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
     onDelete(instance: M): void{
         this.viewModel.delete(instance);
+    }
+
+    onToggleDeleteMode = (item?: M) => {
+      this.viewModel.toggleDeleteMode(item);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -146,7 +159,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                                                     ],
                                                     [
                                                         (instance: M) => {
-                                                            this.onDelete(instance)
+                                                            this.onToggleDeleteMode(instance)
                                                         }, 
                                                         "fa-solid fa-trash hover:bg-danger hover:text-light",
                                                         this.allowDelete(instance,this.state.me!)
@@ -189,6 +202,50 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
               
              
             </Modal>
+              
+            {
+              (this.state.deleteState.mode)?
+              <Modal
+              isOpen={this.state.deleteState.mode}
+              className='modal-content custome-property'
+              onRequestClose={() => this.onToggleDeleteMode()}
+              overlayClassName='modal-overlay'>
+                <div>
+                  <h3 className="font-bold text-2xl">Confirm Delete</h3>
+                  <p className="mt-5">Are you sure you want to delete the following:</p>
+                  <ul className="mt-3">
+                    {
+                    
+                    Array.from(this.getDeleteItemDescription(this.state.deleteState.item!)).map(
+                      (value) => <li>
+                        <span className="font-bold mr-5">{value[0]}:</span>{value[1]}
+                      </li>
+                    )
+                    }
+                  </ul>
+                  
+
+                  <div className="mt-10 flex gap-4">
+                        <div className="mx-auto">
+                                <BaseButton onClick={() => this.onToggleDeleteMode()}>
+                                    CANCEL
+                                </BaseButton>
+                        </div>
+                        <div className="mx-auto" onClick={() => this.onDelete(this.state.deleteState.item!)}>
+                            <AsyncButton state={this.state.deleteState} bg="danger">
+                                DELETE
+                            </AsyncButton>
+                        </div>
+                    </div>
+                </div>
+              
+             
+            </Modal>:
+            <></>
+
+
+            }
+            
             </>
 
             </AuthenticatedComponent>
