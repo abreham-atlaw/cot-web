@@ -1,4 +1,4 @@
-import { Asset } from "@/FakeTypes/Asset";
+editimport { Asset } from "@/FakeTypes/Asset";
 import { useRef, useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";

@@ -18,7 +18,7 @@ import image2 from "./home2.jpeg";
 // import NavBar from "../components/Navbar";
 import '../../../../App.css';
 import '../../../../index.css';
-
+import NavBar from "../components/Navbar"
 function Home() {
 	const services = [
 		{
@@ -57,6 +57,9 @@ function Home() {
 	];
 	const footer = ["pointone", "pointtwo", "pointthree", "pointfour"];
 	return (
+		<>
+		<NavBar/>
+		
 		
 		<div className='home' id="home">
 			<div className='content'>
@@ -206,6 +209,7 @@ function Home() {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 }
 

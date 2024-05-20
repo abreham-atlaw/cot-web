@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import Navbar from "@/common/components/views/Navbar";
+// import Navbar from "@/common/components/views/Navbar";
 import styles from "./Staff.module.css";
 // import { initalDepartments } from "../../Domain/list";
 // import { Department } from "../../Domain/Department/Department";
@@ -8,7 +8,7 @@ function DepartmentPage() {
 	//  const [departments,setDepartment]=useState<Department[]>(initalDepartments)
 	return (
 		<div>
-			<Navbar />
+			{/* <Navbar /> */}
 			<div className={styles.table_box}>
 				<div className={styles.all_bar}>
 					<h3>All</h3>

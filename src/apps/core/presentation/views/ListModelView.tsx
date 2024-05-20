@@ -118,7 +118,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                     
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-10 hover:overflow-auto">
                     <table className="border-collapse w-full">
                         {
                             this.getHeadings().map(
