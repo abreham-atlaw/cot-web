@@ -20,7 +20,8 @@ export default class RegisterUserViewModel extends AsyncViewModel<RegisterUserSt
                     undefined,
                     this.state.form.email.getValue()!,
                     this.state.form.role.getValue()!,
-                    orgId
+                    orgId,
+                    this.state.form.name.getValue()!
                 );
                 await this.invitationRepository.create(invitation);
             }

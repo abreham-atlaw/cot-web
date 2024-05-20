@@ -4,6 +4,7 @@ import { Provider } from "ethers";
 import { JsonRpcProvider } from "ethers";
 import DataConfigs from "../configs/dataConfigs";
 import NetworkClient from "../common/network/NetworkClient";
+import FileStorage from "@/common/utils/filestorage";
 // import KeyPair from "@/apps/auth/domain/models/keyPair";
 
 
@@ -12,6 +13,7 @@ export default class CoreProviders{
 
     private static etherProvider?: Provider;
     static networkClient?: NetworkClient;
+    static fileStorage?: FileStorage;
 
     static providerEtherProvider(): Provider{
         if(CoreProviders.etherProvider === undefined){
@@ -34,6 +36,13 @@ export default class CoreProviders{
 		}
 		return this.networkClient;
 	}
+
+    static provideFileStorage(): FileStorage{
+        if(this.fileStorage === undefined){
+            this.fileStorage = new FileStorage(DataConfigs.FILE_HOST_ADDRESS);
+        }
+        return this.fileStorage;
+    }
 
 
 }

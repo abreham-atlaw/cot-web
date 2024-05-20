@@ -44,6 +44,10 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
 
                     <p className="my-5 text-danger">{ this.state.error?.message ?? ""}</p>
 
+                    <LabeledInputField label="Full Name">
+                        <TextFieldComponent field={this.state.form.name} type="text"/>
+                    </LabeledInputField>
+
                     <LabeledInputField label="Email">
                         <TextFieldComponent field={this.state.form.email} type="email"/>
                     </LabeledInputField>

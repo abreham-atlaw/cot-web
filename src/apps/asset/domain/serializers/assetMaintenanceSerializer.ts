@@ -9,17 +9,20 @@ export default class AssetMaintenanceRequestSerializer extends Serializer<AssetM
             instance.assetId, 
             instance.note,
             instance.status,
+            instance.image,
             instance.userId
         ];
     }
 
     deserialize(data: unknown[]): AssetMaintenanceRequest {
+        console.log("Maintenance", data);
         return new AssetMaintenanceRequest(
             data[0] as string,
             data[1] as string,
             data[2] as string,
             Number(data[3]) as number,
-            data[4] as string
+            data[4] as string,
+            data[5] as string
         );
     }
 }

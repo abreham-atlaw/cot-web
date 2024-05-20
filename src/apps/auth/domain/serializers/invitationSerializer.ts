@@ -4,7 +4,7 @@ import Invitation from "../models/invitation";
 
 export default class InvitationSerializer extends Serializer<Invitation, Array<unknown>> {
     serialize(instance: Invitation): unknown[] {
-        return [instance.role, instance.id, instance.to, instance.orgId];
+        return [instance.role, instance.id, instance.to, instance.orgId, instance.name];
     }
 
     deserialize(data: unknown[]): Invitation {
@@ -12,7 +12,8 @@ export default class InvitationSerializer extends Serializer<Invitation, Array<u
             data[1] as string,
             data[2] as string,
             data[0] as number,
-            data[3] as string
+            data[3] as string,
+            data[4] as string
         );
     }
 }

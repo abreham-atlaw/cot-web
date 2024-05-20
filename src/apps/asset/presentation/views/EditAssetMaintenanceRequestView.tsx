@@ -10,6 +10,7 @@ import { TextBoxComponent } from "@/common/components/form/TextFieldComponent";
 import EditAssetMaintenanceRequestViewModel from "../../application/viewModels/editAssetMaintenanceRequestViewModel";
 import EditModelState from "@/common/state/editModelState";
 import EditModelViewModel from "@/common/viewmodel/editModelViewModel";
+import FileFieldComponent from "@/common/components/form/FileFieldComponent";
 
 
 export default class EditAssetMaintenanceRequestView extends EditModelView<AssetMaintenanceRequest, AssetMaintenanceRequestForm>{
@@ -31,6 +32,10 @@ export default class EditAssetMaintenanceRequestView extends EditModelView<Asset
                         <p>{state.instance!.asset!.name}</p>
                     </LabeledInputField>
 
+                    <LabeledInputField label="Image">
+                        <img className="w-full h-36 object-cover border border-gray" src={state.instance!.image}/>
+                    </LabeledInputField>
+
                     <LabeledInputField label="Note">
                         <p>{state.instance!.note}</p>
                     </LabeledInputField>
@@ -38,6 +43,14 @@ export default class EditAssetMaintenanceRequestView extends EditModelView<Asset
                     <LabeledInputField label="Status">
                         <RequestStatusSelectionFieldComponent field={form.status}/>
                     </LabeledInputField>
+                </>
+            )
+        }
+
+        if(state.assets!.length === 0){
+            return (
+                <>
+                    <h4 className="font-bold text-2xl">There are no assets to request maintenance for.</h4>
                 </>
             )
         }
@@ -50,7 +63,10 @@ export default class EditAssetMaintenanceRequestView extends EditModelView<Asset
 
                 </LabeledInputField>
 
-                
+                <LabeledInputField label="Image">
+                    <FileFieldComponent field={form.image} />
+                </LabeledInputField>
+
                 <LabeledInputField label="Note">
 
                     <TextBoxComponent field={form.note}/>
@@ -59,6 +75,7 @@ export default class EditAssetMaintenanceRequestView extends EditModelView<Asset
             </>
         )
     }
+
     onCreateViewModel(state: EditModelState<AssetMaintenanceRequest, AssetMaintenanceRequestForm>): EditModelViewModel<AssetMaintenanceRequest, AssetMaintenanceRequestForm>{
         return new EditAssetMaintenanceRequestViewModel(
             state, 

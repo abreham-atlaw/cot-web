@@ -6,12 +6,14 @@ import CoreProviders from "@/di/coreProviders";
 import InviteRequest from "../requests/inviteRequest";
 import DataConfigs from "@/configs/dataConfigs";
 import AuthRepository from "./authRepository";
+import OrganizationRepository from "@/apps/core/infrastructure/repositories/organizationRepository";
 
 
 export default class InvitationRepository extends EthersModelRepository<Invitation>{
 
     private networkClient = CoreProviders.provideNetworkClient();
     private authRepository = new AuthRepository();
+    private organizationRepository = new OrganizationRepository();
 
     constructor(){
         super(
@@ -23,7 +25,7 @@ export default class InvitationRepository extends EthersModelRepository<Invitati
 
     async sendInvitation(email: string, invitation: Invitation){
         const link = `${DataConfigs.FRONTEND_URL}/auth/signup/${invitation.id}`;
-        await this.networkClient.execute(new InviteRequest(email, link));
+        await this.networkClient.execute(new InviteRequest(invitation.id!, email, link, (await this.organizationRepository.getById(await this.authRepository.getOrgId())).name));
     }
 
     async create(instance: Invitation): Promise<void> {

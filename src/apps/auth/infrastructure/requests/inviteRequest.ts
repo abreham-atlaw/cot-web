@@ -4,13 +4,15 @@ import Request from "@/common/network/Request";
 
 export default class InviteRequest extends Request<void>{
 
-    constructor(email: string, link: string){
+    constructor(id: string, email: string, link: string, organization: string){
         super({
             "url": "/auth/invite/",
             "method": "POST",
             "data": {
+                "id": id,
                 "email": email,
-                "link": link
+                "link": link,
+                "organization": organization
             }
         })
     }
