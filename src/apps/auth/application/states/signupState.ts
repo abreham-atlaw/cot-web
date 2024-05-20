@@ -1,5 +1,5 @@
 import { AsyncState } from "@/common/state/asyncState";
-import SignupForm from "../forms/signupForm";
+import OrgSignupForm, { SignupForm } from "../forms/signupForm";
 import OrgForm from "../forms/orgForm";
 import Organization from "@/apps/core/domain/models/organization";
 import Invitation from "../../domain/models/invitation";
@@ -17,7 +17,7 @@ export default class SignupState extends AsyncState{
     organizations?: Organization[];
     invitation?: Invitation;
 
-    form = new SignupForm();
+    form: SignupForm;
     orgForm = new OrgForm();
 
     stage = Stage.signup;
@@ -30,10 +30,25 @@ export default class SignupState extends AsyncState{
     constructor(invitationId?: string){
         super();
         this.invitationId = invitationId;
+        if(this.adminMode){
+            this.form = new OrgSignupForm();
+        }
+        else{
+            this.form = new SignupForm();
+        }
     }
 
     get adminMode(){
         return this.invitationId === undefined;
+    }
+
+    get email(){
+        console.log("State adminMode", this.adminMode);
+        return (this.adminMode) ? (this.form as OrgSignupForm).email.getValue()! : this.invitation!.to;
+    }
+
+    get name(){
+        return (this.adminMode) ? (this.form as OrgSignupForm).name.getValue()! : this.invitation!.name;
     }
 
 }

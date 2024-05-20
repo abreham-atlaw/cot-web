@@ -7,7 +7,6 @@ import OrganizationRepository from "@/apps/core/infrastructure/repositories/orga
 import InvitationRepository from "../../infrastructure/repositories/invitationRepository";
 
 
-
 export default class SignupViewModel extends AsyncViewModel<SignupState>{
 
 
@@ -22,14 +21,23 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
     }
 
     async signup(){
-
+        console.log("Viewmodel state", this.state.adminMode);
         await this.asyncCall(
             async () => {
                 await this.state.form.validate(true);
-                await this.authRepository.signup(
-                    this.state.form.email.getValue()!,
-                    this.state.form.password.getValue()!
-                )
+                if(this.state.adminMode){
+                    await this.authRepository.signup(
+                        this.state.email,
+                        null,
+                        this.state.form.password.getValue()!
+                    );
+                } else{
+                    await this.authRepository.signup(
+                        null,
+                        this.state.invitationId!,
+                        this.state.form.password.getValue()!
+                    )
+                }
                 if(!this.state.adminMode){
                     this.state.invitation = await this.invitationRepository.getById(this.state.invitationId!);
                     this.state.organizationId = this.state.invitation.orgId;
@@ -61,8 +69,8 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
 
     private async completeSignup(){
         await this.authRepository.completeProfile(
-            this.state.form.email.getValue()!,
-            this.state.form.name.getValue()!,
+            this.state.email!,
+            this.state.name!,
             this.state.invitation?.role ?? Role.admin,
             this.state.organizationId!
         );

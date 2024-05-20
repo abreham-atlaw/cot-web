@@ -3,6 +3,7 @@ import BaseButton from "@/common/components/buttons/BaseButton";
 import ViewModelView from "@/common/components/views/ViewModelView";
 import Form from "@/common/forms/form";
 import EtherModel from "@/common/model/model";
+import { AsyncStatus } from "@/common/state/asyncState";
 import EditModelState from "@/common/state/editModelState";
 import EditModelViewModel from "@/common/viewmodel/editModelViewModel";
 import { ReactNode } from "react";
@@ -41,8 +42,15 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
 
     handleSave = async () => {
         await this.viewModel.save();
-        console.log("Saved", this.state.status);
-        this.onDestroy();
+        setTimeout(
+            () => {
+                if(this.state.status === AsyncStatus.done){
+                    this.onDestroy();
+                }
+            },
+            2
+        )
+        
     }
 
     onCreateMain = (): ReactNode => {

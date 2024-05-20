@@ -52,7 +52,7 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
                     <div className="w-4/5 m-auto">
                     {
                         (this.state.stage === Stage.signup)?
-                        <SignupFormComponent onSubmit={this.handleSignup} state={this.state}/>:
+                        <SignupFormComponent onSubmit={this.handleSignup} state={this.viewModel.state}/>:
                         <CreateOrganizationFormComponent onSubmit={this.handleCreateOrg} state={this.state}/>
 
                     }

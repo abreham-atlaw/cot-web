@@ -17,7 +17,7 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
     private categoryRepository = new AssetCategoryRepository();
     private authRepository = new AuthRepository();
 
-    protected syncFormToModel(form: AssetRequestForm, model: AssetRequest): void {
+    protected async syncFormToModel(form: AssetRequestForm, model: AssetRequest): Promise<void> {
         model.category = form.category.getValue()!;
         model.note = form.note.getValue()!;
         if((this.state as EditAssetRequestState).isDepartment){

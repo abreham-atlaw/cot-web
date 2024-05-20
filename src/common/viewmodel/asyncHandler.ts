@@ -13,13 +13,13 @@ export default abstract class AsyncHandler<E, S extends BaseState>{
 		this.viewModel = viewModel;
 	}
 
-	private extractError(value: any): Error{
+	protected extractError(value: unknown): Error{
 		if(value instanceof Error){
 			return value
 		}
 		let message: string;
-		if(value.toString != undefined){
-			message = value.toString();
+		if((value as object).toString != undefined){
+			message = (value as object).toString();
 		}
 		else{
 			message = String(value)
@@ -32,20 +32,20 @@ export default abstract class AsyncHandler<E, S extends BaseState>{
 	}
 
 
-	protected onError(state: S, error: any){
+	protected async onError(state: S, error: unknown){
 		this.getAsyncState(state).status = AsyncStatus.failed;
 		this.getAsyncState(state).error = this.extractError(error);
-		this.viewModel.syncState()
+		await this.viewModel.syncState()
 	}
 
-	protected onDone(state: S){
+	protected async onDone(state: S){
 		this.getAsyncState(state).status = AsyncStatus.done;
-		this.viewModel.syncState()
+		await this.viewModel.syncState()
 	}
 
-	protected onLoading(state: S){
+	protected async onLoading(state: S){
 		this.getAsyncState(state).status = AsyncStatus.loading;
-		this.viewModel.syncState()
+		await this.viewModel.syncState()
 	}
 
 	protected abstract onEvent(viewModel: ViewModel<S>, event: E, state: S): Promise<void>;

@@ -2,12 +2,7 @@ import Field, { EmailField, TextField } from "@/common/forms/fields";
 import Form from "@/common/forms/form";
 
 
-
-export default class SignupForm extends Form{
-
-
-    name = new TextField();
-    email = new EmailField();
+export class SignupForm extends Form{
     password = new TextField(
         true,
         async (value: string | null) => {
@@ -18,11 +13,26 @@ export default class SignupForm extends Form{
         }
     )
 
-    getFields(): Field<any>[] {
+    getFields(): Field<unknown>[] {
         return [
-            this.email,
             this.password
-        ];
+        ] as Field<unknown>[];
+    }
+}
+
+
+export default class OrgSignupForm extends SignupForm{
+
+    name = new TextField();
+    email = new EmailField();
+
+    getFields(): Field<unknown>[] {
+        return super.getFields().concat(
+            [
+                this.name,
+                this.email,
+            ] as Field<unknown>[]
+        ); 
     }
 
 }

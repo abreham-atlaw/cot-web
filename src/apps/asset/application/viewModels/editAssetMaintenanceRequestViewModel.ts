@@ -8,6 +8,7 @@ import AssetMaintenanceRequestRepository from "../../infrastructure/repositories
 import { Status } from "../../domain/models/assetRequest";
 import AssetRepository from "../../infrastructure/repositories/assetRepository";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
+import CoreProviders from "@/di/coreProviders";
 
 
 export default class EditAssetMaintenanceRequestViewModel extends EditModelViewModel<AssetMaintenanceRequest, AssetMaintenanceRequestForm>{
@@ -16,11 +17,13 @@ export default class EditAssetMaintenanceRequestViewModel extends EditModelViewM
 
     private assetRepository = new AssetRepository();
     private authRepository = new AuthRepository();
+    private fileStorage = CoreProviders.provideFileStorage();
 
-    protected syncFormToModel(form: AssetMaintenanceRequestForm, model: AssetMaintenanceRequest): void {
+    protected async syncFormToModel(form: AssetMaintenanceRequestForm, model: AssetMaintenanceRequest): Promise<void> {
         model.asset = form.asset.getValue()!;
         model.note = form.note.getValue()!;
         model.status = form.status.getValue()!;
+        model.image = await this.fileStorage.upload(form.image.getValue()!);
     }
     
     protected syncModelToForm(model: AssetMaintenanceRequest, form: AssetMaintenanceRequestForm): void {
@@ -37,9 +40,10 @@ export default class EditAssetMaintenanceRequestViewModel extends EditModelViewM
     protected createInstance(): AssetMaintenanceRequest {
         return new AssetMaintenanceRequest(
             undefined,
-            (this.state as EditAssetMaintenanceRequestState).assets![0]!.id!,
+            ((this.state as EditAssetMaintenanceRequestState).assets!.length === 0)? '' : (this.state as EditAssetMaintenanceRequestState).assets![0]!.id!,
             "",
             Status.pending,
+            ""
         )
     }
 

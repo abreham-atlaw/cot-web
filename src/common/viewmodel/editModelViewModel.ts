@@ -1,6 +1,7 @@
 import type Form from "../forms/form";
 import EtherModel from "../model/model";
 import EthersModelRepository from "../repositories/ethersModelRepository";
+import { AsyncStatus } from "../state/asyncState";
 import type EditModelState from "../state/editModelState";
 import AsyncViewModel from "./asyncViewModel";
 
@@ -15,7 +16,7 @@ export default abstract class EditModelViewModel<M extends EtherModel, F extends
         this.repository = this.initRepository();
     }
 
-    protected abstract syncFormToModel(form: F, model: M): void;
+    protected abstract syncFormToModel(form: F, model: M): Promise<void>;
 
     protected abstract syncModelToForm(model: M, form: F): void;
 
@@ -51,12 +52,10 @@ export default abstract class EditModelViewModel<M extends EtherModel, F extends
         await this.asyncCall(
             async () => {
                 await this.state.form.validate(true);
-                this.syncFormToModel(this.state.form, this.state.instance!);
+                await this.syncFormToModel(this.state.form, this.state.instance!);
                 await this.commitChanges();
             }
         )
-
-
     }
 
 }

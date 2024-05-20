@@ -44,7 +44,7 @@ export default class ListAssetMaintenanceRequestsView extends ListModelView<Asse
     }
 
     getTitle(): string {
-        return "Asset Requests"
+        return "Maintenance Requests"
     }
 
     getInitFilters(props: ListAssetMaintenanceRequestsProps): Map<string, unknown> {

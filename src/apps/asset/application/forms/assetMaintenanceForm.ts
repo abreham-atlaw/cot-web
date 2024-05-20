@@ -9,12 +9,14 @@ export default class AssetMaintenanceRequestForm extends Form{
     asset = new Field<Asset>();
     note = new TextField();
     status = new Field<Status>();
+    image = new Field<File>();
 
     getFields(): Field<unknown>[] {
         return [
             this.asset,
             this.note,
-            this.status
+            this.status,
+            this.image
         ] as Field<unknown>[];
     }
 
