@@ -4,6 +4,8 @@ import LabeledInputField from "@/common/components/form/LabeledInputField"
 import TextFieldComponent from "@/common/components/form/TextFieldComponent"
 import Field from "@/common/forms/fields";
 import OrgSignupForm from "../../application/forms/signupForm";
+import ReCAPTCHA from "react-google-recaptcha";
+import RecaptcaFieldComponent from "@/common/components/form/RecaptchaFieldComponent";
 
 
 export interface SignupFormComponentProps{
@@ -11,12 +13,17 @@ export interface SignupFormComponentProps{
     state: SignupState;
 }
 
+function onChange(value: unknown) {
+    console.log("Captcha value:", value);
+}
 
 const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFormComponentProps) => {
-    console.log("Admin mode", props.state);
-
     return (
-        <form onSubmit={(event) => {event.preventDefault(); props.onSubmit();}}>
+        <form onSubmit={
+            (event) => {
+                event.preventDefault(); 
+                props.onSubmit();
+            }}>
             <h1 className="text-5xl">Sign up</h1>
             <p className="mt-5">Enter your account details below</p>
             <p className="my-5 text-danger">{ props.state.error?.message ?? "" }</p>
@@ -41,6 +48,8 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFo
                 )
             }
 
+            
+            <RecaptcaFieldComponent field={props.state.form.recaptcha}/>
             <div className="mt-10">
                 <AsyncButton state={props.state} bg="primary">
                     SIGN UP

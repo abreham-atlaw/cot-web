@@ -3,6 +3,8 @@ import Form from "@/common/forms/form";
 
 
 export class SignupForm extends Form{
+
+    recaptcha = new TextField();
     password = new TextField(
         true,
         async (value: string | null) => {
@@ -15,6 +17,7 @@ export class SignupForm extends Form{
 
     getFields(): Field<unknown>[] {
         return [
+            this.recaptcha,
             this.password
         ] as Field<unknown>[];
     }

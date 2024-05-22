@@ -21,7 +21,6 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
     }
 
     async signup(){
-        console.log("Viewmodel state", this.state.adminMode);
         await this.asyncCall(
             async () => {
                 await this.state.form.validate(true);

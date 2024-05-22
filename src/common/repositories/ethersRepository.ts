@@ -7,9 +7,9 @@ import { InterfaceAbi } from "ethers";
 export default class EthersRepository{
 
     
-    private provider = CoreProviders.providerEtherProvider();
+    protected provider = CoreProviders.providerEtherProvider();
+    protected address: string;
     private abi: InterfaceAbi;
-    private address: string;
     public _signerContract?: Contract;
     public _providerContract?: Contract;
 

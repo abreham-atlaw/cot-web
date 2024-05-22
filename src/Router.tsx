@@ -18,6 +18,8 @@ import AssetDetailView from "./apps/asset/presentation/views/AssetDetailView";
 import UserDetailView from "./apps/staff/presentation/views/UserDetailView";
 import ListAssetMaintenanceRequestsView from "./apps/asset/presentation/views/ListAssetMaintenanceRequestView";
 import AssetCategoryDetailView from "./apps/asset/presentation/views/AssetCategoryDetailView";
+import LogsView from "./apps/core/presentation/views/LogsView";
+import AssetRequestDetailView from "./apps/asset/presentation/views/AssetRequestDetailView";
 
 
 export default class CoTRouter extends React.Component{
@@ -54,10 +56,13 @@ export default class CoTRouter extends React.Component{
 					<Route path="asset/detail" element={<AssetDetailView/>}/>
 
 					<Route path="asset-request/list" element={<ListAssetRequestsView/>}/>
+					<Route path="asset-request/detail" element={<AssetRequestDetailView/>}/>
 
 					<Route path="asset-maintenance-request/list" element={<ListAssetMaintenanceRequestsView/>}/>
 
 					<Route path="department/list" element={<ListDepartmentsView/>}/>
+
+					<Route path="logs" element={<LogsView/>}/>
 
 				</Route>
 

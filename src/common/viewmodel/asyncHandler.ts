@@ -45,6 +45,7 @@ export default abstract class AsyncHandler<E, S extends BaseState>{
 
 	protected async onLoading(state: S){
 		this.getAsyncState(state).status = AsyncStatus.loading;
+		this.getAsyncState(state).error = null;
 		await this.viewModel.syncState()
 	}
 

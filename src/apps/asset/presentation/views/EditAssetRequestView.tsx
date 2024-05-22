@@ -4,7 +4,7 @@ import LabeledInputField from "@/common/components/form/LabeledInputField"
 import { TextBoxComponent } from "@/common/components/form/TextFieldComponent"
 import { EditAssetRequestState } from "../../application/states/editAssetRequestState"
 import EditModelState from "@/common/state/editModelState"
-import AssetRequest from "../../domain/models/assetRequest"
+import AssetRequest, { Status } from "../../domain/models/assetRequest"
 import EditModelViewModel from "@/common/viewmodel/editModelViewModel"
 import EditAssetRequestViewModel from "../../application/viewModels/editAssetRequestViewModel"
 import AssetCategorySelectionFieldComponent from "../components/AssetCategorySelectionFieldComponent"
@@ -36,9 +36,16 @@ export default class EditAssetRequestView extends EditModelView<AssetRequest, As
                     </LabeledInputField>
 
                     <LabeledInputField label="Status">
-                        <RequestStatusSelectionFieldComponent field={form.status}/>
-
+                        <RequestStatusSelectionFieldComponent field={form.status} onChanged={() => {this.viewModel.syncState()}}/>
                     </LabeledInputField>
+
+                    {
+                        (form.status.getValue()! === Status.rejected)?
+                        <LabeledInputField label="Rejection Note">
+                            <TextBoxComponent field={form.rejectionNote}/>
+                        </LabeledInputField>:
+                        <></>
+                    }
                 </>
             )
         }
@@ -60,6 +67,7 @@ export default class EditAssetRequestView extends EditModelView<AssetRequest, As
             </>
         )
     }
+    
     onCreateViewModel(state: EditModelState<AssetRequest, AssetRequestForm>): EditModelViewModel<AssetRequest, AssetRequestForm>{
         return new EditAssetRequestViewModel(
             state, 

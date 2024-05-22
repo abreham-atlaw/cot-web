@@ -5,6 +5,7 @@ import EditDepartmentView from "./EditDepartmentView";
 import ListModelView from "./ListModelView";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
+import Profile from "@/apps/auth/domain/models/profile";
 
 
 
@@ -43,6 +44,10 @@ export default class ListDepartmentsView extends ListModelView<Department>{
 
     getAllowedAuthenticationStatus(): AuthenticationStatus[] {
         return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.department)!;
+    }
+
+    allowDetail(instance: Department, me: Profile): boolean {
+        return false;
     }
 
 }

@@ -35,7 +35,15 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
     }
 
     getInstanceValues(instance: AssetRequest): string[] {
-        return [instance.id!.split("-")[0], instance.user!.name, instance.category!.name, Status[instance.status].toUpperCase()];
+
+        return [
+            instance.id!.split("-")[0], 
+            instance.user!.name, 
+            instance.category!.name,
+            (this.state.me?.role === Role.department || instance.departmentStatus === Status.rejected)?
+            Status[instance.departmentStatus].toUpperCase():
+            Status[instance.status].toUpperCase()
+        ];
     }
 
     getHeadings(): string[] {

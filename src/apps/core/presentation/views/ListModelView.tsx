@@ -96,8 +96,6 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
     onCreateMain(): ReactNode {
 
-        console.log("Authenticated Status", this.getAllowedAuthenticationStatus());
-
         const cols = this.getHeadings().length + 1;
 
         return (

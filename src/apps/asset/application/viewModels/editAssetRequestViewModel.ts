@@ -20,6 +20,7 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
     protected async syncFormToModel(form: AssetRequestForm, model: AssetRequest): Promise<void> {
         model.category = form.category.getValue()!;
         model.note = form.note.getValue()!;
+        model.rejectionNote = form.rejectionNote.getValue() ?? undefined;
         if((this.state as EditAssetRequestState).isDepartment){
             model.departmentStatus = form.status.getValue()!;
         }
@@ -32,7 +33,7 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
         form.category.value = model.category!;
         form.note.value = model.note;
         form.status.value = model.status;
-
+        form.rejectionNote.value = model.rejectionNote ?? null;
     }
     
     protected initRepository(): EthersModelRepository<AssetRequest> {
@@ -45,7 +46,8 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
             (this.state as EditAssetRequestState).categories![0]!.id!,
             "",
             Status.pending,
-            Status.pending
+            Status.pending,
+            undefined
         )
     }
 
