@@ -2,8 +2,10 @@ import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus
 import Profile from "@/apps/auth/domain/models/profile";
 import AsyncButton from "@/common/components/buttons/AsyncButton";
 import BaseButton from "@/common/components/buttons/BaseButton";
+import TextFieldComponent from "@/common/components/form/TextFieldComponent";
 import AuthenticatedComponent from "@/common/components/views/AuthenticatedComponent";
 import ViewModelView from "@/common/components/views/ViewModelView";
+import { TextField } from "@/common/forms/fields";
 import EtherModel from "@/common/model/model";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import ModelListState from "@/common/state/modelListState";
@@ -94,10 +96,23 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
         this.viewModel.toggleEditMode(activeItem);
     }
 
+    handleSearchChange = () => {
+        this.viewModel.search(
+            (instance: M) => this.getInstanceValues(instance)
+        );
+    }
+
+    handleSort = (colIdx: number, colName: string) => {
+        this.viewModel.sort(
+            colIdx,
+            colName,
+            (instance: M) => this.getInstanceValues(instance),
+            (colIdx === this.state.sortIdx)?!this.state.sortReverse:false
+        );
+    }
+
     onCreateMain(): ReactNode {
-
         const cols = this.getHeadings().length + 1;
-
         return (
             <AuthenticatedComponent
                 validStatus={this.getAllowedAuthenticationStatus()}
@@ -116,12 +131,28 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                     
                 </div>
 
+                <div className="w-1/2">
+                    <TextFieldComponent field={this.state.searchField} onChanged={this.handleSearchChange} placeHolder="Search ..."/>
+                </div>
+
                 <div className="mt-10">
                     <table className="border-collapse w-full">
                         {
                             this.getHeadings().map(
-                                (title) => (
-                                    <th className={`truncate overflow-hidden whitespace-nowrap px-4 py-2 text-start font-bold px-10 w-[${100/cols}%]`}>{title}</th>
+                                (title, idx) => (
+                                    <th
+                                       
+                                     className={`truncate overflow-hidden whitespace-nowrap px-4 py-2 text-start font-bold px-10 w-[${100/cols}%]`}
+                                     >  
+                                        <button onClick={() => this.handleSort(idx, title)}>
+                                            {title}{
+                                                (this.state.sortIdx === idx)?
+                                                <i className={`fa-solid text-grey ml-2 fa-arrow-${(this.state.sortReverse === true)?'down':'up'}`}></i>:
+                                                <></>
+                                            }
+                                        </button>
+                                        
+                                    </th>
                                 )
                             )
                         }

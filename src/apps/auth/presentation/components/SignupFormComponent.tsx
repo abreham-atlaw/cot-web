@@ -4,7 +4,6 @@ import LabeledInputField from "@/common/components/form/LabeledInputField"
 import TextFieldComponent from "@/common/components/form/TextFieldComponent"
 import Field from "@/common/forms/fields";
 import OrgSignupForm from "../../application/forms/signupForm";
-import ReCAPTCHA from "react-google-recaptcha";
 import RecaptcaFieldComponent from "@/common/components/form/RecaptchaFieldComponent";
 
 
@@ -13,9 +12,6 @@ export interface SignupFormComponentProps{
     state: SignupState;
 }
 
-function onChange(value: unknown) {
-    console.log("Captcha value:", value);
-}
 
 const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFormComponentProps) => {
     return (

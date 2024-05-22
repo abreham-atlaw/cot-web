@@ -99,6 +99,8 @@ export default class AuthRepository{
                     return AuthenticationStatus.inventory;
                 case Role.staff:
                     return AuthenticationStatus.staff;
+                case Role.maintainer:
+                    return AuthenticationStatus.maintainer;
             }
         }
         catch(ex){

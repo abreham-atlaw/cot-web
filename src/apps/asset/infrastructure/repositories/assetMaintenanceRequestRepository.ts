@@ -17,7 +17,7 @@ export default class AssetMaintenanceRequestRepository extends EthersModelReposi
 
     public static readonly ADMIN_ROLES = [
         Role.admin,
-        Role.inventory
+        Role.maintainer
     ]
 
     constructor(){
@@ -53,7 +53,7 @@ export default class AssetMaintenanceRequestRepository extends EthersModelReposi
         return (
             (instance.asset!.orgId === (await this.authRepository.getOrgId())) &&
             (
-                ([Role.admin, Role.inventory].includes(me.role)) || (instance.userId === me.id)
+                (AssetMaintenanceRequestRepository.ADMIN_ROLES.includes(me.role)) || (instance.userId === me.id)
             )
         );
     }

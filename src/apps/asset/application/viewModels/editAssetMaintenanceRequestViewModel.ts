@@ -13,17 +13,21 @@ import CoreProviders from "@/di/coreProviders";
 
 export default class EditAssetMaintenanceRequestViewModel extends EditModelViewModel<AssetMaintenanceRequest, AssetMaintenanceRequestForm>{
     
-    private static readonly RESOLVE_ROLES = [Role.admin, Role.inventory];    
+    private static readonly RESOLVE_ROLES = [Role.admin, Role.maintainer];    
 
     private assetRepository = new AssetRepository();
     private authRepository = new AuthRepository();
     private fileStorage = CoreProviders.provideFileStorage();
 
     protected async syncFormToModel(form: AssetMaintenanceRequestForm, model: AssetMaintenanceRequest): Promise<void> {
-        model.asset = form.asset.getValue()!;
-        model.note = form.note.getValue()!;
-        model.status = form.status.getValue()!;
-        model.image = await this.fileStorage.upload(form.image.getValue()!);
+        if((this.state as EditAssetMaintenanceRequestState).resolveMode){
+            model.status = form.status.getValue()!;
+        }
+        else{
+            model.asset = form.asset.getValue()!;
+            model.note = form.note.getValue()!;
+            model.image = await this.fileStorage.upload(form.image.getValue()!);
+        }
     }
     
     protected syncModelToForm(model: AssetMaintenanceRequest, form: AssetMaintenanceRequestForm): void {
@@ -51,6 +55,9 @@ export default class EditAssetMaintenanceRequestViewModel extends EditModelViewM
         const me = await this.authRepository.whoAmI();
         (this.state as EditAssetMaintenanceRequestState).assets = await this.assetRepository.filterByCurrentOwner(me);
         (this.state as EditAssetMaintenanceRequestState).resolveMode = (!this.state.isCreateMode) && EditAssetMaintenanceRequestViewModel.RESOLVE_ROLES.includes(me.role);
+        (this.state as EditAssetMaintenanceRequestState).form = new AssetMaintenanceRequestForm(
+            (this.state as EditAssetMaintenanceRequestState).resolveMode!
+        )
         await super.onInit();
     }
 

@@ -7,6 +7,7 @@ import RoutingUtils from "@/common/utils/routing";
 import SignupFormComponent from "../components/SignupFormComponent";
 import CreateOrganizationFormComponent from "../components/CreateOrganizationFormComponent";
 import { useParams } from "react-router-dom";
+import LoadingView from "@/common/components/views/LoadingView";
 
 
 interface SignupViewProps{
@@ -36,6 +37,7 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
     onCreateMain(): ReactNode {
         if(this.state.stage === Stage.done){
             RoutingUtils.redirect("/");
+            return <LoadingView />
         }
         return (
             <div className="flex text-light h-screen">

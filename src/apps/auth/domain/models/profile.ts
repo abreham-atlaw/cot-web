@@ -8,7 +8,8 @@ export enum Role{
     hr,
     inventory,
     staff,
-    department
+    department,
+    maintainer
 
 }
 

@@ -84,7 +84,7 @@ export default class EditAssetMaintenanceRequestView extends EditModelView<Asset
     }
     
     onCreateForm(): AssetMaintenanceRequestForm{
-        return new AssetMaintenanceRequestForm();
+        return new AssetMaintenanceRequestForm(false);
     }
 
 }

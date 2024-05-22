@@ -1,4 +1,5 @@
 import React from "react"
+import { LoadingSpinner } from "../status/LoadingSpinner"
 
 export default class LoadingView extends React.Component{
 
@@ -7,9 +8,8 @@ export default class LoadingView extends React.Component{
 			<div className="w-full h-screen flex">
 				<div className="m-auto">
 					<div className="w-50">
+						<LoadingSpinner />
 					</div>
-					<h1 className="mt-5 text-xl text-center">Loading...</h1>
-
 				</div>
 			</div>
 		)
