@@ -76,6 +76,10 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
     allowEdit(instance: AssetRequest, me: Profile): boolean {
         return this.allowWrite(instance, me);
     }
+    
+    allowAdd(me: Profile): boolean {
+        return me.role === Role.staff;
+    }
 
     getAllowedAuthenticationStatus(): AuthenticationStatus[] {
         return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.request)!;

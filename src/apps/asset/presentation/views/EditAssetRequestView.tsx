@@ -28,7 +28,19 @@ export default class EditAssetRequestView extends EditModelView<AssetRequest, As
                     </LabeledInputField>
 
                     <LabeledInputField label="Asset Type">
-                        <p>{state.instance!.category!.name}</p>
+                        <div className="flex">
+                            <p>{state.instance!.category!.name}</p>
+                            
+                            {
+                                (state.isDepartment)?
+                                <></>:
+                                <a className="block font-bold ml-auto text-underline" target="_blank" rel="noopener noreferrer" href={`/base/asset-category/detail?id=${state.instance!.category!.id}`}>
+                                    View
+                                </a>
+                            }
+                            
+                        </div>
+                        
                     </LabeledInputField>
 
                     <LabeledInputField label="Note">

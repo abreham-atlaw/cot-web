@@ -17,7 +17,7 @@ export default abstract class Form{
 			}
 		}
 		if(throw_error && !valid){
-			throw new ValidationException("Error in form");
+			throw new ValidationException("Please check the highlighted fields and correct any errors.");
 		}
 
 		return valid;

@@ -5,7 +5,6 @@ import BaseButton from "@/common/components/buttons/BaseButton";
 import TextFieldComponent from "@/common/components/form/TextFieldComponent";
 import AuthenticatedComponent from "@/common/components/views/AuthenticatedComponent";
 import ViewModelView from "@/common/components/views/ViewModelView";
-import { TextField } from "@/common/forms/fields";
 import EtherModel from "@/common/model/model";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import ModelListState from "@/common/state/modelListState";
@@ -111,6 +110,10 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
         );
     }
 
+    handleRefresh = () => {
+        this.viewModel.refresh();
+    }
+
     onCreateMain(): ReactNode {
         const cols = this.getHeadings().length + 1;
         return (
@@ -120,7 +123,10 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                     <>
             <div className="p-10">
                 <div className="flex">
-                    <h2 className="text-2xl font-bold">{ this.getTitle() }</h2>
+                    <h2 className="text-2xl font-bold mt-auto">
+                        { this.getTitle() }
+                        <button className="ml-5" onClick={this.handleRefresh}><i className="fa-solid fa-arrows-rotate text-2xl text-grey"></i></button>
+                    </h2>
                     {
                         this.allowAdd(this.state.me!)?
                         <div onClick={() => this.modalClicked()} className="ml-auto block">
@@ -131,7 +137,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                     
                 </div>
 
-                <div className="w-1/2">
+                <div className="w-1/2 mt-5 flex">
                     <TextFieldComponent field={this.state.searchField} onChanged={this.handleSearchChange} placeHolder="Search ..."/>
                 </div>
 
@@ -159,6 +165,17 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
                        <tbody className="mt-10">
                         {
+                            (this.state.values!.length === 0)?
+                            <p className="text-grey mt-10">
+                                {
+                                    (this.state.searchField.getValue())?
+                                    <>No items matching the query</>:
+                                    <>No items available</>
+                                }
+                            </p>:
+                            <></>
+                        }
+                        {
                             this.state.values!.map(
                                 (instance: M) => (
                                     <tr className="hover:bg-light">
@@ -176,14 +193,14 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                                                         (instance: M) => {
                                                             RoutingUtils.redirect(this.getDetailLink(instance));
                                                         }, 
-                                                        "fa-solid fa-file-lines", 
+                                                        "fa-solid fa-file-lines hover:bg-white", 
                                                         this.allowDetail(instance, this.state.me!)
                                                     ],
                                                     [
                                                         (instance: M) => {
                                                             this.modalClicked(instance);
                                                         }, 
-                                                        "fa-solid fa-pen",
+                                                        "fa-solid fa-pen hover:bg-white",
                                                         this.allowEdit(instance, this.state.me!)
                                                     ],
                                                     [
@@ -197,7 +214,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                                                     (value) => (
                                                         (value[2])?
                                                         <button onClick={() => {(value[0] as (m: M) => void)(instance)}} className="mr-5">
-                                                            <i className={`${value[1]} p-5 border border-grey rounded-full hover:bg-white`}></i>
+                                                            <i className={`${value[1]} p-5 border border-grey rounded-full `}></i>
                                                         </button>:
                                                         <></>
                                                     )

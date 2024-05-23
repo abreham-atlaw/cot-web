@@ -44,7 +44,11 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
                     <div className="w-4/5 m-auto">
                     <form onSubmit={(event) => {event.preventDefault(); this.handleLogin();}}>
                         <h1 className="text-5xl">Login</h1>
-                        <p className="my-5 text-danger">{ this.state.error?.message ?? "" }</p>
+                        <p className="my-5 text-danger">{ 
+                        this.state.error?
+                        "Incorrect username or password":
+                        ""
+                        }</p>
 
                         {
                             [

@@ -10,6 +10,6 @@ export const LoadingSpinner = () => {
         ariaLabel="color-ring-loading"
         wrapperStyle={{}}
         wrapperClass="color-ring-wrapper w-full h-full"
-        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        colors={['#333333', '#666666', '#FF5733', '#CCCCCC', '#F0F0F0']}
         />)
 }
