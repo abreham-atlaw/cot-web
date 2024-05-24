@@ -21,6 +21,8 @@ import AssetCategoryDetailView from "./apps/asset/presentation/views/AssetCatego
 import LogsView from "./apps/core/presentation/views/LogsView";
 import AssetRequestDetailView from "./apps/asset/presentation/views/AssetRequestDetailView";
 import AssetMaintenanceRequestDetailView from "./apps/asset/presentation/views/AssetMaintenanceRequestDetailView";
+import RoutedResetPasswordView from "./apps/auth/presentation/views/ResetPasswordView";
+import RequestPasswordResetView from "./apps/auth/presentation/views/RequestPasswordResetView";
 
 
 export default class CoTRouter extends React.Component{
@@ -37,7 +39,9 @@ export default class CoTRouter extends React.Component{
 				<Route path="/auth/logout" element={<LogoutView/>}/>
                 <Route path="/auth/signup/:invitationId" element={<RoutedSignupView/>}/>
                 <Route path="/auth/signup/" element={<SignupView/>}/>
-				
+                <Route path="/auth/forgot-password/" element={<RequestPasswordResetView/>}/>
+                <Route path="/auth/reset-password/" element={<RoutedResetPasswordView/>}/>
+
 				<Route path="/base" element={<DashboardBaseView/>}>
 
 					<Route path="dashboard" element={<DashboardView/>}/>
