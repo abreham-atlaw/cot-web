@@ -11,7 +11,7 @@ export default class EditUserViewModel extends EditModelViewModel<Profile, UserF
     
     private departmentRepository = new DepartmentRepository();
 
-    protected syncFormToModel(form: UserForm, model: Profile): void {
+    protected async syncFormToModel(form: UserForm, model: Profile): Promise<void> {
         model.department = form.department.getValue() ?? undefined;
         model.role = form.role.getValue()!;
     }

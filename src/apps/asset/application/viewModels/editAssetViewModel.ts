@@ -13,7 +13,7 @@ export default class CreateAssetViewModel extends EditModelViewModel<Asset, Asse
     private categoryRepository = new AssetCategoryRepository();
     private profileRepository = new ProfileRepository();
 
-    protected syncFormToModel(form: AssetForm, model: Asset): void {
+    protected async syncFormToModel(form: AssetForm, model: Asset): Promise<void> {
         model.name = form.name.getValue()!;
         model.category = form.category.getValue()!;
         if(model.currentOwnerId !== (form.owner.getValue()?.id ?? null)){
