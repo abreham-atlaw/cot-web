@@ -1627,7 +1627,7 @@ height: 100%;
   }
   .modal-content {
 	  background-color: white;
-	  padding: 5rem;
+	  /* padding: 5rem; */
 	  /* margin: 5rem; */
 	  /* padding-bottom: 8rem; */
 	  border-radius: 10px;
