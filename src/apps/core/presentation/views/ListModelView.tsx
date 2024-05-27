@@ -2,7 +2,6 @@ import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus
 import Profile from "@/apps/auth/domain/models/profile";
 import AsyncButton from "@/common/components/buttons/AsyncButton";
 import BaseButton from "@/common/components/buttons/BaseButton";
-import TextFieldComponent from "@/common/components/form/TextFieldComponent";
 import AuthenticatedComponent from "@/common/components/views/AuthenticatedComponent";
 import ViewModelView from "@/common/components/views/ViewModelView";
 import EtherModel from "@/common/model/model";
@@ -12,6 +11,7 @@ import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import { ReactNode } from "react";
 import Modal from "react-modal";
 import ListModelRowComponent from "../components/ListModelRowComponent";
+import { SearchFieldComponent } from "@/common/components/form/TextFieldComponent";
 
 
 export default abstract class ListModelView<M extends EtherModel, P=unknown> extends ViewModelView<ModelListViewModel<M>, P, ModelListState<M>>{
@@ -142,7 +142,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                 </div>
 
                 <div className="w-full md:w-1/2 mt-5 flex">
-                    <TextFieldComponent field={this.state.searchField} onChanged={this.handleSearchChange} placeHolder="Search ..."/>
+                    <SearchFieldComponent field={this.state.searchField} onChanged={this.handleSearchChange} placeHolder="Search ..."/>
                 </div>
 
                 <div className="mt-10">
@@ -178,7 +178,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                        <tbody className="mt-10">
                         {
                             (this.state.values!.length === 0)?
-                            <p className="text-grey mt-10">
+                            <p className="text-grey mt-10 text-centre">
                                 {
                                     (this.state.searchField.getValue())?
                                     <>No items matching the query</>:
@@ -216,11 +216,12 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
                      <Modal
             isOpen={this.state.modalClicked}
-            className='modal-content custome-property'
-            onRequestClose={() => this.modalClicked()}
-            overlayClassName='modal-overlay'>
+            className='modal-content custome-property h-[80%] w-[50%] hover:overflow-auto overflow-hidden'
+            // onRequestClose={()=> { this.modalClicked()}}
+            overlayClassName='modal-overlay'
+            >
                {/* <RegisterUserView onCloseModal={this.modalClicked} /> */}
-               <div>
+               <div className="">
              { this.getModalChild(this.modalClicked, this.state.activeItem) }
             
                </div>
@@ -232,7 +233,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
               (this.state.deleteState.mode)?
               <Modal
               isOpen={this.state.deleteState.mode}
-              className='modal-content custome-property'
+              className='modal-content custome-property overflow-auto'
               onRequestClose={() => this.onToggleDeleteMode()}
               overlayClassName='modal-overlay'>
                 <div>

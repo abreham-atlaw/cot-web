@@ -13,12 +13,12 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
   const isMobileSize = useMediaQuery({ query: "(max-width: 630px)" });
   return (
     <div
-      className={`border-b fixed h-[10%] bg-white border-bottom-2 py-4 px-10 flex justify-between items-center ${
+      className={`border-b fixed bg-white border-bottom-2 py-4 px-10 flex justify-end items-center ${
         isTabletSize ? " w-[90%]" : " "
       } ${isMobileSize ? "w-full" : " w-4/5"}`}
     >
       {/* <div className="text-2xl"></div> */}
-      <div className='w-[60%] mx-auto ml-12'>
+      {/* <div className='w-[60%] mx-auto ml-12'>
     <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
         <div className="grid place-items-center h-full w-12 text-gray-300">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,7 +32,7 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
         id="search"
         placeholder="Search something.." /> 
     </div>
-</div>
+</div> */}
       <div className="flex">
 
         <div className="rounded-full flex items-center justify-center">

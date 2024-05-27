@@ -40,7 +40,9 @@ export default class AuthRepository{
         invitationId: string | null,
         password: string,
     ){
+        console.log("it is here")
         const keyPair = await this.networkClient.execute(new SignupRequest(username, invitationId, password));
+       
         await this.keyPairStorage.store(keyPair);
     }
 

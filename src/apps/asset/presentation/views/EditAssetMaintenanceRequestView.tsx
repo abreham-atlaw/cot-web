@@ -16,7 +16,7 @@ import FileFieldComponent from "@/common/components/form/FileFieldComponent";
 export default class EditAssetMaintenanceRequestView extends EditModelView<AssetMaintenanceRequest, AssetMaintenanceRequestForm>{
 
     getTitle(): string {
-        return "AssetMaintenanceRequest"
+        return "Asset Maintenance Request"
     }
     
     onCreateFormComponent(form: AssetMaintenanceRequestForm, state: EditAssetMaintenanceRequestState): ReactNode {
