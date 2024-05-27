@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FaBars, FaTv } from "react-icons/fa";
+import { FaBars, FaSignInAlt, FaTv } from "react-icons/fa";
 import { MdPeople, MdPeopleAlt } from "react-icons/md";
 import {
   PiGitPullRequest,
@@ -15,6 +15,7 @@ import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus
 import { useMediaQuery } from "react-responsive";
 import BaseButton from "@/common/components/buttons/BaseButton";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
+import Modal from "react-modal";
 
 interface SideBarProps {
   status: AuthenticationStatus;
@@ -91,9 +92,10 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
     }
   ];
 
+
   return !isMobileSize ? (
-    <nav
-      className={`border-r fixed top-0 left-0 bottom-0 flex flex-col ${
+    <nav 
+      className={`border-r fixed top-0 left-0 bottom-0 flex flex-col hover:overflow-auto ${
         isTabletSize ? " w-[10%] " : "w-1/5"
       }`}
     >
@@ -113,8 +115,97 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
               <li key={index} className="">
                 <NavLink
                   to={item.link}
-                  className={`${
-                    activeLink === item.link ? "bg-light" : "bg-white"
+                  className={({ isActive }) => `${
+                    isActive
+                      ? "bg-light border-l-8 border-black"
+                      : "bg-white"
+                  } hover:bg-light flex py-5
+						  ${isTabletSize ? "px-8" : "px-16"}`}
+                  onClick={() => handleNavLinkClick(item.link)}
+                >
+                  {isTabletSize ? (
+                    <span
+                      className={`mr-5 text-2xl ${
+                        activeLink === item.link ? " bg-black-100" : ""
+                      }`}
+                    >
+                      {item.icons}
+                    </span>
+                  ) : (
+                    <>
+                      <span className="mr-5 text-2xl color-purple-700">
+                        {item.icons}
+                      </span>
+                      <p>{item.title}</p>
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            )
+        )}
+      </ul>
+
+      {isTabletSize && (
+        <li className="hover:bg-light px-8 flex py-5">
+          <span>
+            <FaSignInAlt />
+          </span>
+        </li>
+      )}
+      {!(isTabletSize || isMobileSize) && (
+        <div className="mt-auto mb-10  px-10">
+          <Link to={"/auth/logout"} className="mt-5 w-full block">
+            <BaseButton className="text-center block w-full">Logout</BaseButton>
+          </Link>
+        </div>
+      )}
+    </nav>
+  ) : (
+    <>
+    {!showSidebar && (<div className="fixed  z-10 left-0 top-0">
+      <button onClick={handleSidebar} className="p-5 h-[10%] m-4 ">
+        <FaBars className="w-8 h-8 " />
+      </button>
+      </div>)}
+    
+      <Modal isOpen={showSidebar} className="h-screen w-1/5 shadow-md bg-white"
+      onRequestClose={handleSidebar}
+    
+
+     >
+      <nav
+    className={` fixed top-0 left-0  z-10 ${
+      showSidebar ? "h-screen shadow-md" : "w-1/5"
+    } bg-white`}
+  >
+    <div className="flex">
+      <button onClick={handleSidebar} className="p-5 m-2">
+        <FaBars className="w-8 h-8 " />
+      </button>
+    
+           
+    
+        <h1 className="text-2xl text-center font-bold mt-6">
+          Chain of Trust
+        </h1>
+  
+    </div>
+  
+
+   
+
+    
+      <ul className="mt-16 bg-white">
+        {sidebar.map(
+          (item, index) =>
+            item.validStatuses.includes(status) && (
+              <li key={index} className="" onClick={handleSidebar}>
+                    <NavLink
+                  to={item.link}
+                  className={({ isActive }) => `${
+                    isActive
+                      ? "bg-light border-l-8 border-black"
+                      : "bg-white"
                   } hover:bg-light flex py-5
 						  ${isTabletSize ? "px-8" : "px-16"}`}
                   onClick={() => handleNavLinkClick(item.link)}
@@ -131,70 +222,24 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
               </li>
             )
         )}
-      </ul>
-			<div className="mt-auto px-10 mb-10">
-				
-
-				<Link to={"/auth/logout"} className="mt-5 w-full block">
-					<BaseButton className="text-center block w-full">
-						Logout
-					</BaseButton>
-				</Link>
-				
-			</div>
-      {/* <div className="mt-auto px-10">
-        <Link to={"/auth/logout"} className="mt-5 w-full block">
-          <BaseButton className="text-center block w-full">Logout</BaseButton>
+        <Link to={"/auth/logout"} className=" w-full block">
+          <div className="mt-16 px-10 hover:overflow-auto" >
+            <BaseButton className="text-center block w-full">
+              Logout
+            </BaseButton>
+          </div>
         </Link>
-      </div> */}
-    </nav>
-  ) : (
-    <nav
-      className={`border-b fixed top-0 left-0  z-10 ${
-        showSidebar ? "h-screen" : "h-[10%] w-1/5"
-      } bg-white`}
-    >
-      <div className="flex">
-        <button onClick={handleSidebar} className="p-6">
-          <FaBars className="w-8 h-8" />
-        </button>
-        {showSidebar && (
-          <h1 className="text-2xl text-center font-bold mt-6">
-            Chain of Trust
-          </h1>
-        )}
-      </div>
+      </ul>
+    
+  </nav>
+        </Modal>
+    </>
+        
 
-      {showSidebar && (
-        <ul className="mt-4 bg-white ">
-          {sidebar.map(
-            (item, index) =>
-              item.validStatuses.includes(status) && (
-                <li key={index} className="" onClick={handleSidebar}>
-                  <NavLink
-                    to={item.link}
-                    className={`${
-                      activeLink === item.link ? "bg-light" : "bg-white"
-                    } hover:bg-light flex py-5
-            ${isTabletSize ? "px-8" : "px-16"}`}
-                    onClick={() => handleNavLinkClick(item.link)}
-                  >
-                    {isTabletSize ? (
-                      <span className="mr-5 text-2xl">{item.icons}</span>
-                    ) : (
-                      <>
-                        <span className="mr-5 text-2xl">{item.icons}</span>
-                        <p>{item.title}</p>
-                      </>
-                    )}
-                  </NavLink>
-                </li>
-              )
-          )}
-        </ul>
-      )}
-    </nav>
-  );
+      
+  )
 };
 
+
 export default SideBar;
+

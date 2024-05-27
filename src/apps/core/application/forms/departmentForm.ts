@@ -6,7 +6,7 @@ import Profile from "@/apps/auth/domain/models/profile";
 export default class DepartmentForm extends Form{
 
     name = new TextField();
-    head = new Field<Profile>();
+    head = new Field<Profile>(false);
 
     getFields(): Field<unknown>[] {
         return [
