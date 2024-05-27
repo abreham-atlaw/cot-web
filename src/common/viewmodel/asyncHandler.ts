@@ -1,3 +1,4 @@
+import { ValidationException } from "../forms/form";
 import { AsyncState, AsyncStatus } from "../state/asyncState";
 import BaseState from "../state/baseState";
 import ViewModel from "./viewmodel";
@@ -14,17 +15,16 @@ export default abstract class AsyncHandler<E, S extends BaseState>{
 	}
 
 	protected extractError(value: unknown): Error{
-		if(value instanceof Error){
-			return value
+
+		if(value instanceof ValidationException){
+			return value;
 		}
-		let message: string;
-		if((value as object).toString != undefined){
-			message = (value as object).toString();
+		if(value instanceof TypeError && value.message === "NetworkError when attempting to fetch resource."){
+			return new Error("Unable to Connect to the Network. Please Check Your Connection and Try Again.");
 		}
-		else{
-			message = String(value)
-		}
-		return new Error(message);
+
+		return new Error("An Unexpected Error Occurred. Unfortunately, we encountered an unexpected issue. Please contact our support team for assistance.");
+
 	}
 
 	protected getAsyncState(state: S): AsyncState{
@@ -45,6 +45,7 @@ export default abstract class AsyncHandler<E, S extends BaseState>{
 
 	protected async onLoading(state: S){
 		this.getAsyncState(state).status = AsyncStatus.loading;
+		this.getAsyncState(state).error = null;
 		await this.viewModel.syncState()
 	}
 

@@ -11,11 +11,22 @@ export default class AssetMaintenanceRequestForm extends Form{
     status = new Field<Status>();
     image = new Field<File>();
 
+    isResoloveMode: boolean;
+
+    constructor(isResolveModel: boolean){
+        super();
+        this.isResoloveMode = isResolveModel;
+    }
+
     getFields(): Field<unknown>[] {
+        if(this.isResoloveMode){
+            return [
+                this.status
+            ] as Field<unknown>[];
+        }
         return [
             this.asset,
             this.note,
-            this.status,
             this.image
         ] as Field<unknown>[];
     }

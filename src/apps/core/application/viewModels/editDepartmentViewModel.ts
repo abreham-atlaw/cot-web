@@ -13,7 +13,7 @@ export default class EditDepartmentViewModel extends EditModelViewModel<Departme
     
     private profileRepository = new ProfileRepository();
 
-    protected syncFormToModel(form: DepartmentForm, model: Department): void {
+    protected async syncFormToModel(form: DepartmentForm, model: Department): Promise<void> {
         model.head = form.head.getValue()!;
         model.name = form.name.getValue()!;
     }

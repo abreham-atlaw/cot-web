@@ -4,17 +4,31 @@ interface GenericTableComponentProps<M> {
     titles: string[];
     generateRow: (instance: M) => string[];
     instances: M[];
+    addNo?: boolean;
 }
 
-const GenericTableComponent: React.FC<GenericTableComponentProps<unknown>> = ({ titles, generateRow, instances }) => {
+const GenericTableComponent: React.FC<GenericTableComponentProps<unknown>> = ({ titles, generateRow, instances, addNo }) => {
+
+    addNo = addNo ?? true;
+    if(addNo){
+        titles = ["No"].concat(titles);
+    }
+    const rows = instances.map((instance, idx) => {
+        let row = generateRow(instance);
+        if(addNo){
+            row = [(idx + 1).toString()].concat(row);
+        }
+        return row;
+    });
+    const columnsCount = titles.length;
     return (
-        <table className="w-full">
-            <thead className="border-b py-10">
-                <tr className="">
+        <table className="w-full block">
+            <thead className="border-b py-10 block w-full">
+                <tr className="flex w-full">
                     {
-                        (["No"].concat(titles)).map(
+                        titles.map(
                             (title) => (
-                                <th className="font-bold w-1/5 text-left my-10 border-b py-5 border-dark" key={title}>
+                                <th className={`block font-bold w-[${100/columnsCount}%] text-left my-10 border-b py-5 border-dark`} key={title}>
                                     {title}
                                 </th>
                             )
@@ -22,14 +36,14 @@ const GenericTableComponent: React.FC<GenericTableComponentProps<unknown>> = ({ 
                     }
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="block">
                 {
-                    instances.map(
-                        (instance, idx: number) => (
-                            <tr key={generateRow(instance)[1]} className="">
+                    rows.map(
+                        (row) => (
+                            <tr key={row[1]} className="flex">
                                 {
-                                    ([idx.toString()].concat(generateRow(instance))).map(
-                                        (value) => <td className="w-1/5 py-5 border-b" key={value}>{value}</td>
+                                    (row).map(
+                                        (value) => <td className={`w-[${100/columnsCount}%] py-5 border-b overflow-clip text-ellipsis pr-5`} key={value}>{value}</td>
                                     )
                                 }
                             </tr>

@@ -1,4 +1,4 @@
-import Profile from "@/apps/auth/domain/models/profile";
+import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import EditAssetMaintenanceRequestView from "./EditAssetMaintenanceRequestView";
 import AssetMaintenanceRequest from "../../domain/models/assetMaintenanceRequest";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
@@ -20,7 +20,7 @@ interface ListAssetMaintenanceRequestsProps{
 export default class ListAssetMaintenanceRequestsView extends ListModelView<AssetMaintenanceRequest, ListAssetMaintenanceRequestsProps>{
    
     getDetailLink(instance: AssetMaintenanceRequest): string {
-        return `/base/asset-request/detail?id=${instance.id}`
+        return `/base/asset-maintenance-request/detail?id=${instance.id}`
     }
 
     getModalChild(modalClose: () => void, instance?: AssetMaintenanceRequest){
@@ -66,6 +66,10 @@ export default class ListAssetMaintenanceRequestsView extends ListModelView<Asse
 
     allowEdit(instance: AssetMaintenanceRequest, me: Profile): boolean {
         return this.allowWrite(instance, me);
+    }
+
+    allowAdd(me: Profile): boolean {
+        return me.role === Role.staff;
     }
 
     getAllowedAuthenticationStatus(): AuthenticationStatus[] {

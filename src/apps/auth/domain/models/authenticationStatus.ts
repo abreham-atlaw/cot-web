@@ -7,6 +7,7 @@ enum AuthenticationStatus{
     inventory,
     staff,
     department,
+    maintainer
 
 }
 

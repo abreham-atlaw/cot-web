@@ -2,6 +2,7 @@ import Profile from "@/apps/auth/domain/models/profile";
 import EtherModel from "../model/model";
 import BaseState from "./baseState";
 import { AsyncState } from "./asyncState";
+import { TextField } from "../forms/fields";
 
 
 
@@ -22,6 +23,9 @@ export default class ModelListState<T extends EtherModel> extends BaseState{
     me?: Profile;
 
     filters: Map<string, unknown> = new Map();
+    searchField = new TextField(false);
+    sortIdx?: number;
+    sortReverse = false;
 
     deleteState = new DeleteItemState<T>();
 

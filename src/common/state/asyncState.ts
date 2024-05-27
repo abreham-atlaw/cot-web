@@ -11,9 +11,9 @@ export enum AsyncStatus{
 export class AsyncState extends BaseState{
 
 	public status: AsyncStatus;
-	public error: Error;
+	public error: Error | null;
 
-	constructor(status: AsyncStatus = AsyncStatus.none, error: any = null, context?: object){
+	constructor(status: AsyncStatus = AsyncStatus.none, error: (Error | null) = null, context?: object){
 		super(context);
 		this.status = status;
 		this.error = error;

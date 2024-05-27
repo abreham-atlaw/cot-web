@@ -7,6 +7,7 @@ import RoutingUtils from "@/common/utils/routing";
 import SignupFormComponent from "../components/SignupFormComponent";
 import CreateOrganizationFormComponent from "../components/CreateOrganizationFormComponent";
 import { useParams } from "react-router-dom";
+import LoadingView from "@/common/components/views/LoadingView";
 
 
 interface SignupViewProps{
@@ -36,11 +37,12 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
     onCreateMain(): ReactNode {
         if(this.state.stage === Stage.done){
             RoutingUtils.redirect("/");
+            return <LoadingView />
         }
         return (
-            <div className="flex text-light h-screen">
+            <div className="flex flex-wrap text-light h-screen">
 
-                <div className={`w-[60%] bg-cover flex bg-[url('${image}')]`} >
+                <div className={`w-full md:w-[60%] bg-cover flex bg-[url('${image}')]`} >
 
                     <h1 className="text-7xl font-bold m-auto">
                         Next-Gen<br/>Property<br/>Management
@@ -48,7 +50,7 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
 
                 </div>
 
-                <div className="w-[40%] bg-dark text-light flex ">
+                <div className="w-full md:w-[40%] bg-dark text-light flex ">
                     <div className="w-4/5 m-auto">
                     {
                         (this.state.stage === Stage.signup)?

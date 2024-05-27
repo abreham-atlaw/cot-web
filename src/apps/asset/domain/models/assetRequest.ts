@@ -18,6 +18,7 @@ export default class AssetRequest implements EtherModel {
     note: string;
     status: Status;
     departmentStatus: Status;
+    rejectionNote?: string;
     userId?: string;
     
     user?: Profile;
@@ -29,6 +30,7 @@ export default class AssetRequest implements EtherModel {
         note: string, 
         status: Status,
         departmentStatus: Status,
+        rejectionNote: string | undefined,
         userId?: string
     ) {
         this.id = id;
@@ -37,5 +39,6 @@ export default class AssetRequest implements EtherModel {
         this.status = status;
         this.departmentStatus = departmentStatus;
         this.userId = userId;
+        this.rejectionNote = rejectionNote;
     }
 }

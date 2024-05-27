@@ -57,7 +57,7 @@ export default class EditAssetMaintenanceRequestView extends EditModelView<Asset
         return (
             <>
 
-                <LabeledInputField label="Asset Type">
+                <LabeledInputField label="Asset">
 
                     <AssetSelectionFieldComponent field={form.asset} assets={(this.state as EditAssetMaintenanceRequestState).assets!}/>
 
@@ -84,7 +84,7 @@ export default class EditAssetMaintenanceRequestView extends EditModelView<Asset
     }
     
     onCreateForm(): AssetMaintenanceRequestForm{
-        return new AssetMaintenanceRequestForm();
+        return new AssetMaintenanceRequestForm(false);
     }
 
 }

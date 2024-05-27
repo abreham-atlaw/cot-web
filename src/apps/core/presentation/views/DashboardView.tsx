@@ -25,7 +25,7 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
             <div className="p-16">
                 <section className="">
                     <h2>Quick Stats</h2>
-                    <div className="flex mt-7">
+                    <div className="flex flex-wrap mt-7">
                         {
                             [
                                 ["Total Assets", this.state.totalAssets!],
@@ -33,7 +33,7 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
                                 ["Allocated Assets", this.state.assignedAssets!]
                             ].map(
                                 (value: (string | number)[]) => (
-                                    <div className="mr-10">
+                                    <div className="my-5 md:my-0 w-full md:w-1/4 pr-0 md:pr-10">
                                         <DashboardStatComponent title={value[0] as string} value={value[1] as number}/>
                                     </div>
                                 )
@@ -44,7 +44,7 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
 
                 <section className="mt-16">
                     <h2>Requests Overview</h2>
-                    <div className="flex mt-7">
+                    <div className="flex flex-wrap mt-7">
                         {
                             [
                                 ["Total Requests", this.state.totalRequests!],
@@ -53,7 +53,7 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
                                 ["Rejected Requests", this.state.rejectedRequests!]
                             ].map(
                                 (value: (string | number)[]) => (
-                                    <div className="mr-10">
+                                    <div className="my-5 md:my-0 w-full md:w-1/4 pr-0 md:pr-10">
                                         <DashboardStatComponent title={value[0] as string} value={value[1] as number}/>
                                     </div>
                                 )
@@ -66,7 +66,7 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
                 <section className="mt-24">
                     <h2>Categories</h2>
                     <div className="flex mt-10">
-                        <div className="w-[80%]">
+                        <div className="w-full md:w-3/5">
                             <DashboardCategoryChart data={this.state.categoryAssetCounts!}/>
                         </div>
                     </div>

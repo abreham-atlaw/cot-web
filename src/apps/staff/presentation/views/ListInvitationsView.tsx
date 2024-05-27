@@ -10,7 +10,7 @@ export default class ListInvitationsView extends ListModelView<Invitation>{
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getDetailLink(_instance: Invitation): string {
-        throw new Error("Method not implemented.");
+        return "";
     }
     
     getModalChild(modalClose: () => void): ReactNode {

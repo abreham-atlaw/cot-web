@@ -1,18 +1,15 @@
-import { LineWave } from "react-loader-spinner"
+import { ColorRing } from "react-loader-spinner"
 
 
 
 export const LoadingSpinner = () => {
-    return (<LineWave
+    return (<ColorRing
         visible={true}
-        height="100"
-        width="100"
-        color="#4fa94d"
-        ariaLabel="line-wave-loading"
+        height="100%"
+        width="100%"
+        ariaLabel="color-ring-loading"
         wrapperStyle={{}}
-        wrapperClass=""
-        firstLineColor=""
-        middleLineColor=""
-        lastLineColor=""
+        wrapperClass="color-ring-wrapper w-full h-full"
+        colors={['#333333', '#666666', '#FF5733', '#CCCCCC', '#F0F0F0']}
         />)
 }

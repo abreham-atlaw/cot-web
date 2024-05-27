@@ -37,7 +37,6 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
 
     async filterAll(instance: AssetRequest): Promise<boolean> {
         const me = await this.authRepository.whoAmI();
-        console.log(instance);
         return (
             (instance.category!.orgId === (await this.authRepository.getOrgId())) &&
             (

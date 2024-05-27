@@ -1,7 +1,6 @@
 import type Form from "../forms/form";
 import EtherModel from "../model/model";
 import EthersModelRepository from "../repositories/ethersModelRepository";
-import { AsyncStatus } from "../state/asyncState";
 import type EditModelState from "../state/editModelState";
 import AsyncViewModel from "./asyncViewModel";
 
@@ -35,8 +34,6 @@ export default abstract class EditModelViewModel<M extends EtherModel, F extends
         await super.onInit();
         this.state.instance = await this.getInstance(this.state.id);
         this.syncModelToForm(this.state.instance!, this.state.form);
-        console.log("State id: ", this.state.id);
-        console.log("Is Create Mode", this.state.isCreateMode);
     }
 
     public async commitChanges(){

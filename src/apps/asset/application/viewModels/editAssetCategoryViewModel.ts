@@ -11,7 +11,7 @@ export default class CreateAssetCategoryViewModel extends EditModelViewModel<Ass
     
     private categoryRepository = new AssetCategoryRepository();
 
-    protected syncFormToModel(form: AssetCategoryForm, model: AssetCategory): void {
+    protected async syncFormToModel(form: AssetCategoryForm, model: AssetCategory): Promise<void> {
         model.name = form.name.getValue()!;
         model.parent = form.parent.getValue() ?? undefined;
     }

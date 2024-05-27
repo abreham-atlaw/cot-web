@@ -9,6 +9,7 @@ export enum Pages{
     maintenance,
     request,
     staff,
+    logs
 }
 
 export default class PermissionConfigs{
@@ -18,8 +19,9 @@ export default class PermissionConfigs{
         [Pages.category, [AuthenticationStatus.admin, AuthenticationStatus.inventory]],
         [Pages.department, [AuthenticationStatus.admin]],
         [Pages.invitation, [AuthenticationStatus.admin, AuthenticationStatus.hr]],
-        [Pages.maintenance, [AuthenticationStatus.admin, AuthenticationStatus.inventory, AuthenticationStatus.staff]],
+        [Pages.maintenance, [AuthenticationStatus.admin, AuthenticationStatus.maintainer, AuthenticationStatus.staff]],
         [Pages.request, [AuthenticationStatus.admin, AuthenticationStatus.department, AuthenticationStatus.inventory, AuthenticationStatus.staff]],
-        [Pages.staff, [AuthenticationStatus.admin, AuthenticationStatus.hr]]
+        [Pages.staff, [AuthenticationStatus.admin, AuthenticationStatus.hr]],
+        [Pages.logs, [AuthenticationStatus.admin]]
     ])
 }

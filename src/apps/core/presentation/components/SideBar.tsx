@@ -5,6 +5,7 @@ import { MdPeople, MdPeopleAlt } from "react-icons/md";
 import {
   PiGitPullRequest,
   PiHouse,
+  PiNotebook,
   PiSquaresFourBold,
   PiTree,
   PiWrench,
@@ -83,6 +84,12 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
       link: "/base/asset-category/list",
       validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.category)!,
     },
+    {
+      title: "Logs",
+      icons: <PiNotebook/>,
+      link: "/base/logs",
+      validStatuses: PermissionConfigs.VISIT_PERMISSIONS.get(Pages.logs)!
+    }
   ];
 
 

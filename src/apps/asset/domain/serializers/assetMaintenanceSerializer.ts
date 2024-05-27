@@ -15,7 +15,6 @@ export default class AssetMaintenanceRequestSerializer extends Serializer<AssetM
     }
 
     deserialize(data: unknown[]): AssetMaintenanceRequest {
-        console.log("Maintenance", data);
         return new AssetMaintenanceRequest(
             data[0] as string,
             data[1] as string,
