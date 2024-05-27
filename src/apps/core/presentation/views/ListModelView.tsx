@@ -8,10 +8,10 @@ import ViewModelView from "@/common/components/views/ViewModelView";
 import EtherModel from "@/common/model/model";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import ModelListState from "@/common/state/modelListState";
-import RoutingUtils from "@/common/utils/routing";
 import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import { ReactNode } from "react";
 import Modal from "react-modal";
+import ListModelRowComponent from "../components/ListModelRowComponent";
 
 
 export default abstract class ListModelView<M extends EtherModel, P=unknown> extends ViewModelView<ModelListViewModel<M>, P, ModelListState<M>>{
@@ -114,6 +114,10 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
         this.viewModel.refresh();
     }
 
+    getNameColumnIdx = () => {
+        return 1;
+    }
+
     onCreateMain(): ReactNode {
         const cols = this.getHeadings().length + 1;
         return (
@@ -143,12 +147,13 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
                 <div className="mt-10">
                     <table className="border-collapse w-full">
+                        <tr className="hidden lg:table-row">
                         {
                             this.getHeadings().map(
                                 (title, idx) => (
                                     <th
                                        
-                                     className={`truncate overflow-hidden whitespace-nowrap px-4 py-2 text-start font-bold px-10 w-[${100/cols}%]`}
+                                     className={` truncate overflow-hidden whitespace-nowrap px-4 py-2 text-start font-bold px-10 w-[${100/cols}%]`}
                                      >  
                                         <button onClick={() => this.handleSort(idx, title)}>
                                             {title}{
@@ -162,6 +167,13 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                                 )
                             )
                         }
+                        </tr>
+                        
+                        <tr className="table-row lg:hidden">
+                            <th className=" text-left">
+                                {/* {this.getHeadings()[0]} */}
+                            </th>
+                        </tr>
 
                        <tbody className="mt-10">
                         {
@@ -178,58 +190,25 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                         {
                             this.state.values!.map(
                                 (instance: M) => (
-                                    <tr className="hover:bg-light">
-                                        {
-                                           this.getInstanceValues(instance).map(
-                                                (value) => (
-                                                    <td className={`px-5 w-[${100/cols}%] text-ellipsis overflow-clip px-4 text-start py-2 truncate overflow-hidden whitespace-nowrap`}>{value}</td>
-                                                )
-                                            )
-                                        }
-                                        <td className="flex py-2">
-                                            {
-                                                [
-                                                    [
-                                                        (instance: M) => {
-                                                            RoutingUtils.redirect(this.getDetailLink(instance));
-                                                        }, 
-                                                        "fa-solid fa-file-lines hover:bg-white", 
-                                                        this.allowDetail(instance, this.state.me!)
-                                                    ],
-                                                    [
-                                                        (instance: M) => {
-                                                            this.modalClicked(instance);
-                                                        }, 
-                                                        "fa-solid fa-pen hover:bg-white",
-                                                        this.allowEdit(instance, this.state.me!)
-                                                    ],
-                                                    [
-                                                        (instance: M) => {
-                                                            this.onToggleDeleteMode(instance)
-                                                        }, 
-                                                        "fa-solid fa-trash hover:bg-danger hover:text-light",
-                                                        this.allowDelete(instance,this.state.me!)
-                                                    ]
-                                                ].map(
-                                                    (value) => (
-                                                        (value[2])?
-                                                        <button onClick={() => {(value[0] as (m: M) => void)(instance)}} className="mr-5">
-                                                            <i className={`${value[1]} p-5 border border-grey rounded-full `}></i>
-                                                        </button>:
-                                                        <></>
-                                                    )
-                                                )
-                                            }
-                                           
-                                        </td>
-                                    </tr>
+                                    <ListModelRowComponent
+                                        instanceValues={this.getInstanceValues(instance)}
+                                        detailLink={this.getDetailLink(instance)}
+                                        allowDetail={this.allowDetail(instance, this.state.me!)}
+                                        allowEdit={this.allowEdit(instance, this.state.me!)}
+                                        allowDelete={this.allowDelete(instance, this.state.me!)}
+                                        columns={this.getHeadings()}
+                                        onModalClicked={() => this.modalClicked(instance)}
+                                        onToggleDeleteMode={() => this.onToggleDeleteMode(instance)}
+                                        nameColumnIdx={this.getNameColumnIdx()}
+                                        />
+
                                 )
                             )
                         }
                         </tbody>
 
                         
-                        </table>
+                    </table>
                 </div>
 
        
