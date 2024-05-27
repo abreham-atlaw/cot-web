@@ -40,9 +40,9 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
             return <LoadingView />
         }
         return (
-            <div className="flex text-light h-screen">
+            <div className="flex flex-wrap text-light h-screen">
 
-                <div className={`w-[60%] bg-cover flex bg-[url('${image}')]`} >
+                <div className={`w-full md:w-[60%] bg-cover flex bg-[url('${image}')]`} >
 
                     <h1 className="text-7xl font-bold m-auto">
                         Next-Gen<br/>Property<br/>Management
@@ -50,7 +50,7 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
 
                 </div>
 
-                <div className="w-[40%] bg-dark text-light flex ">
+                <div className="w-full md:w-[40%] bg-dark text-light flex ">
                     <div className="w-4/5 m-auto">
                     {
                         (this.state.stage === Stage.signup)?

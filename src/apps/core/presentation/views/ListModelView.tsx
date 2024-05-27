@@ -141,15 +141,11 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                     
                 </div>
 
-<<<<<<< HEAD
                 <div className="w-1/2 mt-5 flex">
                     <TextFieldComponent field={this.state.searchField} onChanged={this.handleSearchChange} placeHolder="Search ..."/>
                 </div>
 
                 <div className="mt-10">
-=======
-                <div className="mt-10 hover:overflow-auto">
->>>>>>> 1212642b964c4c341a604026589ac45935a31302
                     <table className="border-collapse w-full">
                         <tr className="hidden lg:table-row">
                         {

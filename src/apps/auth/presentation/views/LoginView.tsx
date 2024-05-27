@@ -9,7 +9,6 @@ import { AsyncStatus } from "@/common/state/asyncState";
 import LoginState from "../../application/states/loginState";
 import LoginViewModel from "../../application/viewModels/loginViewModel";
 import Field from "@/common/forms/fields";
-import { Link } from "react-router-dom";
 
 
 
@@ -31,9 +30,9 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
             RoutingUtils.redirect("/");
         }
         return (
-            <div className="flex text-light h-screen">
+            <div className="flex flex-wrap text-light h-screen">
 
-                <div className={`w-[60%] bg-cover flex bg-[url('${image}')]`} >
+                <div className={`w-full md:w-[60%] bg-cover flex bg-[url('${image}')]`} >
 
                     <h1 className="text-7xl font-bold m-auto">
                         Next-Gen<br/>Property<br/>Management
@@ -41,7 +40,7 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
 
                 </div>
 
-                <div className="w-[40%] bg-dark text-light flex ">
+                <div className="w-full md:w-[40%] bg-dark text-light flex ">
                     <div className="w-4/5 m-auto">
                     <form onSubmit={(event) => {event.preventDefault(); this.handleLogin();}}>
                         <h1 className="text-5xl">Login</h1>
@@ -60,13 +59,6 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
                                     <div className="mt-10" key={field[0] as string}>
                                         <LabeledInputField label={field[0] as string}>
                                             <TextFieldComponent field={field[1] as Field<string>} type={field[2] as string}/>
-                                            {
-                                                (field[2] === "password")?
-                                                <div className="flex mt-2">
-                                                    <Link className="ml-auto text-[80%] font-bold" to="/auth/forgot-password/">Forgot Password?</Link>
-                                                </div>:
-                                                <></>
-                                            }
                                         </LabeledInputField>
                                     </div>
                                 )
