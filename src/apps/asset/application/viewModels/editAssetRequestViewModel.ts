@@ -41,12 +41,13 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
     }
     
     protected createInstance(): AssetRequest {
+        const departmentStatus = ((this.state as EditAssetRequestState).me!.departmentId === undefined)? Status.approved : Status.pending;
         return new AssetRequest(
             undefined,
             (this.state as EditAssetRequestState).categories![0]!.id!,
             "",
             Status.pending,
-            Status.pending,
+            departmentStatus,
             undefined
         )
     }
@@ -56,6 +57,7 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
         (this.state as EditAssetRequestState).categories = await this.categoryRepository.getAll();
         (this.state as EditAssetRequestState).resolveMode = (!this.state.isCreateMode) && EditAssetRequestViewModel.RESOLVE_ROLES.includes(me.role);
         (this.state as EditAssetRequestState).isDepartment = me.role === Role.department;
+        (this.state as EditAssetRequestState).me = me;
         await super.onInit();
     }
 
