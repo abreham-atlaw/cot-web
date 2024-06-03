@@ -1,5 +1,6 @@
 import React from "react"
 import { LoadingSpinner } from "../status/LoadingSpinner"
+import Logo from "@/assets/logo-transparent.png";
 
 export default class LoadingView extends React.Component{
 

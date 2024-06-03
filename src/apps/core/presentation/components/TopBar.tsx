@@ -1,6 +1,7 @@
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
-import React from "react";
+import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { Link } from "react-router-dom";
 
 interface NavBarProps {
   user: Profile;
@@ -11,32 +12,26 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
     query: "(min-width: 630px) and (max-width: 940px)",
   });
   const isMobileSize = useMediaQuery({ query: "(max-width: 630px)" });
+  const [isOpen, setIsOpen] = useState(false); // State for dropdown visibility
+
+  const handleOpenDropdown = () => setIsOpen(!isOpen); // Toggle dropdown
+
   return (
     <div
       className={`border-b fixed h-[10%] bg-white border-bottom-2 py-4 px-10 flex justify-between items-center ${
         isTabletSize ? " w-[90%]" : " "
       } ${isMobileSize ? "w-full" : " w-4/5"}`}
     >
-      {/* <div className="text-2xl"></div> */}
-      <div className='w-[60%] mx-auto ml-12'>
-    <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
-        <div className="grid place-items-center h-full w-12 text-gray-300">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-        </div>
-
-        <input
-        className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
-        type="text"
-        id="search"
-        placeholder="Search something.." /> 
-    </div>
-</div>
-      <div className="flex">
-
-        <div className="rounded-full flex items-center justify-center">
-          <div className="rounded-xl px-10 py-4 flex">
+      {/* ... rest of the code ... */}
+      <div className="flex w-full">
+        {/* User Info with Dropdown */}
+        <div className="rounded-full ml-auto flex items-center justify-center relative">
+          <div
+            className={`rounded-xl px-10 py-4 flex cursor-pointer ${
+              isOpen ? "bg-gray-200" : ""
+            }`}
+            onClick={handleOpenDropdown}
+          >
             <i className="fa-regular fa-user mr-5 my-auto"></i>
             {isMobileSize ? (
               <span className="my-auto overflow-clip truncate">
@@ -48,6 +43,14 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
               </span>
             )}
           </div>
+          {/* Dropdown Menu (conditionally rendered) */}
+          {isOpen && (
+            <div className="absolute top-full right-0 bg-white shadow rounded py-2 w-full">
+              <Link to="/base/auth/change-password" className="block px-8 py-2 hover:bg-gray-200">
+                Change Password
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import ProfileRepository from "./profileRepossitory";
 import RequestPasswordResetRequest from "../requests/requestPasswordResetRequest";
 import VerifyResetTokenRequest from "../requests/verifyResetTokenRequest";
 import ResetPasswordRequest from "../requests/resetPasswordRequest";
+import ChangePasswordReqeust from "../requests/changePasswordRequest";
 
 
 export default class AuthRepository{
@@ -115,6 +116,11 @@ export default class AuthRepository{
             this.orgId = (await this.whoAmI()).organizationId!;
         }
         return this.orgId!;
+    }
+
+    async changePassword(old_password: string, new_password: string){
+        const profile = await this.whoAmI();
+        return await this.networkClient.execute(new ChangePasswordReqeust(profile.email, old_password, new_password));
     }
 
 }
