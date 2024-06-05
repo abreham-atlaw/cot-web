@@ -45,6 +45,7 @@ export default class AssetCategoryRepository extends EthersModelRepository<Asset
 
     async preDelete(instance: AssetCategory): Promise<void> {
         for(const asset of (await this.assetRepository.filterByCategory(instance))){
+            console.log("Deleting", asset.name);
             await this.assetRepository.delete(asset);
         }
     }

@@ -41,13 +41,12 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
     }
     
     protected createInstance(): AssetRequest {
-        const departmentStatus = ((this.state as EditAssetRequestState).me!.departmentId === undefined)? Status.approved : Status.pending;
         return new AssetRequest(
             undefined,
             (this.state as EditAssetRequestState).categories![0]!.id!,
             "",
             Status.pending,
-            departmentStatus,
+            Status.pending,
             undefined
         )
     }

@@ -28,7 +28,7 @@ export default class AssetMaintenanceRequestDetailView extends React.Component{
 
                 <div className="">
                     <h1 className="font-bold text-2xl flex">
-                        <Link className="w-16 h-16 flex mr-5 hover:bg-light rounded-full" to="/base/asset-request/list">
+                        <Link className="w-16 h-16 flex mr-5 hover:bg-light rounded-full" to="/base/asset-maintenance-request/list">
                             <i className="fa-solid fa-chevron-left m-auto"></i>
                         </Link>
                         <span className="my-auto">
@@ -44,6 +44,12 @@ export default class AssetMaintenanceRequestDetailView extends React.Component{
                     <p>
                         <span className="font-bold">Inventory Management Status:</span> {Status[state.instance!.status].toUpperCase()}
                     </p>
+
+
+                    <div className="w-full md:w-2/3 mt-10">
+                        <span className="font-bold block">Image:</span>
+                        <img src={state.instance!.image} className="w-full mt-5 border border-3"/>
+                    </div>
                 </div>
 
             </div>
