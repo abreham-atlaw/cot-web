@@ -4,6 +4,7 @@ import DashboardViewModel from "../../application/viewModels/dashboardViewModel"
 import DashboardState from "../../application/states/dashboardState";
 import DashboardStatComponent from "../components/DashboardStatComponent";
 import DashboardCategoryChart from "../components/DashboardCategoryChart";
+import AsyncButton from "@/common/components/buttons/AsyncButton";
 
 
 
@@ -16,6 +17,10 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
 
     onCreateState(): DashboardState {
         return new DashboardState();
+    }
+
+    handleGenerateReport = () => {
+        this.viewModel.generateReport();
     }
 
 
@@ -62,6 +67,17 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
                     </div>
                 </section>
 
+
+                <section className="mt-24">
+                    <h2>Report</h2>
+                    <div className="flex mt-10">
+                        <div className="w-full md:w-3/5">
+                            <div onClick={this.handleGenerateReport}>
+                                <AsyncButton state={this.state} bg="primary">Generate Report</AsyncButton>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <section className="mt-24">
                     <h2>Categories</h2>

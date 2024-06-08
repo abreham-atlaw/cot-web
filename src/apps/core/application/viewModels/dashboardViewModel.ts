@@ -6,6 +6,7 @@ import AssetCategoryRepository from "@/apps/asset/infrastructure/repositories/as
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import Asset from "@/apps/asset/domain/models/asset";
 import AssetRequest, { Status } from "@/apps/asset/domain/models/assetRequest";
+import ReportRepository from "../../infrastructure/repositories/reportRepository";
 
 
 
@@ -15,7 +16,7 @@ export default class DashboardViewModel extends AsyncViewModel<DashboardState>{
     private requestRepository = new AssetRequestRepository();
     private categoryRepository = new AssetCategoryRepository();
     private profileRepository = new ProfileRepository();
-    
+    private reportRepository = new ReportRepository();
     
     public async onInit(): Promise<void> {
         await super.onInit();
@@ -46,6 +47,15 @@ export default class DashboardViewModel extends AsyncViewModel<DashboardState>{
         return requests.filter(
             (request) => request.status === status
         ).length;
+    }
+
+    async generateReport(){
+        await this.asyncCall(
+            async () => {
+                const link = await this.reportRepository.generateReport();
+                window.open(link, "blank");
+            }
+        )
     }
 
 }
