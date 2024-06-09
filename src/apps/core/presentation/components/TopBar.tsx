@@ -1,5 +1,5 @@
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
@@ -15,9 +15,23 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false); // State for dropdown visibility
 
   const handleOpenDropdown = () => setIsOpen(!isOpen); // Toggle dropdown
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(()=>{
+    const handleClickOutSide = (event:MouseEvent)=>{
+      if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown',handleClickOutSide);
+    return ()=>{
+      document.removeEventListener('mousedown',handleClickOutSide);
+    }
+  },[]);
 
   return (
     <div
+    ref={dropdownRef}
       className={`border-b fixed bg-white border-bottom-2 py-4 px-10 flex justify-end items-center ${
         isTabletSize ? " w-[90%]" : " "
       } ${isMobileSize ? "w-full" : " w-4/5"}`}
@@ -46,7 +60,7 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
           {/* Dropdown Menu (conditionally rendered) */}
           {isOpen && (
             <div className="absolute top-full right-0 bg-white shadow rounded py-2 w-full">
-              <Link to="/base/auth/change-password" className="block px-8 py-2 hover:bg-gray-200">
+              <Link to="/base/auth/change-password" className="block px-8 py-2 hover:bg-gray-200" onClick={()=>{setIsOpen(false);}}>
                 Change Password
               </Link>
             </div>
