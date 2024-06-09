@@ -2,7 +2,17 @@
 	margin: 0;
 	padding: 0;
   }
-  
+::-webkit-scrollbar {
+    width: 5px; /* Customize the width */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Customize the thumb color */
+}
+::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Customize the track color */
+}
+
   
   html {
 	font-size: 80%; }
