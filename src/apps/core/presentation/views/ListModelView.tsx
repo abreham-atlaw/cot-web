@@ -12,6 +12,7 @@ import { ReactNode } from "react";
 import Modal from "react-modal";
 import ListModelRowComponent from "../components/ListModelRowComponent";
 import { SearchFieldComponent } from "@/common/components/form/TextFieldComponent";
+import { MdClose } from "react-icons/md";
 
 
 export default abstract class ListModelView<M extends EtherModel, P=unknown> extends ViewModelView<ModelListViewModel<M>, P, ModelListState<M>>{
@@ -234,9 +235,12 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
               <Modal
               isOpen={this.state.deleteState.mode}
               className='modal-content custome-property overflow-auto'
-              onRequestClose={() => this.onToggleDeleteMode()}
+
               overlayClassName='modal-overlay'>
-                <div>
+                 <div className="flex justify-end p-4">
+                <MdClose onClick={()=>{this.onToggleDeleteMode()}} className="cursor-pointer" size={30}/>
+                </div>
+                <div className="p-16">
                   <h3 className="font-bold text-2xl">Confirm Delete</h3>
                   <p className="mt-5">Are you sure you want to delete the following:</p>
                   <ul className="mt-3">
