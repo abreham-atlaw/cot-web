@@ -12,6 +12,7 @@ import ModelListViewModel from "@/common/viewmodel/modelListViewModel";
 import { ReactNode } from "react";
 import Modal from "react-modal";
 import ListModelRowComponent from "../components/ListModelRowComponent";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 
 export default abstract class ListModelView<M extends EtherModel, P=unknown> extends ViewModelView<ModelListViewModel<M>, P, ModelListState<M>>{
@@ -134,7 +135,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                     {
                         this.allowAdd(this.state.me!)?
                         <div onClick={() => this.modalClicked()} className="ml-auto block">
-                            <BaseButton><i className="fa-solid fa-plus mr-5"></i> Add </BaseButton>
+                            <BaseButton><i className="fa-solid fa-plus mr-5"></i> <TranslatedText text="Add"></TranslatedText> </BaseButton>
                         </div>:
                         <></>
                     }
@@ -156,7 +157,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                                      className={` truncate overflow-hidden whitespace-nowrap px-4 py-2 text-start font-bold px-10 w-[${100/cols}%]`}
                                      >  
                                         <button onClick={() => this.handleSort(idx, title)}>
-                                            {title}{
+                                            <TranslatedText text={title}></TranslatedText>{
                                                 (this.state.sortIdx === idx)?
                                                 <i className={`fa-solid text-grey ml-2 fa-arrow-${(this.state.sortReverse === true)?'down':'up'}`}></i>:
                                                 <></>
@@ -181,8 +182,8 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                             <p className="text-grey mt-10">
                                 {
                                     (this.state.searchField.getValue())?
-                                    <>No items matching the query</>:
-                                    <>No items available</>
+                                    <TranslatedText text="No items matching the query"></TranslatedText>:
+                                    <TranslatedText text="No items available"></TranslatedText>
                                 }
                             </p>:
                             <></>
@@ -236,8 +237,8 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
               onRequestClose={() => this.onToggleDeleteMode()}
               overlayClassName='modal-overlay'>
                 <div>
-                  <h3 className="font-bold text-2xl">Confirm Delete</h3>
-                  <p className="mt-5">Are you sure you want to delete the following:</p>
+                  <h3 className="font-bold text-2xl"><TranslatedText text="Confirm Delete"></TranslatedText></h3>
+                  <p className="mt-5"><TranslatedText text="Are you sure you want to delete the following:"></TranslatedText></p>
                   <ul className="mt-3">
                     {
                     
@@ -253,12 +254,12 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                   <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
                                 <BaseButton onClick={() => this.onToggleDeleteMode()}>
-                                    CANCEL
+                                    <TranslatedText text="CANCEL"></TranslatedText>
                                 </BaseButton>
                         </div>
                         <div className="mx-auto" onClick={() => this.onDelete(this.state.deleteState.item!)}>
                             <AsyncButton state={this.state.deleteState} bg="danger">
-                                DELETE
+                                <TranslatedText text="DELETE"></TranslatedText>
                             </AsyncButton>
                         </div>
                     </div>
@@ -274,6 +275,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
             </>
 
             </AuthenticatedComponent>
+
             
         )
     }
