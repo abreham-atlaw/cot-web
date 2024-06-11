@@ -15,7 +15,6 @@ import { BsPersonFillGear } from "react-icons/bs";
 
 import image from "./home.jpeg";
 import image2 from "./home2.jpeg";
-// import NavBar from "../components/Navbar";
 import "../../../../App.css";
 import "../../../../index.css";
 import NavBar from "../components/Navbar";
@@ -26,7 +25,7 @@ function Home() {
 			icons: <MdEventNote />,
 		},
 		{
-			title: "Auction and bidding",
+			title: "Managing requests",
 			icons: <RiAuctionFill />,
 		},
 		{
@@ -34,32 +33,32 @@ function Home() {
 			icons: <ImTree />,
 		},
 		{
-			title: "Simplifying work",
+			title: "Simplifying Work",
 			icons: <LiaHourglassHalfSolid />,
 		},
 	];
 	const about = [
 		{
-			title: "Lorem ",
-			desc: "Lorem Ipsum is simply dummy text of the printing and typesetting ",
+			title: "Property Management",
+			desc: "The assets that are owned by the company are effectively managed.",
 			icons: <IoCloudDownload />,
 		},
 		{
-			title: "Lorem",
-			desc: "Lorem Ipsum is simply dummy text of the printing and typesetting ",
+			title: "Tracking Company Assets",
+			desc: "The realtime location of an asset at a fingerytip. ",
 			icons: <BsPersonFillGear />,
 		},
 		{
-			title: "Lorem",
-			desc: "Lorem Ipsum is simply dummy text of the printing and typesetting ",
+			title: "Managing requests",
+			desc: "Assosciates/ employees of the company can request for an assets in an efecient manner.",
 			icons: <MdMiscellaneousServices />,
 		},
 	];
-	const footer = ["pointone", "pointtwo", "pointthree", "pointfour"];
+	const footer = ["Services", "Guidelines", "Community"];
+	const footerCol2 = ["Facebook", "Instagram", "LInkedin"];
 	return (
 		<>
 			<NavBar />
-
 			<div className='home' id='home'>
 				<div className='content'>
 					<div className='part1'>
@@ -119,7 +118,7 @@ function Home() {
 						))}
 					</div>
 					<div className='content'>
-						<h2> Lorem ipsum</h2>
+						<h2 style={{fontFamily:'"Lobster", cursive',}}> Our Goals</h2>
 						<p>
 							Eliminate the outdated spreadsheets and endless sticky notes! Our
 							web app takes the chaos out of asset management. Consolidate your
@@ -149,8 +148,8 @@ function Home() {
 							<div className='map'>
 								<span> {item.icons} </span>
 								<div className='detail'>
-									<h2> {item.title} </h2>
-									<p> {item.desc} </p>
+									<h2 style={{fontWeight:'bold'}}> {item.title} </h2>
+									<p style={{fontWeight:'light'}}>  {item.desc} </p>
 								</div>
 							</div>
 						))}
@@ -160,7 +159,7 @@ function Home() {
 					<div className='footerContent'>
 						<div className='footerSection1'>
 							<div className='footerLogo'>
-								<img loading='lazy' srcSet='...' alt='Footer Logo' />
+								<h1> Chain of trust</h1>
 							</div>
 							<div className='footerlinks'>
 								<span>
@@ -189,15 +188,17 @@ function Home() {
 							</li>
 						</ul>
 						<div className='footerSection2'>
-							<div className='col1'>
+							<div className='col'>
+								<h2> Info </h2>
 								{footer.map((item) => (
-									<div className='columns'>
-										<div className='col1'> {item}</div>
+									<div className='columns' >
+										<div className='col1' > {item}</div>
 									</div>
 								))}
 							</div>
-							<div className='col2 '>
-								{footer.map((item) => (
+							<div className='col'>
+								<h2> Socials </h2>
+								{footerCol2.map((item) => (
 									<div className='columns'>
 										<div className='col1'> {item}</div>
 									</div>
@@ -205,7 +206,7 @@ function Home() {
 							</div>
 						</div>
 					</div>
-					<div className='footerText'>
+					<div className='footerText'style={{fontFamily:'times'}}>
 						© 2023 Chain Of turst. All rights reserved.
 					</div>
 				</div>
