@@ -9,6 +9,7 @@ import AsyncButton from "@/common/components/buttons/AsyncButton";
 import BaseButton from "@/common/components/buttons/BaseButton";
 import RoutingUtils from "@/common/utils/routing";
 import { AsyncStatus } from "@/common/state/asyncState";
+import { MdClose } from "react-icons/md";
 
 interface RegisterUserViewProps{
     onCloseModal: ()=>void
@@ -37,7 +38,13 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
             this.goBack();
         }
         return (
-            <div className=" w-full flex">
+            <div className="p-8">
+                <div className="flex justify-end">
+                <MdClose onClick={this.props.onCloseModal} className="cursor-pointer" size={30}/>
+
+                </div>
+
+                <div className="w-full flex">
                 <div className="m-auto w-full">
 
                     <h1 className="text-4xl mb-16 text-center">Register User</h1>
@@ -79,6 +86,8 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
             
 
             </div>
+            </div>
+            
         )
     }
    

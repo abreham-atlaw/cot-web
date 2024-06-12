@@ -8,6 +8,8 @@ import { AsyncStatus } from "@/common/state/asyncState";
 import EditModelState from "@/common/state/editModelState";
 import EditModelViewModel from "@/common/viewmodel/editModelViewModel";
 import { ReactNode } from "react";
+import { MdClose } from "react-icons/md";
+
 
 
 interface EditModelViewProps<M extends EtherModel, F extends Form> {
@@ -56,11 +58,17 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
 
     onCreateMain = (): ReactNode => {
         return (
-            <div className=" w-full flex">
+            <div className="p-8">
+            <div className="flex justify-end">
+                <MdClose onClick={this.onDestroy} className="cursor-pointer" size={30}/>
+                </div>
+            <div className="mt-8 p-8 w-full  flex">
+                
+               
                 <div className="m-auto w-full">
-
+                
                     <h1 className="text-4xl mb-16 text-center">{this.getTitle()}</h1>
-
+                    
                     <p className="my-5 text-danger">{ this.state.error?.message ?? ""}</p>
 
                     {
@@ -84,11 +92,15 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
                 </div>
 
             </div>
+            </div>
         )
     }
 
     onDestroy = () => {
-        return this.props.closeModal!();
+        if (this.state.status !== AsyncStatus.loading) {
+            return this.props.closeModal!();
+        }
+        
     }
 
 }
