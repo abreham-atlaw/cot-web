@@ -130,7 +130,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
             <div className="p-10">
                 <div className="flex">
                     <h2 className="text-2xl font-bold my-auto md:mt-auto">
-                        { this.getTitle() }
+                        <TranslatedText text={ this.getTitle() }/>
                         <button className="ml-5" onClick={this.handleRefresh}><i className="fa-solid fa-arrows-rotate text-2xl text-grey"></i></button>
                     </h2>
                     {

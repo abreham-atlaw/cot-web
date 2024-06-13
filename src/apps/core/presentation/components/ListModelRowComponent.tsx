@@ -1,5 +1,6 @@
 import React, { useState } from "react"; // Import useState
 import RoutingUtils from "@/common/utils/routing";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 interface ListModelRowProps {
   instanceValues: string[];
@@ -47,7 +48,7 @@ const ListModelRowComponent = (props: ListModelRowProps) => {
             className={`px-5 w-[${100 / props.instanceValues.length}%] text-ellipsis overflow-clip px-4 text-start py-2 truncate overflow-hidden whitespace-nowrap`}
             key={value}
             >
-            {value}
+            <TranslatedText text={value}/>
             </td>
         ))}
         <td className="flex py-2">
