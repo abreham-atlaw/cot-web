@@ -113,6 +113,7 @@ code {
 .menu-box {
 	display: flex;
 	width: 100%;
+	background-color: #000;
 	justify-content: space-between;
 }
 .signin {
