@@ -139,7 +139,6 @@ code {
 	background-color: #042942e3;
 }
 .home {
-	background-color: #000;
 	width: 100%;
 	height: 100%;
 	box-sizing: border-box;
@@ -191,7 +190,7 @@ code {
 	font-weight: 600;
 	font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 	background-color: rgb(255, 255, 255);
-	border-radius: 25px;
+	border-radius: 10px;
 	padding: 0.6rem 3rem;
 	z-index: 5;
 }
