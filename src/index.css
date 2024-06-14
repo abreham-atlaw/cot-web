@@ -51,7 +51,7 @@ code {
 	padding: 0 2em;
 	font-family: "Lobster", cursive;
 	margin: 0;
-	margin-top: 8px;
+	margin-top: 14px;
 }
 .logo {
 	width: 14em;
@@ -149,7 +149,7 @@ code {
 	flex-direction: column;
 	position: absolute;
 	margin: 2rem;
-	margin-top: 20px;
+	margin-top: 45px;
 	z-index: 5;
 	gap: 2rem;
 }
@@ -215,13 +215,13 @@ code {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-left: 14rem;
+	margin-left: 17rem;
 	overflow: hidden;
 }
 .home .column1 {
 	position: relative;
-	min-width: 20rem;
-	max-width: 30rem;
+	min-width: 19rem;
+	max-width: 20rem;
 	height: 60px;
 	min-height: 20rem;
 	border-radius: 30px;
