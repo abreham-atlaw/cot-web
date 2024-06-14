@@ -2674,7 +2674,8 @@ height: 100%;
 	}
 	.home .services .content p {
 		text-align: center;
-		font-size: 18px;
+		font-size: 24px;
+		font-family: 'Times New Roman', Times, serif;
 		color: grey;
 		padding: 4rem;
 	}
@@ -2746,7 +2747,7 @@ height: 100%;
 	}
 	.home .about .lists {
 		width: 50%;
-		margin-top: 8em;
+		margin-top: 0;
 	}
 	.home .about .map {
 		display: flex;
@@ -2754,14 +2755,14 @@ height: 100%;
 		margin-left: 6em;
 	}
 	.home .about .map span {
-		font-size: 40px;
+		font-size: 23px;
 		margin-right: 10px;
 	}
 	.home .about .detail {
 		flex: 1;
 	}
 	.home .about .detail h2{
-		font-size: 22px
+		font-size: 25px
 	}
 	.home .about .detail p{
 		font-size: 16px
