@@ -32,12 +32,19 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
     }
 
     async toggleEditMode(activeItem?: M){
+        console.log("edit")
         this.state.modalClicked = !this.state.modalClicked;
         this.state.activeItem = activeItem;
         this.syncState();
         if(!this.state.modalClicked){
-            this.refresh();
+            
+                this.refresh();     
         }
+    }
+    async toggleCloseMode(){
+        console.log("close")
+        this.state.modalClicked = !this.state.modalClicked;
+        this.syncState();
     }
 
     async searchFilter(instances: M[], query: string, keyWordGenerator: (instance: M) => string[]): Promise<M[]>{

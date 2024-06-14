@@ -18,8 +18,8 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
         return `/base/asset-category/detail?id=${instance.id}`;
     }
     
-    getModalChild(modalClose: () => void, instance?: AssetCategory) {
-        return <EditAssetCategoryView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: AssetCategory,close?:()=>void) {
+        return <EditAssetCategoryView closeModal={modalClose} id={instance?.id} close={close} />
     }
     
     onCreateRepository(): EthersModelRepository<AssetCategory> {

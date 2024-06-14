@@ -25,7 +25,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
     abstract getTitle(): string;
 
-    abstract getModalChild(modalClose: () => void, instance?: M): ReactNode;
+    abstract getModalChild(modalClose: () => void, instance?: M,close?:()=>void): ReactNode;
 
     abstract getDetailLink(instance: M): string;
 
@@ -95,6 +95,10 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
     modalClicked = (activeItem?: M) =>{
         this.viewModel.toggleEditMode(activeItem);
     }
+    modalClosed  = ()=>{
+        this.viewModel.toggleCloseMode();
+    }
+
 
     handleSearchChange = () => {
         this.viewModel.search(
@@ -223,7 +227,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
             >
                {/* <RegisterUserView onCloseModal={this.modalClicked} /> */}
                <div className="">
-             { this.getModalChild(this.modalClicked, this.state.activeItem) }
+             { this.getModalChild(this.modalClicked, this.state.activeItem,this.modalClosed) }
             
                </div>
               
