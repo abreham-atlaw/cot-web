@@ -225,8 +225,8 @@ code {
 }
 .home .column1 {
 	position: relative;
-	min-width: 23rem;
-	max-width: 40rem;
+	min-width: 33rem;
+	max-width: 20rem;
 	height: 60px;
 	min-height: 20rem;
 	margin-top: 7em;
