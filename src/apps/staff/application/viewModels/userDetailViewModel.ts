@@ -3,7 +3,6 @@ import AssetRequestRepository from "@/apps/asset/infrastructure/repositories/ass
 import Profile from "@/apps/auth/domain/models/profile";
 import ModelDetailViewModel from "@/common/viewmodel/modelDetailVIewModel";
 import UserDetailState from "../states/userDetailState";
-import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 
 
@@ -12,7 +11,6 @@ export default class UserDetailViewModel extends ModelDetailViewModel<Profile>{
 
     private assetRepository = new AssetRepository();
     private requestRepository = new AssetRequestRepository();
-    private authRepository = new AuthRepository();
 
 
     constructor(state: UserDetailState, syncState: (state: UserDetailState) => void){

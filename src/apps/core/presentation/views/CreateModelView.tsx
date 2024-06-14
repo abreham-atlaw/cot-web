@@ -1,5 +1,6 @@
 import AsyncButton from "@/common/components/buttons/AsyncButton";
 import BaseButton from "@/common/components/buttons/BaseButton";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 import ViewModelView from "@/common/components/views/ViewModelView";
 import Form from "@/common/forms/form";
 import EtherModel from "@/common/model/model";
@@ -82,15 +83,14 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
                     <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
                           
-                                <BaseButton onClick={
-                                    this.onClose}>
-                                    CANCEL
+                                <BaseButton onClick={this.onClose}>
+                                    <TranslatedText text="CANCEL"/>
                                 </BaseButton>
                            
                         </div>
                         <div className="mx-auto" onClick={this.handleSave}>
                             <AsyncButton  state={this.state}>
-                                {(this.state.id == undefined) ? 'CREATE' : 'SAVE'}
+                                <TranslatedText text={(this.state.id == undefined) ? 'CREATE' : 'SAVE'}/>
                             </AsyncButton>
                         </div>
                     </div>
@@ -110,6 +110,7 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
     onClose = ()=>{
         return this.props.close();
     }
+  
 
 }
 

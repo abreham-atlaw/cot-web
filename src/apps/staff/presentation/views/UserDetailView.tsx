@@ -6,6 +6,7 @@ import UserDetailState from "../../application/states/userDetailState";
 import UserDetailViewModel from "../../application/viewModels/userDetailViewModel";
 import ListAssetsView from "@/apps/asset/presentation/views/ListAssetsView";
 import ListAssetRequestsView from "@/apps/asset/presentation/views/ListAssetRequestsView";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 
 
 export default class UserDetailView extends React.Component{
@@ -18,7 +19,13 @@ export default class UserDetailView extends React.Component{
         return new UserDetailState(id);
     }
 
+    hasAssetPermission = (state: UserDetailState) => {
+        return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.asset).includes(state.me!.role);
+    }
+
     onCreateMain = (state: UserDetailState) => {
+
+        const hasAssetPermission = this.hasAssetPermission(state);
         return (
             <div className="p-16">
 
@@ -28,18 +35,32 @@ export default class UserDetailView extends React.Component{
                         <span className="my-auto">{state.instance!.name}</span>
                     </h1>
                     <p className="mt-10">ID: {state.instance!.id!}</p>
+                    <p>Name: {state.instance!.name}</p>
                     <p>Role: {Role[state.instance!.role].toUpperCase()}</p>
-                    <p>Properties: {state.assets!.length}</p>
+                    <p>Email: {state.instance!.email}</p>
+                    <p>Department: {state.instance!.department?.name ?? "No Department"}</p>
+                    {
+                        hasAssetPermission?
+                        <p>Properties: {state.assets!.length}</p>:
+                        <></>
+                    }
                 </div>
                 <div className="mt-10">
-                    
-                    <ListAssetsView user={state.instance!} />
+                    {
+                        hasAssetPermission?
+                        <ListAssetsView user={state.instance!} />:
+                        <></>
+                    }
 
                 </div>
 
                 <div className="mt-10">
-                    
-                    <ListAssetRequestsView user={state.instance!} />
+                    {
+                         hasAssetPermission?
+                         <ListAssetRequestsView user={state.instance!} />:
+                         <></>
+                    }
+                   
 
                 </div>
                 

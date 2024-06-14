@@ -1,3 +1,16 @@
+
+export class Lang{
+
+    static readonly amharic = "Amharic";
+    static readonly english = "English";
+
+    static readonly all = [
+        Lang.amharic,
+        Lang.english
+    ]
+
+}
+
 export default class DataConfigs{
 
     static readonly RPC_URL = "https://demo.edventures.ai:8545";
@@ -6,5 +19,7 @@ export default class DataConfigs{
     static readonly FILE_HOST_ADDRESS = "https://bareknuckle-seaman.000webhostapp.com/"
     
     static readonly GOOGLE_RECAPTCHA_KEY = "6LeqtOQpAAAAAInLAahnluC5gy6NEkc02W5SpC9g";
+
+    static readonly DEFAULT_LANG = Lang.english;
     
 }       

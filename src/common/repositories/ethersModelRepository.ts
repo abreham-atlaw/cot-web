@@ -10,6 +10,9 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
     public attachMode: boolean = true;
 
+    private cache: Map<string, M> = new Map();
+    private isCacheComplete = false;
+
     constructor(abi: object[], address: string, serializer: Serializer<M, Array<unknown>>){
         super(abi, address);
         this.serializer = serializer;
@@ -21,6 +24,14 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
                 v = c === 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    }
+
+    private async getInstanceFromCache(id: string): Promise<M | undefined>{
+        return this.cache.get(id);
+    }
+
+    private async storeInstanceInCache(instance: M){
+        this.cache.set(instance.id!, instance);
     }
 
     async create(instance: M){
@@ -62,24 +73,45 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     }
 
     async getById(id: string): Promise<M>{
+        const cached = await this.getInstanceFromCache(id);
+        if(cached !== undefined){
+            console.log("returning from cache...");
+            return cached;
+        }
         const contract = await this.getReadContract();
         const response = await contract.getById(id);
         const instance = this.serializer.deserialize(response);
         await this.prepareInstance(instance);
+        await this.storeInstanceInCache(instance);
         return instance;
     }
 
     async getAll(): Promise<M[]>{
+        if(this.isCacheComplete){
+            console.log("Returning complete from cache...");
+            return Array.from(this.cache.values());
+        }
         const contract = await this.getReadContract()
+        console.log("Fetching all...");
         const response = await contract.getAll();
         const instances = this.serializer.deserializeMany(response);
         const filtered = [];
-        for(const instance of instances){
+
+        await Promise.all(instances.map(async instance => {
             await this.prepareInstance(instance);
+            await this.storeInstanceInCache(instance);
             if(await this.filterAll(instance)){
                 filtered.push(instance);
             }
-        }
+        }));
+        // for(const instance of instances){
+        //     await this.prepareInstance(instance);
+        //     await this.storeInstanceInCache(instance);
+        //     if(await this.filterAll(instance)){
+        //         filtered.push(instance);
+        //     }
+        // }
+        this.isCacheComplete = true;
         return filtered;
     }
 

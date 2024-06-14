@@ -9,8 +9,7 @@ import { AsyncStatus } from "@/common/state/asyncState";
 import LoginState from "../../application/states/loginState";
 import LoginViewModel from "../../application/viewModels/loginViewModel";
 import Field from "@/common/forms/fields";
-
-
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 export default class LoginView extends ViewModelView<LoginViewModel, unknown, LoginState>{
     
@@ -35,7 +34,9 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
                 <div className={`w-full md:w-[60%] bg-cover flex bg-[url('${image}')]`} >
 
                     <h1 className="text-7xl font-bold m-auto">
-                        Next-Gen<br/>Property<br/>Management
+                        <TranslatedText text="Next-Gen"></TranslatedText><br/>
+                        <TranslatedText text="Property"></TranslatedText><br/>
+                        <TranslatedText text="Management"></TranslatedText>
                     </h1>
 
                 </div>
@@ -43,10 +44,10 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
                 <div className="w-full md:w-[40%] bg-dark text-light flex ">
                     <div className="w-4/5 m-auto">
                     <form onSubmit={(event) => {event.preventDefault(); this.handleLogin();}}>
-                        <h1 className="text-5xl">Login</h1>
+                        <h1 className="text-5xl"><TranslatedText text="Login"></TranslatedText></h1>
                         <p className="my-5 text-danger">{ 
                         this.state.error?
-                        "Incorrect username or password":
+                        <TranslatedText text="Incorrect username or password"></TranslatedText>:
                         ""
                         }</p>
 
@@ -68,10 +69,10 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
 
                         <div className="mt-10">
                             <AsyncButton state={this.state} bg="primary">
-                                LOGIN
+                                <TranslatedText text="LOGIN"></TranslatedText>
                             </AsyncButton>
                         </div>
-                        <p className="mt-5">Dont have an account yet? <a href="/auth/signup" className="text-primaryLight font-bold">Sign up</a></p>
+                        <p className="mt-5"><TranslatedText text="Dont have an account yet?"></TranslatedText> <a href="/auth/signup" className="text-primaryLight font-bold"><TranslatedText text="Sign up"></TranslatedText></a></p>
                     </form>
                     </div>
                 

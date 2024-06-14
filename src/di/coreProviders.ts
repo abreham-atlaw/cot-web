@@ -5,8 +5,8 @@ import { JsonRpcProvider } from "ethers";
 import DataConfigs from "../configs/dataConfigs";
 import NetworkClient from "../common/network/NetworkClient";
 import FileStorage from "@/common/utils/filestorage";
-// import KeyPair from "@/apps/auth/domain/models/keyPair";
-
+import { CookieLocalStorage, LocalStorage } from "@/common/utils/localStorage";
+import Translator from "@/common/utils/translator";
 
 
 export default class CoreProviders{
@@ -44,5 +44,13 @@ export default class CoreProviders{
         return this.fileStorage;
     }
 
+    static provideLocalStorage(): LocalStorage{
+        return new CookieLocalStorage();
+    }
+
+
+    static provideTranslator(): Translator{
+        return new Translator();
+    }
 
 }

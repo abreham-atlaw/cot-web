@@ -1,9 +1,12 @@
 // import './App.css'
 import CoTRouter from './Router'
+import TranslatableView from './apps/core/presentation/views/TranslatableView';
 
 function App() {
   return (
-    <CoTRouter/>
+    <TranslatableView>
+      <CoTRouter/>
+    </TranslatableView>
   )
 }
 

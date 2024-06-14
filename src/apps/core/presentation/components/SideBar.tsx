@@ -16,6 +16,7 @@ import { useMediaQuery } from "react-responsive";
 import BaseButton from "@/common/components/buttons/BaseButton";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import Modal from "react-modal";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 interface SideBarProps {
   status: AuthenticationStatus;
@@ -103,9 +104,9 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
         ""
       ) : (
         <h1 className="text-4xl text-center font-bold mt-8">
-          Chain of
+          <TranslatedText text="Chain of"></TranslatedText>
           <br />
-          Trust
+          <TranslatedText text="Trust"></TranslatedText>
         </h1>
       )}
       <ul className="mt-16">
@@ -136,7 +137,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
                       <span className="mr-5 text-2xl color-purple-700">
                         {item.icons}
                       </span>
-                      <p>{item.title}</p>
+                      <p><TranslatedText text={item.title}></TranslatedText></p>
                     </>
                   )}
                 </NavLink>
@@ -155,7 +156,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
       {!(isTabletSize || isMobileSize) && (
         <div className="mt-auto mb-10  px-10">
           <Link to={"/auth/logout"} className="mt-5 w-full block">
-            <BaseButton className="text-center block w-full">Logout</BaseButton>
+            <BaseButton className="text-center block w-full"><TranslatedText text="Logout"></TranslatedText></BaseButton>
           </Link>
         </div>
       )}
@@ -186,7 +187,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
            
     
         <h1 className="text-2xl text-center font-bold mt-6">
-          Chain of Trust
+          <TranslatedText text="Chain of Trust"></TranslatedText>
         </h1>
   
     </div>
@@ -215,7 +216,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
                   ) : (
                     <>
                       <span className="mr-5 text-2xl">{item.icons}</span>
-                      <p>{item.title}</p>
+                      <p><TranslatedText text={item.title}></TranslatedText></p>
                     </>
                   )}
                 </NavLink>
@@ -225,7 +226,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
         <Link to={"/auth/logout"} className=" w-full block">
           <div className="mt-16 px-10 hover:overflow-auto" >
             <BaseButton className="text-center block w-full">
-              Logout
+              <TranslatedText text="Logout"></TranslatedText>
             </BaseButton>
           </div>
         </Link>
@@ -242,4 +243,3 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
 
 
 export default SideBar;
-

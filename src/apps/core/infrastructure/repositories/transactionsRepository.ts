@@ -14,7 +14,7 @@ export default class TransactionRepository{
     
         while (transactions.length < count && blockNumber >= 0) {
             const blocks = await Promise.all(
-                Array.from({ length: 10 }, (_, i) => blockNumber - i).map(i => this.provider.getBlock(i))
+                Array.from({ length: 100 }, (_, i) => blockNumber - i).map(i => this.provider.getBlock(i))
             );
     
             for (const block of blocks) {
