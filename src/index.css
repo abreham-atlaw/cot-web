@@ -113,7 +113,6 @@ code {
 .menu-box {
 	display: flex;
 	width: 100%;
-	background-color: #000;
 	justify-content: space-between;
 }
 .signin {
@@ -150,7 +149,7 @@ code {
 	flex-direction: column;
 	position: absolute;
 	margin: 2rem;
-	margin-top: 40px;
+	margin-top: 50px;
 	z-index: 5;
 	gap: 2rem;
 }
@@ -221,8 +220,8 @@ code {
 }
 .home .column1 {
 	position: relative;
-	min-width: 20rem;
-	max-width: 22rem;
+	min-width: 18rem;
+	max-width: 21rem;
 	height: 60px;
 	min-height: 15rem;
 	border-radius: 30px;
