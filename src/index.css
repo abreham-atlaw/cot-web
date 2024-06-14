@@ -417,7 +417,7 @@ code {
 	margin-left: 6em;
 }
 .home .about .map span {
-	font-size: 40px;
+	font-size: 14px;
 	margin-right: 10px;
 }
 .home .about .detail {
@@ -2649,7 +2649,7 @@ height: 100%;
 		background-color: #fff;
 		/* margin-right: 50px; */
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		padding: 3rem 3rem;
+		padding: 3rem ;
 		border-radius: 20px;
 		text-align: center;
 		align-self: center;
@@ -2659,7 +2659,8 @@ height: 100%;
 		font-size: 22px;
 	}
 	.home .mapped span {
-		font-size: 40px;
+		font-size: 30px;
+		font-family: 'Times New Roman', Times, serif;
 		color: gray;
 	}
 	.home .services .content {
