@@ -149,7 +149,7 @@ code {
 	flex-direction: column;
 	position: absolute;
 	margin: 2rem;
-	margin-top: 45px;
+	margin-top: 60px;
 	z-index: 5;
 	gap: 2rem;
 }
@@ -220,17 +220,17 @@ code {
 }
 .home .column1 {
 	position: relative;
-	min-width: 19rem;
+	min-width: 18rem;
 	max-width: 20rem;
 	height: 60px;
 	min-height: 20rem;
 	border-radius: 30px;
-	margin-top: 2.2em;
+	margin-top: 3em;
 	z-index: 999;
 	overflow: hidden;
 }
 .home .column2 {
-	margin-top: 2.5em;
+	margin-top: 2em;
 	position: relative;
 	min-width: 18rem;
 	max-width: 20rem;
