@@ -52,7 +52,6 @@ code {
 	font-family: "Lobster", cursive;
 	margin: 0;
 	margin-top: 8px;
-	background-color: #000f2c;
 }
 .logo {
 	width: 14em;
@@ -85,7 +84,7 @@ code {
 }
 .menu-icon {
 	display: block;
-	font-size: 17px;
+	font-size: 14px;
 	margin-left: 16em;
 	margin-top: 9px;
 	cursor: pointer;
