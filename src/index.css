@@ -215,12 +215,12 @@ code {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-left: 10rem;
+	margin-left: 12rem;
 	overflow: hidden;
 }
 .home .column1 {
 	position: relative;
-	min-width: 23rem;
+	min-width: 20rem;
 	max-width: 30rem;
 	height: 60px;
 	min-height: 20rem;
@@ -232,7 +232,7 @@ code {
 .home .column2 {
 	margin-top: 2.5em;
 	position: relative;
-	min-width: 21rem;
+	min-width: 18rem;
 	max-width: 20rem;
 	height: 80px;
 	z-index: 999;
