@@ -220,10 +220,10 @@ code {
 }
 .home .column1 {
 	position: relative;
-	min-width: 18rem;
-	max-width: 21rem;
-	height: 70px;
-	min-height: 15rem;
+	min-width: 19rem;
+	max-width: 22rem;
+	height: 60px;
+	min-height: 20rem;
 	border-radius: 30px;
 	margin-top: 3em;
 	z-index: 999;
