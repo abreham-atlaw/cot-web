@@ -225,11 +225,11 @@ code {
 }
 .home .column1 {
 	position: relative;
-	min-width: 60px;
+	min-width: 23rem;
 	max-width: 30rem;
 	height: 60px;
 	min-height: 20rem;
-	border-radius: 50px;
+	border-radius: 30px;
 	margin-top: 7em;
 	z-index: 999;
 	overflow: hidden;
@@ -237,12 +237,12 @@ code {
 .home .column2 {
 	margin-top: 3em;
 	position: relative;
-	min-width: 21rem;
+	min-width: 23rem;
 	max-width: 20rem;
 	height: 80px;
 	z-index: 999;
-	min-height: 20rem;
-	border-radius: 50px;
+	min-height: 18rem;
+	border-radius: 30px;
 	overflow: hidden;
 }
 .home .column1::before,
@@ -253,7 +253,7 @@ code {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	border-radius: 50px;
+	border-radius: 30px;
 	background: rgba(0, 0, 0, 0.5);
 	z-index: 1;
 }
@@ -262,7 +262,7 @@ code {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	border-radius: 50px;
+	border-radius: 30px;
 	z-index: 2;
 }
 .services {
