@@ -175,7 +175,7 @@ code {
 	color: #5c5c5c;
 	width: 20em;
 	left: 0;
-	font-size: 9px;
+	font-size: 7px;
 }
 .home .part1 ul {
 	list-style: none;
@@ -226,10 +226,10 @@ code {
 .home .column1 {
 	position: relative;
 	min-width: 23rem;
-	max-width: 30rem;
+	max-width: 40rem;
 	height: 60px;
 	min-height: 20rem;
-	border-radius: 30px;
+	border-radius: 100px;
 	margin-top: 7em;
 	z-index: 999;
 	overflow: hidden;
@@ -238,11 +238,11 @@ code {
 	margin-top: 3em;
 	position: relative;
 	min-width: 23rem;
-	max-width: 20rem;
-	height: 80px;
+	max-width: 16rem;
+	height: 70px;
 	z-index: 999;
 	min-height: 20rem;
-	border-radius: 30px;
+	border-radius: 100px;
 	overflow: hidden;
 }
 .home .column1::before,
