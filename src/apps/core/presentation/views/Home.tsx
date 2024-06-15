@@ -33,7 +33,7 @@ function Home() {
       icons: <RiAuctionFill />,
     },
     {
-      title: <TranslatedText text="Managing property" />,
+      title: <TranslatedText text="Managing Asset" />,
       icons: <ImTree />,
     },
     {
