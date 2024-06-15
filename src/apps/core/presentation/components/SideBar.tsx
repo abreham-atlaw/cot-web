@@ -103,11 +103,19 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
       {isTabletSize ? (
         ""
       ) : (
+        <div className="flex justify-center items-center space-x-8">
+         
+        <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-300 mt-8">
+        <img src="/icon.jpeg" alt="" className="object-cover w-full h-full " />
+        </div>
+
         <h1 className="text-4xl text-center font-bold mt-8">
           <TranslatedText text="Chain of"></TranslatedText>
           <br />
           <TranslatedText text="Trust"></TranslatedText>
         </h1>
+        </div>
+       
       )}
       <ul className="mt-16">
         {sidebar.map(

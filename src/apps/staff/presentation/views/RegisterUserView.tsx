@@ -33,6 +33,13 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
     private goBack(){
         RoutingUtils.redirect("/base/invitation/list/")
     }
+    onClose = ()=>{
+        if (this.state.status !== AsyncStatus.loading) {
+        return this.props.close();
+        }
+    }
+  
+
 
 
     onCreateMain(): ReactNode {
@@ -40,9 +47,9 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
             this.goBack();
         }
         return (
-            <div className="p-8">
+            <div className="">
                 <div className="flex justify-end">
-                <MdClose onClick={this.props.close} className="cursor-pointer m-8" size={30}/>
+                <MdClose onClick={this.onClose} className="cursor-pointer m-4" size={30}/>
 
                 </div>
 
@@ -50,6 +57,7 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                 <div className="m-auto w-full">
 
                     <h1 className="text-4xl mb-16 text-center"><TranslatedText text="Register User"/></h1>
+                    
 
                     <p className="my-5 text-danger">{ this.state.error?.message ?? ""}</p>
 
@@ -72,13 +80,14 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                         <div className="mx-auto">
                             
                                 <BaseButton onClick={this.props.close} >
-                                <TranslatedText text="CANCEL"/>                                </BaseButton>
+                                <TranslatedText text="CANCEL"/>                                
+                                </BaseButton>
                            
                         </div>
                         <div className="mx-auto" onClick={() => {this.viewModel.registerUser()}}>
                             
                             <AsyncButton  state={this.state}>
-                            <TranslatedText text="REGISTER"/>
+                            <TranslatedText text="Register"/> 
                             </AsyncButton>
                         </div>
                     </div>

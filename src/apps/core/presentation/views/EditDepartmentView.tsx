@@ -14,7 +14,7 @@ import EditDepartmentViewModel from "../../application/viewModels/editDepartment
 export default class EditDepartmentView extends EditModelView<Department, DepartmentForm>{
  
     getBackLink(): string {
-        return "/base/asset/list"
+        return "/base/department/list"
     }
 
     getTitle(): string {

@@ -34,12 +34,12 @@ export default class ListDepartmentsView extends ListModelView<Department>{
 
     
     getEditInstanceLink(instance: Department): string {
-        return `/base/asset-request/write?id=${instance.id!}`;
+        return `/base/department/write?id=${instance.id!}`;
     }
     
 
     getTitle(): string {
-        return "Asset Requests"
+        return "Departments"
     }
 
     getAllowedAuthenticationStatus(): AuthenticationStatus[] {

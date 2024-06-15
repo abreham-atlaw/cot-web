@@ -67,7 +67,7 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
 
                     }} className="cursor-pointer m-8" size={30}/>
                 </div>
-            <div className="mt-4 md:px-24 p-8 w-full  flex">
+            <div className="md:px-24 p-8 w-full  flex">
                 
                
                 <div className="m-auto w-full">
