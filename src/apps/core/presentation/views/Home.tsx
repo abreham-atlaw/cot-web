@@ -205,7 +205,13 @@ function Home() {
             </ul>
             <div className="footerSection2">
               <div className="col">
-                <h2>
+                <h2
+                  style={{
+                    alignItems: "center",
+                    fontSize: "1.5rem",
+                    color: "#000f2c",
+                  }}
+                >
                   {" "}
                   <TranslatedText text="Info" />{" "}
                 </h2>
