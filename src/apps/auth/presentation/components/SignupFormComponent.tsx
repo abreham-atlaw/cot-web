@@ -6,6 +6,7 @@ import Field from "@/common/forms/fields";
 import OrgSignupForm from "../../application/forms/signupForm";
 import RecaptcaFieldComponent from "@/common/components/form/RecaptchaFieldComponent";
 import TranslatedText from "@/common/components/localization/TranslatedText";
+import { useState } from "react";
 
 
 export interface SignupFormComponentProps{
@@ -14,6 +15,18 @@ export interface SignupFormComponentProps{
 }
 
 const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFormComponentProps) => {
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    
+
+    const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
+    };
+
+      const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    };
     return (
         <form onSubmit={
             (event) => {
@@ -28,18 +41,47 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFo
                 [
                     ["Full Name", (props.state.form as OrgSignupForm).name, "text"],
                     ["Email", (props.state.form as OrgSignupForm).email, "email"],
-                    ["Password",props.state.form.password, "password"]
+                    ["Password",props.state.form.password, "password"],
+                    ["Confirm Password", props.state.form.confirmPassword, "password"]
                 ]:
                 [
-                    ["Password",props.state.form.password, "password"]
+                    ["Password",props.state.form.password, "password"],
+                    ["Confirm Password", props.state.form.confirmPassword, "password"]
                 ] 
                 ).map(
                     (field) => (
+                  
                         <div className="mt-10" key={field[0] as string}>
-                            <LabeledInputField label={field[0] as string}>
-                                <TextFieldComponent field={field[1]as Field<string>} type={field[2] as string}/>
-                            </LabeledInputField>
-                        </div>
+                        <LabeledInputField label={field[0] as string}>
+                            <div className="relative">
+                                <TextFieldComponent 
+                                    field={field[1] as Field<string>} 
+                                    type={
+                                        field[0] === "Password" 
+                                        ? (showPassword ? "text" : "password") 
+                                        : (showConfirmPassword ? "text" : "password")
+                                    }
+                                />
+                                {field[2] === "password" && (
+                                    <button 
+                                        type="button" 
+                                        className="absolute inset-y-0 right-0 pr-8 flex items-center text-md leading-5" 
+                                        onClick={
+                                            field[0] === "Password" 
+                                            ? togglePasswordVisibility 
+                                            : toggleConfirmPasswordVisibility
+                                        }
+                                    >
+                                        {field[0] === "Password" 
+                                            ? (showPassword ? '🙈' : '👁️') 
+                                            : (showConfirmPassword ? '🙈' : '👁️')
+                                        }
+                                    </button>
+                                )}
+                            </div>
+                        </LabeledInputField>
+                    </div>
+                  
                     )
                 )
             }

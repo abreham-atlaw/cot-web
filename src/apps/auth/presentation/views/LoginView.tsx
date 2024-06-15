@@ -23,11 +23,15 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
     handleLogin = () => {
         this.viewModel.login();
     }
+    togglePasswordVisibility = () => {
+        this.setState({ showPassword: !this.state.showPassword });
+    }
 
     onCreateMain(): ReactNode {
         if(this.state.status === AsyncStatus.done){
             RoutingUtils.redirect("/");
         }
+       
         return (
             <div className="flex flex-wrap text-light h-screen">
 
@@ -59,7 +63,20 @@ export default class LoginView extends ViewModelView<LoginViewModel, unknown, Lo
                                 (field) => (
                                     <div className="mt-10" key={field[0] as string}>
                                         <LabeledInputField label={field[0] as string}>
-                                            <TextFieldComponent field={field[1] as Field<string>} type={field[2] as string}/>
+                                            <div className="relative">
+                                            <TextFieldComponent field={field[1] as Field<string>}  type={field[0] === "Password" && this.state.showPassword ? "text" : field[2] as string}/>
+                                            {field[0] === "Password" && (
+                                                    <button 
+                                                        type="button" 
+                                                        className="absolute inset-y-0 right-0 pr-8 flex items-center text-md leading-5" 
+                                                        onClick={this.togglePasswordVisibility}
+                                                    >
+                                                        {this.state.showPassword ? '🙈' : '👁️'}
+                                                    </button>
+                                                )}
+
+                                            </div>
+                                            
                                         </LabeledInputField>
                                     </div>
                                 )
