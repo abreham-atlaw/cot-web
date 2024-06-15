@@ -216,7 +216,13 @@ function Home() {
                 ))}
               </div>
               <div className="col">
-                <h2>
+                <h2
+                  style={{
+                    alignItems: "center",
+                    fontSize: "1.5rem",
+                    color: "#000f2c",
+                  }}
+                >
                   {" "}
                   <TranslatedText text="Socials" />{" "}
                 </h2>
