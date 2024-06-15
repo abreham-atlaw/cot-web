@@ -13,11 +13,11 @@ export default class ListProfilesView extends ListModelView<Profile>{
         return `/base/staff/detail?id=${instance.id}`;
     }
 
-    getModalChild(modalClose: () => void, instance?: Profile) {
+    getModalChild(modalClose: () => void, instance?: Profile,close?:()=>void) {
         if(instance === undefined){
-            return <RegisterUserView onCloseModal={modalClose}/>
+            return <RegisterUserView onCloseModal={modalClose} close={close}/>
         }
-        return <EditUserView closeModal={modalClose} id={instance!.id!}/>
+        return <EditUserView closeModal={modalClose} id={instance!.id!} close={close}/>
     }
   
     onCreateRepository(): EthersModelRepository<Profile> {

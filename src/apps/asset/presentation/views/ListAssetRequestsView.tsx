@@ -22,8 +22,8 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
         return `/base/asset-request/detail?id=${instance.id}`
     }
 
-    getModalChild(modalClose: () => void, instance?: AssetRequest){
-        return <EditAssetRequestView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: AssetRequest,close?:()=>void){
+        return <EditAssetRequestView closeModal={modalClose} id={instance?.id} close={close}/>
     }
     
     onCreateRepository(): EthersModelRepository<AssetRequest> {

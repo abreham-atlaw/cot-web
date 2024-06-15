@@ -23,8 +23,8 @@ export default class ListAssetMaintenanceRequestsView extends ListModelView<Asse
         return `/base/asset-maintenance-request/detail?id=${instance.id}`
     }
 
-    getModalChild(modalClose: () => void, instance?: AssetMaintenanceRequest){
-        return <EditAssetMaintenanceRequestView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: AssetMaintenanceRequest,close?:()=>void){
+        return <EditAssetMaintenanceRequestView closeModal={modalClose} id={instance?.id} close={close}/>
     }
     
     onCreateRepository(): EthersModelRepository<AssetMaintenanceRequest> {

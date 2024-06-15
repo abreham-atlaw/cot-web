@@ -33,7 +33,7 @@ const DashboardNavBar: React.FC<NavBarProps> = ({ user }) => {
     <div
     ref={dropdownRef}
       className={`border-b fixed bg-white border-bottom-2 py-4 px-10 flex justify-end items-center ${
-        isTabletSize ? " w-[90%]" : " "
+        isTabletSize ? " w-full" : " "
       } ${isMobileSize ? "w-full" : " w-4/5"}`}
     >
       {/* ... rest of the code ... */}

@@ -12,7 +12,8 @@ import { AsyncStatus } from "@/common/state/asyncState";
 import { MdClose } from "react-icons/md";
 
 interface RegisterUserViewProps{
-    onCloseModal: ()=>void
+    onCloseModal: ()=>void,
+    close:()=>void
 }
 
 
@@ -40,7 +41,7 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
         return (
             <div className="p-8">
                 <div className="flex justify-end">
-                <MdClose onClick={this.props.onCloseModal} className="cursor-pointer" size={30}/>
+                <MdClose onClick={this.props.close} className="cursor-pointer" size={30}/>
 
                 </div>
 
@@ -69,7 +70,7 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                     <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
                             
-                                <BaseButton onClick={this.props.onCloseModal} >
+                                <BaseButton onClick={this.props.close} >
                                     CANCEL
                                 </BaseButton>
                            
