@@ -18,6 +18,7 @@ import "../../../../App.css";
 import "../../../../index.css";
 import NavBar from "../components/Navbar";
 import TranslatedText from "@/common/components/localization/TranslatedText";
+
 import Footer from "../components/Footer";
 import About from "../components/About";
 
