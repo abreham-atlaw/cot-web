@@ -34,6 +34,11 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         this.cache.set(instance.id!, instance);
     }
 
+    private async clearCache(){
+        this.cache.clear();
+        this.isCacheComplete = false;
+    }
+
     async create(instance: M){
         if(instance.id === undefined){
             instance.id = await this.generateId();
@@ -47,6 +52,8 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             }
         );
         await transaction.wait()
+        await this.attachForeignKeys(instance);
+        await this.storeInstanceInCache(await this.getById(instance.id));
     } 
 
     async update(instance: M){
@@ -59,6 +66,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             }
         );
         await transaction.wait();
+        await this.storeInstanceInCache(await this.getById(instance.id));
     }
 
     async delete(instance: M){
@@ -70,6 +78,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             }
         );
         await transaction.wait();
+        await this.clearCache();
     }
 
     async getById(id: string): Promise<M>{
