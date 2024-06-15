@@ -4,18 +4,19 @@ import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRe
 import AssetDetailState from "../states/assetDetailState";
 import Profile from "@/apps/auth/domain/models/profile";
 import AssetRepository from "../../infrastructure/repositories/assetRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class AssetDetailViewModel extends ModelDetailViewModel<Asset>{
 
-    private profileRepository = new ProfileRepository();
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
 
     constructor(state: AssetDetailState, syncState: (state: AssetDetailState) => void){
         super(
             state,
-            new AssetRepository(),
+            RepositoryProvider.provide(AssetRepository),
             syncState
         );
     }

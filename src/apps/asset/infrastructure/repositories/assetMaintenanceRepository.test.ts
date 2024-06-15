@@ -5,6 +5,7 @@ import Asset from "../../domain/models/asset";
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import AssetMaintenanceRequest from "../../domain/models/assetMaintenanceRequest";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 // Mock dependencies
 jest.mock("@/apps/auth/infrastructure/repositories/authRepository");
@@ -22,7 +23,7 @@ describe("AssetMaintenanceRequestRepository", () => {
         assetRepositoryMock = AssetRepository.prototype as jest.Mocked<AssetRepository>;
         profileRepositoryMock = ProfileRepository.prototype as jest.Mocked<ProfileRepository>;
 
-        assetMaintenanceRequestRepository = new AssetMaintenanceRequestRepository();
+        assetMaintenanceRequestRepository = RepositoryProvider.provide(AssetMaintenanceRequestRepository);
 
     });
 

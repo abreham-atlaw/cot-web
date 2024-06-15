@@ -6,12 +6,13 @@ import DepartmentRepository from "../../infrastructure/repositories/departmentRe
 import EditDepartmentState from "../states/editDepartmentState";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import { Role } from "@/apps/auth/domain/models/profile";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class EditDepartmentViewModel extends EditModelViewModel<Department, DepartmentForm>{
     
-    private profileRepository = new ProfileRepository();
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
     protected async syncFormToModel(form: DepartmentForm, model: Department): Promise<void> {
         model.head = form.head.getValue()!;
@@ -24,7 +25,7 @@ export default class EditDepartmentViewModel extends EditModelViewModel<Departme
     }
     
     protected initRepository(): EthersModelRepository<Department> {
-        return new DepartmentRepository();
+        return RepositoryProvider.provide(DepartmentRepository);
     }
     
     protected createInstance(): Department {

@@ -7,15 +7,16 @@ import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRe
 import Asset from "@/apps/asset/domain/models/asset";
 import AssetRequest, { Status } from "@/apps/asset/domain/models/assetRequest";
 import ReportRepository from "../../infrastructure/repositories/reportRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class DashboardViewModel extends AsyncViewModel<DashboardState>{
 
-    private assetRepository = new AssetRepository();
-    private requestRepository = new AssetRequestRepository();
-    private categoryRepository = new AssetCategoryRepository();
-    private profileRepository = new ProfileRepository();
+    private assetRepository = RepositoryProvider.provide(AssetRepository);
+    private requestRepository = RepositoryProvider.provide(AssetRequestRepository);
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
     private reportRepository = new ReportRepository();
     
     public async onInit(): Promise<void> {

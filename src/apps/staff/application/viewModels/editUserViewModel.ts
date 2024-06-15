@@ -5,11 +5,12 @@ import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import EditUserState from "../states/editUserState";
 import DepartmentRepository from "@/apps/core/infrastructure/repositories/departmentRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class EditUserViewModel extends EditModelViewModel<Profile, UserForm>{
     
-    private departmentRepository = new DepartmentRepository();
+    private departmentRepository = RepositoryProvider.provide(DepartmentRepository);
 
     protected async syncFormToModel(form: UserForm, model: Profile): Promise<void> {
         model.department = form.department.getValue() ?? undefined;
@@ -22,7 +23,7 @@ export default class EditUserViewModel extends EditModelViewModel<Profile, UserF
     }
     
     protected initRepository(): EthersModelRepository<Profile> {
-        return new ProfileRepository();
+        return RepositoryProvider.provide(ProfileRepository);
     }
     
     protected createInstance(): Profile {

@@ -4,6 +4,7 @@ import DepartmentRepository from "./departmentRepository";
 import Department from "../../domain/models/department";
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import { InstanceNotFoundException } from "@/common/repositories/ethersModelRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 jest.mock('@/apps/auth/infrastructure/repositories/authRepository');
@@ -16,7 +17,7 @@ describe('Department Repository',()=>{
     let mockProfileRepository : jest.Mocked<ProfileRepository>;
 
     beforeEach(()=>{
-        departmentRepository = new DepartmentRepository();
+        departmentRepository = RepositoryProvider.provide(DepartmentRepository);
         mockAuthRepository = AuthRepository.prototype as jest.Mocked<AuthRepository>;
         mockProfileRepository = ProfileRepository.prototype as jest.Mocked<ProfileRepository>; 
     });

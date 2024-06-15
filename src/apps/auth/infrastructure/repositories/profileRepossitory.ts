@@ -8,11 +8,12 @@ import AssetRequestRepository from "@/apps/asset/infrastructure/repositories/ass
 import AssetMaintenanceRequestRepository from "@/apps/asset/infrastructure/repositories/assetMaintenanceRequestRepository";
 import AssetRepository from "@/apps/asset/infrastructure/repositories/assetRepository";
 import Department from "@/apps/core/domain/models/department";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class ProfileRepository extends EthersModelRepository<Profile>{
 
-    private authRepository = new AuthRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
 
     constructor(){
         super(
@@ -23,21 +24,21 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
     }
 
     get departmentRepository(): DepartmentRepository{
-        const repository = new DepartmentRepository();
+        const repository = RepositoryProvider.provide(DepartmentRepository);
         repository.attachMode = false;
         return repository;
     }
     
     get assetRequestRepository(): AssetRequestRepository{
-        return new AssetRequestRepository();
+        return RepositoryProvider.provide(AssetRequestRepository);
     }
 
     get assetMaintenanceRequestRepository(): AssetMaintenanceRequestRepository{
-        return new AssetMaintenanceRequestRepository();
+        return RepositoryProvider.provide(AssetMaintenanceRequestRepository);
     }
 
     get assetRepository(): AssetRepository{
-        return new AssetRepository();
+        return RepositoryProvider.provide(AssetRepository);
     }
 
     async getByUserKey(key: string): Promise<Profile>{

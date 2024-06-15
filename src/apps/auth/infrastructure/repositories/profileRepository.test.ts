@@ -10,6 +10,7 @@ import ProfileRepository from './profileRepossitory';
 import AssetRequest, { Status } from '@/apps/asset/domain/models/assetRequest';
 import AssetMaintenanceRequest from '@/apps/asset/domain/models/assetMaintenanceRequest';
 import Asset from '@/apps/asset/domain/models/asset';
+import RepositoryProvider from '@/di/repositoryProviders';
 
 jest.mock('@/apps/auth/infrastructure/repositories/authRepository');
 jest.mock('@/apps/core/infrastructure/repositories/departmentRepository');
@@ -28,7 +29,7 @@ describe('ProfileRepository', () => {
     let mockProfileSerializer: jest.Mocked<ProfileSerializer>;
 
     beforeEach(() => {
-        profileRepository = new ProfileRepository();
+        profileRepository = RepositoryProvider.provide(ProfileRepository);
 
         mockAuthRepository = AuthRepository.prototype as jest.Mocked<AuthRepository>;
         mockDepartmentRepository = DepartmentRepository.prototype as jest.Mocked<DepartmentRepository>;

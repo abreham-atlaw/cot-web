@@ -10,6 +10,7 @@ import VerifyResetTokenRequest from "../requests/verifyResetTokenRequest";
 import ResetPasswordRequest from "../requests/resetPasswordRequest";
 import AuthenticationStatus from "../../domain/models/authenticationStatus";
 import ProfileRepository from "./profileRepossitory";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 // Mock dependencies
 jest.mock("../../../../di/coreProviders");
@@ -40,7 +41,7 @@ describe("AuthRepository", () => {
         (AuthProviders.provideKeyPairStorage as jest.Mock).mockReturnValue(keyPairStorageMock);
         (AuthProviders.provideKeyPair as jest.Mock).mockResolvedValue({ publicKey: "mockPublicKey" });
 
-        authRepository = new AuthRepository();
+        authRepository = RepositoryProvider.provide(AuthRepository);
 
     });
 

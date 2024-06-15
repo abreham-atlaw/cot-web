@@ -11,6 +11,7 @@ import ListAssetsViewModel from "../../application/viewModels/listAssetViewModel
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import AssetCategory from "../../domain/models/assetCategory";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 interface ListAssetViewProps{
@@ -26,7 +27,7 @@ export default class ListAssetsView extends ListModelView<Asset, ListAssetViewPr
     }
     
     onCreateRepository(): EthersModelRepository<Asset> {
-        return new AssetRepository();
+        return RepositoryProvider.provide(AssetRepository);
     }
 
     onCreateViewModel(state: ModelListState<Asset>): ModelListViewModel<Asset> {

@@ -6,6 +6,7 @@ import ListModelView from "./ListModelView";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import Profile from "@/apps/auth/domain/models/profile";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -21,7 +22,7 @@ export default class ListDepartmentsView extends ListModelView<Department>{
     } 
     
     onCreateRepository(): EthersModelRepository<Department> {
-        return new DepartmentRepository();
+        return RepositoryProvider.provide(DepartmentRepository);
     }
 
     getInstanceValues(instance: Department): string[] {

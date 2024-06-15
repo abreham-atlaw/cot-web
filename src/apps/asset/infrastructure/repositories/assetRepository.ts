@@ -8,13 +8,14 @@ import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRe
 import AssetCategory from "../../domain/models/assetCategory";
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import AssetMaintenanceRequestRepository from "./assetMaintenanceRequestRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class AssetRepository extends EthersModelRepository<Asset>{
 
-    private authRepository = new AuthRepository();
-    private categoryRepository = new AssetCategoryRepository();
-    private profileRepository = new ProfileRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
     public static readonly ADMIN_ROLES = [
         Role.admin, Role.inventory
@@ -29,7 +30,7 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
     }
 
     get assetMaintenanceRequestRepository(): AssetMaintenanceRequestRepository{
-        return new AssetMaintenanceRequestRepository();
+        return RepositoryProvider.provide(AssetMaintenanceRequestRepository);
     }
 
     async preSave(instance: Asset): Promise<void> {

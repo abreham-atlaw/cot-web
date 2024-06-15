@@ -4,12 +4,13 @@ import EditModelViewModel from "@/common/viewmodel/editModelViewModel";
 import AssetCategoryForm from "../forms/assetCategoryForm";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import EditAssetCategoryState from "../states/editAssetCategoryState";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class CreateAssetCategoryViewModel extends EditModelViewModel<AssetCategory, AssetCategoryForm>{
     
-    private categoryRepository = new AssetCategoryRepository();
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
 
     protected async syncFormToModel(form: AssetCategoryForm, model: AssetCategory): Promise<void> {
         model.name = form.name.getValue()!;
@@ -20,7 +21,7 @@ export default class CreateAssetCategoryViewModel extends EditModelViewModel<Ass
         form.parent.value = model.parent ?? null;
     }
     protected initRepository(): EthersModelRepository<AssetCategory> {
-        return new AssetCategoryRepository();
+        return RepositoryProvider.provide(AssetCategoryRepository)
     }
     protected createInstance(): AssetCategory {
         return new AssetCategory(

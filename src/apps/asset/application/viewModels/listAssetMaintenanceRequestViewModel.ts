@@ -3,6 +3,7 @@ import ModelListState from "@/common/state/modelListState";
 import Profile from "@/apps/auth/domain/models/profile";
 import AssetMaintenanceRequestRepository from "../../infrastructure/repositories/assetMaintenanceRequestRepository";
 import AssetMaintenanceRequest from "../../domain/models/assetMaintenanceRequest";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -12,7 +13,7 @@ export default class ListAssetMaintenanceRequestsViewModel extends ModelListView
     constructor(state: ModelListState<AssetMaintenanceRequest>, syncState: (state: ModelListState<AssetMaintenanceRequest>) => void){
         super(
             state,
-            new AssetMaintenanceRequestRepository(),
+            RepositoryProvider.provide(AssetMaintenanceRequestRepository),
             syncState
         );
     }

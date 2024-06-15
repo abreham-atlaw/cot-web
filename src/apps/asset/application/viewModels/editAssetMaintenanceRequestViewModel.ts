@@ -9,14 +9,15 @@ import { Status } from "../../domain/models/assetRequest";
 import AssetRepository from "../../infrastructure/repositories/assetRepository";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import CoreProviders from "@/di/coreProviders";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class EditAssetMaintenanceRequestViewModel extends EditModelViewModel<AssetMaintenanceRequest, AssetMaintenanceRequestForm>{
     
     private static readonly RESOLVE_ROLES = [Role.admin, Role.maintainer];    
 
-    private assetRepository = new AssetRepository();
-    private authRepository = new AuthRepository();
+    private assetRepository = RepositoryProvider.provide(AssetRepository);
+    private authRepository = RepositoryProvider.provide(AuthRepository);
     private fileStorage = CoreProviders.provideFileStorage();
 
     protected async syncFormToModel(form: AssetMaintenanceRequestForm, model: AssetMaintenanceRequest): Promise<void> {
@@ -38,7 +39,7 @@ export default class EditAssetMaintenanceRequestViewModel extends EditModelViewM
     }
     
     protected initRepository(): EthersModelRepository<AssetMaintenanceRequest> {
-        return new AssetMaintenanceRequestRepository();
+        return RepositoryProvider.provide(AssetMaintenanceRequestRepository);
     }
     
     protected createInstance(): AssetMaintenanceRequest {

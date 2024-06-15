@@ -9,6 +9,7 @@ import ListAssetCategoriesViewModel from "../../application/viewModels/listAsset
 import EditAssetCategoryView from "./EditAssetCategoryView";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -23,7 +24,7 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
     }
     
     onCreateRepository(): EthersModelRepository<AssetCategory> {
-        return new AssetCategoryRepository();
+        return RepositoryProvider.provide(AssetCategoryRepository)
     }
 
     getInstanceValues(instance: AssetCategory): string[] {
