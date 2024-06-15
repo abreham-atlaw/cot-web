@@ -8,17 +8,15 @@ import SignupFormComponent from "../components/SignupFormComponent";
 import CreateOrganizationFormComponent from "../components/CreateOrganizationFormComponent";
 import { useParams } from "react-router-dom";
 import LoadingView from "@/common/components/views/LoadingView";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 
 interface SignupViewProps{
     invitationId?: string;
 }
 
-
 export default class SignupView extends ViewModelView<SignupViewModel, SignupViewProps, SignupState>{
     
-
-
     onCreateViewModel(state: SignupState): SignupViewModel {
         return new SignupViewModel(state, this.setState.bind(this));
     }
@@ -45,7 +43,7 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
                 <div className={`w-full md:w-[60%] bg-cover flex bg-[url('${image}')]`} >
 
                     <h1 className="text-7xl font-bold m-auto">
-                        Next-Gen<br/>Property<br/>Management
+                        <TranslatedText text="Next-Gen"/><br/><TranslatedText text="Property"/><br/><TranslatedText text="Management"/>
                     </h1>
 
                 </div>
@@ -63,18 +61,9 @@ export default class SignupView extends ViewModelView<SignupViewModel, SignupVie
                 </div>
                 
             </div>
-            // <form onClick={this.handleSignup}>
-            //     <div>{this.state.status}</div>
-            //     <TextFieldComponent field={this.state.form.email} syncer={this.viewModel.syncState}/>
-            //     <TextFieldComponent field={this.state.form.password} syncer={this.viewModel.syncState}/>
-            //     <AsyncButton state={this.state}/>
-            // </form>
         )
     }
-
-
 }
-
 
 const RoutedSignupView = () => {
     const params = useParams();
@@ -82,4 +71,3 @@ const RoutedSignupView = () => {
 }
 
 export {RoutedSignupView};
-

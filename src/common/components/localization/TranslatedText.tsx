@@ -3,6 +3,7 @@ import Translator from "@/common/utils/translator";
 import AsyncViewModel from "@/common/viewmodel/asyncViewModel";
 import React from "react";
 import ViewModelView from "../views/ViewModelView";
+import { LoadingSpinner } from "../status/LoadingSpinner";
 
 
 class TranslateState extends BaseState{
@@ -40,7 +41,9 @@ export default class TranslatedText extends ViewModelView<TranslateViewModel, Tr
     }
 
     onCreateLoading(): React.ReactNode {
-        return (<span>Translating</span>)
+        return (
+            <span className="text-sm italic">Translating...</span>
+        );
     }
 
     onCreateMain(): React.ReactNode {

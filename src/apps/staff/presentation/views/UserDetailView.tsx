@@ -7,6 +7,7 @@ import UserDetailViewModel from "../../application/viewModels/userDetailViewMode
 import ListAssetsView from "@/apps/asset/presentation/views/ListAssetsView";
 import ListAssetRequestsView from "@/apps/asset/presentation/views/ListAssetRequestsView";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 
 export default class UserDetailView extends React.Component{
@@ -32,16 +33,16 @@ export default class UserDetailView extends React.Component{
                 <div className="">
                     <h1 className="font-bold text-2xl flex">
                         <Link className="w-16 h-16 flex mr-5 hover:bg-light rounded-full" to="/base/staff/list"><i className="fa-solid fa-chevron-left m-auto"></i></Link>
-                        <span className="my-auto">{state.instance!.name}</span>
+                        <TranslatedText text={state.instance!.name} />
                     </h1>
-                    <p className="mt-10">ID: {state.instance!.id!}</p>
-                    <p>Name: {state.instance!.name}</p>
-                    <p>Role: {Role[state.instance!.role].toUpperCase()}</p>
-                    <p>Email: {state.instance!.email}</p>
-                    <p>Department: {state.instance!.department?.name ?? "No Department"}</p>
+                    <p className="mt-10"><TranslatedText text={`ID: ${state.instance!.id!}`} /></p>
+                    <p><TranslatedText text={`Name: ${state.instance!.name}`} /></p>
+                    <p><TranslatedText text={`Role: ${Role[state.instance!.role].toUpperCase()}`} /></p>
+                    <p><TranslatedText text={`Email: ${state.instance!.email}`} /></p>
+                    <p><TranslatedText text={`Department: ${state.instance!.department?.name ?? "No Department"}`} /></p>
                     {
                         hasAssetPermission?
-                        <p>Properties: {state.assets!.length}</p>:
+                        <p><TranslatedText text={`Properties: ${state.assets!.length}`} /></p>:
                         <></>
                     }
                 </div>

@@ -5,13 +5,13 @@ import TextFieldComponent from "@/common/components/form/TextFieldComponent"
 import Field from "@/common/forms/fields";
 import OrgSignupForm from "../../application/forms/signupForm";
 import RecaptcaFieldComponent from "@/common/components/form/RecaptchaFieldComponent";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 
 export interface SignupFormComponentProps{
     onSubmit: () => void;
     state: SignupState;
 }
-
 
 const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFormComponentProps) => {
     return (
@@ -20,8 +20,8 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFo
                 event.preventDefault(); 
                 props.onSubmit();
             }}>
-            <h1 className="text-5xl">Sign up</h1>
-            <p className="mt-5">Enter your account details below</p>
+            <h1 className="text-5xl"><TranslatedText text="Sign up" /></h1>
+            <p className="mt-5"><TranslatedText text="Enter your account details below" /></p>
             <p className="my-5 text-danger">{ props.state.error?.message ?? "" }</p>
             {
                 ((props.state.adminMode)?
@@ -48,10 +48,10 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFo
             <RecaptcaFieldComponent field={props.state.form.recaptcha}/>
             <div className="mt-10">
                 <AsyncButton state={props.state} bg="primary">
-                    SIGN UP
+                    <TranslatedText text="SIGN UP" />
                 </AsyncButton>
             </div>
-            <p className="mt-5">Already have an account? <a href="/auth/login" className="text-primaryLight font-bold">Login</a></p>
+            <p className="mt-5"><TranslatedText text="Already have an account?" /> <a href="/auth/login" className="text-primaryLight font-bold"><TranslatedText text="Login" /></a></p>
 
         </form>
         

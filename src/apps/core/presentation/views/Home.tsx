@@ -1,6 +1,5 @@
 import {
 	FaArrowCircleRight,
-	FaArrowRight,
 	FaFacebook,
 	FaInstagram,
 	FaTelegram,
@@ -100,10 +99,6 @@ function Home() {
 						<h4>
 							<TranslatedText text="Evolutionary solutions" /> <h3> <TranslatedText text="For companies" /> </h3>
 						</h4>
-						<span>
-							<TranslatedText text="View services" />
-							<FaArrowRight style={{ marginLeft: "20px", color: "grey" }} />
-						</span>
 					</div>
 					<div className='lists'>
 						{services.map((item) => (

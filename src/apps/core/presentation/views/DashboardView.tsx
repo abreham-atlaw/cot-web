@@ -5,9 +5,7 @@ import DashboardState from "../../application/states/dashboardState";
 import DashboardStatComponent from "../components/DashboardStatComponent";
 import DashboardCategoryChart from "../components/DashboardCategoryChart";
 import AsyncButton from "@/common/components/buttons/AsyncButton";
-
-
-
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 export default class DashboardView extends ViewModelView<DashboardViewModel, unknown, DashboardState>{
     
@@ -23,13 +21,11 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
         this.viewModel.generateReport();
     }
 
-
-
     onCreateMain(): ReactNode {
         return (
             <div className="p-16">
                 <section className="">
-                    <h2>Quick Stats</h2>
+                    <h2><TranslatedText text="Quick Stats"></TranslatedText></h2>
                     <div className="flex flex-wrap mt-7">
                         {
                             [
@@ -48,7 +44,7 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
                 </section>
 
                 <section className="mt-16">
-                    <h2>Requests Overview</h2>
+                    <h2><TranslatedText text="Requests Overview"></TranslatedText></h2>
                     <div className="flex flex-wrap mt-7">
                         {
                             [
@@ -69,18 +65,18 @@ export default class DashboardView extends ViewModelView<DashboardViewModel, unk
 
 
                 <section className="mt-24">
-                    <h2>Report</h2>
+                    <h2><TranslatedText text="Report"></TranslatedText></h2>
                     <div className="flex mt-10">
                         <div className="w-full md:w-3/5">
                             <div onClick={this.handleGenerateReport}>
-                                <AsyncButton state={this.state} bg="primary">Generate Report</AsyncButton>
+                                <AsyncButton state={this.state} bg="primary"><TranslatedText text="Generate Report"></TranslatedText></AsyncButton>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <section className="mt-24">
-                    <h2>Categories</h2>
+                    <h2><TranslatedText text="Categories"></TranslatedText></h2>
                     <div className="flex mt-10">
                         <div className="w-full md:w-3/5">
                             <DashboardCategoryChart data={this.state.categoryAssetCounts!}/>
