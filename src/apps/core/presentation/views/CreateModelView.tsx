@@ -59,15 +59,15 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
 
     onCreateMain = (): ReactNode => {
         return (
-            <div className="p-8">
+            <div className="">
             <div className="flex justify-end">
                 <MdClose onClick={()=>{
                 
                     this.onClose()
 
-                    }} className="cursor-pointer" size={30}/>
+                    }} className="cursor-pointer m-8" size={30}/>
                 </div>
-            <div className="mt-8 p-8 w-full  flex">
+            <div className="mt-4 md:px-24 p-8 w-full  flex">
                 
                
                 <div className="m-auto w-full">
@@ -108,7 +108,9 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
         
     }
     onClose = ()=>{
+        if (this.state.status !== AsyncStatus.loading) {
         return this.props.close();
+        }
     }
   
 

@@ -222,7 +222,7 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
                      <Modal
             isOpen={this.state.modalClicked}
-            className='modal-content custome-property h-[80%] w-[50%] hover:overflow-auto overflow-hidden'
+            className='modal-content custome-property h-[80%] w-[70%] md:w-[50%] hover:overflow-auto overflow-hidden'
             // onRequestClose={()=> { this.modalClicked()}}
             overlayClassName='modal-overlay'
             >
