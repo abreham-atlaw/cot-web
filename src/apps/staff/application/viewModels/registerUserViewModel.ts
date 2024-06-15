@@ -3,13 +3,14 @@ import RegisterUserState from "../states/registerUserState";
 import InvitationRepository from "@/apps/auth/infrastructure/repositories/invitationRepository";
 import Invitation from "@/apps/auth/domain/models/invitation";
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class RegisterUserViewModel extends AsyncViewModel<RegisterUserState>{
 
-    private invitationRepository = new InvitationRepository();
-    private authRepository = new AuthRepository();
+    private invitationRepository = RepositoryProvider.provide(InvitationRepository);
+    private authRepository = RepositoryProvider.provide(AuthRepository);
 
     async registerUser(){
         await this.asyncCall(

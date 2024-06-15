@@ -9,6 +9,7 @@ import ListAssetRequestsViewModel from "../../application/viewModels/listAssetRe
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 interface ListAssetRequestsProps{
@@ -22,12 +23,12 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
         return `/base/asset-request/detail?id=${instance.id}`
     }
 
-    getModalChild(modalClose: () => void, instance?: AssetRequest){
-        return <EditAssetRequestView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: AssetRequest,close?:()=>void){
+        return <EditAssetRequestView closeModal={modalClose} id={instance?.id} close={close}/>
     }
     
     onCreateRepository(): EthersModelRepository<AssetRequest> {
-        return new AssetRequestRepository();
+        return RepositoryProvider.provide(AssetRequestRepository);
     }
 
     onCreateViewModel(state: ModelListState<AssetRequest>): ModelListViewModel<AssetRequest> {
@@ -42,12 +43,13 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
             instance.category!.name,
             (this.state.me?.role === Role.department || instance.departmentStatus === Status.rejected)?
             Status[instance.departmentStatus].toUpperCase():
-            Status[instance.status].toUpperCase()
+            Status[instance.status].toUpperCase(),
+            instance.createDateTime.toLocaleDateString()
         ];
     }
 
     getHeadings(): string[] {
-        return ["ID", "User Name", "Asset Category", "Status"];
+        return ["ID", "User Name", "Asset Category", "Status", "Requested On"];
     }
 
 

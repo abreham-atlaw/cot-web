@@ -5,28 +5,33 @@ import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import { ReactNode } from "react";
 import RegisterUserView from "./RegisterUserView";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 export default class ListInvitationsView extends ListModelView<Invitation>{
+    getModalChild(modalClose: () => void, instance?: Invitation, close?: () => void): ReactNode {
+        return <RegisterUserView onCloseModal={modalClose} close={close} />
+    }
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getDetailLink(_instance: Invitation): string {
         return "";
     }
     
-    getModalChild(modalClose: () => void): ReactNode {
-        return <RegisterUserView onCloseModal={modalClose}/>
-    }
+    // getModalChild(modalClose: () => void): ReactNode {
+    //     return <RegisterUserView onCloseModal={modalClose} />
+    // }
+
     
     onCreateRepository(): EthersModelRepository<Invitation> {
-        return new InvitationRepository();
+        return RepositoryProvider.provide(InvitationRepository);
     }
 
     getInstanceValues(instance: Invitation): string[] {
-        return [instance.id!.split("-")[0], instance.name, Role[instance.role].toUpperCase(), instance.to];
+        return [instance.id!.split("-")[0], instance.name, Role[instance.role].toUpperCase(), instance.to, instance.createDatetime.toLocaleDateString()];
     }
 
     getHeadings(): string[] {
-        return ["ID", "Name", "Role", "E-Mail"];
+        return ["ID", "Name", "Role", "E-Mail", "Date"];
     }
 
     getAddInstanceLink(): string {

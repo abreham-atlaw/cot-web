@@ -6,6 +6,7 @@ import ListModelView from "./ListModelView";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import Profile from "@/apps/auth/domain/models/profile";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -16,12 +17,12 @@ export default class ListDepartmentsView extends ListModelView<Department>{
         return `/base/department/detail?id=${instance.id!}`;
     }
 
-    getModalChild(modalClose: () => void, instance?: Department) {
-        return <EditDepartmentView closeModal={modalClose} id={instance?.id}/>
-    }
+    getModalChild(modalClose: () => void, instance?: Department, close?:()=>void) {
+        return <EditDepartmentView closeModal={modalClose} id={instance?.id} close={close}/>
+    } 
     
     onCreateRepository(): EthersModelRepository<Department> {
-        return new DepartmentRepository();
+        return RepositoryProvider.provide(DepartmentRepository);
     }
 
     getInstanceValues(instance: Department): string[] {

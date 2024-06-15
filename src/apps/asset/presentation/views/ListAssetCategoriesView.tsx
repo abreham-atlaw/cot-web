@@ -9,6 +9,7 @@ import ListAssetCategoriesViewModel from "../../application/viewModels/listAsset
 import EditAssetCategoryView from "./EditAssetCategoryView";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -18,12 +19,12 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
         return `/base/asset-category/detail?id=${instance.id}`;
     }
     
-    getModalChild(modalClose: () => void, instance?: AssetCategory) {
-        return <EditAssetCategoryView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: AssetCategory,close?:()=>void) {
+        return <EditAssetCategoryView closeModal={modalClose} id={instance?.id} close={close} />
     }
     
     onCreateRepository(): EthersModelRepository<AssetCategory> {
-        return new AssetCategoryRepository();
+        return RepositoryProvider.provide(AssetCategoryRepository)
     }
 
     getInstanceValues(instance: AssetCategory): string[] {

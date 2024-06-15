@@ -1,12 +1,13 @@
 import AsyncViewModel from "@/common/viewmodel/asyncViewModel";
 import RequestPasswordResetState from "../states/requestPasswordResetState";
 import AuthRepository from "../../infrastructure/repositories/authRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class RequestPasswordResetViewModel extends AsyncViewModel<RequestPasswordResetState>{
 
-    private repository = new AuthRepository();
+    private repository = RepositoryProvider.provide(AuthRepository);
 
     async submit(){
         await this.asyncCall(

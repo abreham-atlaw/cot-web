@@ -34,6 +34,11 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         this.cache.set(instance.id!, instance);
     }
 
+    private async clearCache(){
+        this.cache.clear();
+        this.isCacheComplete = false;
+    }
+
     async create(instance: M){
         if(instance.id === undefined){
             instance.id = await this.generateId();
@@ -47,6 +52,8 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             }
         );
         await transaction.wait()
+        await this.attachForeignKeys(instance);
+        await this.storeInstanceInCache(await this.getById(instance.id));
     } 
 
     async update(instance: M){
@@ -59,6 +66,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             }
         );
         await transaction.wait();
+        await this.storeInstanceInCache(await this.getById(instance.id));
     }
 
     async delete(instance: M){
@@ -70,6 +78,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             }
         );
         await transaction.wait();
+        await this.clearCache();
     }
 
     async getById(id: string): Promise<M>{
@@ -92,16 +101,25 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
             return Array.from(this.cache.values());
         }
         const contract = await this.getReadContract()
+        console.log("Fetching all...");
         const response = await contract.getAll();
         const instances = this.serializer.deserializeMany(response);
         const filtered = [];
-        for(const instance of instances){
+
+        await Promise.all(instances.map(async instance => {
             await this.prepareInstance(instance);
             await this.storeInstanceInCache(instance);
             if(await this.filterAll(instance)){
                 filtered.push(instance);
             }
-        }
+        }));
+        // for(const instance of instances){
+        //     await this.prepareInstance(instance);
+        //     await this.storeInstanceInCache(instance);
+        //     if(await this.filterAll(instance)){
+        //         filtered.push(instance);
+        //     }
+        // }
         this.isCacheComplete = true;
         return filtered;
     }

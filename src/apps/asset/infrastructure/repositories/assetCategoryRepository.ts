@@ -4,6 +4,7 @@ import AssetCategorySerializer from "../../domain/serializers/assetCategorySeria
 import AssetCategory from "../../domain/models/assetCategory";
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import AssetRepository from "./assetRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export interface CategoryCount{
@@ -14,7 +15,7 @@ export interface CategoryCount{
 
 export default class AssetCategoryRepository extends EthersModelRepository<AssetCategory>{
 
-    private authRepository = new AuthRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
 
     constructor(){
         super(
@@ -25,7 +26,7 @@ export default class AssetCategoryRepository extends EthersModelRepository<Asset
     }
 
     get assetRepository(): AssetRepository{
-        return new AssetRepository();
+        return RepositoryProvider.provide(AssetRepository);
     }
 
     async preSave(instance: AssetCategory): Promise<void> {
@@ -50,29 +51,30 @@ export default class AssetCategoryRepository extends EthersModelRepository<Asset
         }
     }
 
-    async getCategoryCount(givenCategories?: AssetCategory[]): Promise<Map<AssetCategory, CategoryCount>>{
+    async getCategoryCount(givenCategories?: AssetCategory[]): Promise<Map<AssetCategory, CategoryCount>> {
         let categories: AssetCategory[];
-        if(givenCategories === undefined){
+        if (givenCategories === undefined) {
             categories = await this.getAll();
-        }
-        else{
+        } else {
             categories = givenCategories;
         }
-        const counts = new Map<AssetCategory, CategoryCount>();
-        for(const category of categories){
+    
+        const countsPromises = categories.map(async (category) => {
             const assets = await this.assetRepository.filterByCategory(category);
-            counts.set(
+            return [
                 category,
                 {
                     allocated: assets.filter((asset) => asset.currentOwnerId != null).length,
                     unallocated: assets.filter((asset) => asset.currentOwnerId == null).length,
                     total: assets.length
                 }
-            )
-        }
-
+            ];
+        });
+    
+        const countsEntries = await Promise.all(countsPromises);
+        const counts = new Map<AssetCategory, CategoryCount>(countsEntries as unknown as [AssetCategory, CategoryCount][]);
+    
         return counts;
-
     }
 
 

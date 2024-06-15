@@ -6,17 +6,18 @@ import AssetRequestRepository from "@/apps/asset/infrastructure/repositories/ass
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import AssetMaintenanceRequestRepository from "@/apps/asset/infrastructure/repositories/assetMaintenanceRequestRepository";
 import { Status } from "@/apps/asset/domain/models/assetRequest";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class ReportRepository {
 
     private networkClient = CoreProviders.provideNetworkClient();
-    private assetRepository = new AssetRepository();
-    private categoryRepository = new AssetCategoryRepository();
-    private assetRequestRepository = new AssetRequestRepository();
-    private profileRepository = new ProfileRepository();
-    private assetMaintenanceRepository = new AssetMaintenanceRequestRepository();
+    private assetRepository = RepositoryProvider.provide(AssetRepository);
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
+    private assetRequestRepository = RepositoryProvider.provide(AssetRequestRepository);
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
+    private assetMaintenanceRepository = RepositoryProvider.provide(AssetMaintenanceRequestRepository);
     
     private async getAssetSummary(){
         const assets = await this.assetRepository.getAll();

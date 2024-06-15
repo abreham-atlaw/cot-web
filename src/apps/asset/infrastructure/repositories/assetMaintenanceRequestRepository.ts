@@ -7,13 +7,14 @@ import AssetMaintenanceRequestSerializer from "../../domain/serializers/assetMai
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import AssetRepository from "./assetRepository";
 import Asset from "../../domain/models/asset";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class AssetMaintenanceRequestRepository extends EthersModelRepository<AssetMaintenanceRequest>{
 
-    private authRepository = new AuthRepository();
-    private assetRepository = new AssetRepository();
-    private profileRepository = new ProfileRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
+    private assetRepository = RepositoryProvider.provide(AssetRepository);
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
     public static readonly ADMIN_ROLES = [
         Role.admin,

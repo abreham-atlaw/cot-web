@@ -10,9 +10,11 @@ import BaseButton from "@/common/components/buttons/BaseButton";
 import RoutingUtils from "@/common/utils/routing";
 import { AsyncStatus } from "@/common/state/asyncState";
 import { MdClose } from "react-icons/md";
+import TranslatedText from "@/common/components/localization/TranslatedText";
 
 interface RegisterUserViewProps{
-    onCloseModal: ()=>void
+    onCloseModal: ()=>void,
+    close:()=>void
 }
 
 
@@ -40,14 +42,14 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
         return (
             <div className="p-8">
                 <div className="flex justify-end">
-                <MdClose onClick={this.props.onCloseModal} className="cursor-pointer" size={30}/>
+                <MdClose onClick={this.props.close} className="cursor-pointer m-8" size={30}/>
 
                 </div>
 
-                <div className="w-full flex">
+                <div className="md:px-24 p-8 w-full flex">
                 <div className="m-auto w-full">
 
-                    <h1 className="text-4xl mb-16 text-center">Register User</h1>
+                    <h1 className="text-4xl mb-16 text-center"><TranslatedText text="Register User"/></h1>
 
                     <p className="my-5 text-danger">{ this.state.error?.message ?? ""}</p>
 
@@ -69,15 +71,14 @@ export default class RegisterUserView extends ViewModelView<RegisterUserViewMode
                     <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
                             
-                                <BaseButton onClick={this.props.onCloseModal} >
-                                    CANCEL
-                                </BaseButton>
+                                <BaseButton onClick={this.props.close} >
+                                <TranslatedText text="CANCEL"/>                                </BaseButton>
                            
                         </div>
                         <div className="mx-auto" onClick={() => {this.viewModel.registerUser()}}>
                             
                             <AsyncButton  state={this.state}>
-                                REGISTER
+                            <TranslatedText text="REGISTER"/>
                             </AsyncButton>
                         </div>
                     </div>

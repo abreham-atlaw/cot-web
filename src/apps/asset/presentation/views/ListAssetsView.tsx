@@ -11,6 +11,7 @@ import ListAssetsViewModel from "../../application/viewModels/listAssetViewModel
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 import AssetCategory from "../../domain/models/assetCategory";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 interface ListAssetViewProps{
@@ -21,12 +22,12 @@ interface ListAssetViewProps{
 
 export default class ListAssetsView extends ListModelView<Asset, ListAssetViewProps>{
 
-    getModalChild(modalClose: () => void, instance?: Asset):ReactNode {
-        return <EditAssetView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: Asset, close?:()=>void):ReactNode {
+        return <EditAssetView closeModal={modalClose} id={instance?.id} close={close}/>
     }
     
     onCreateRepository(): EthersModelRepository<Asset> {
-        return new AssetRepository();
+        return RepositoryProvider.provide(AssetRepository);
     }
 
     onCreateViewModel(state: ModelListState<Asset>): ModelListViewModel<Asset> {
@@ -34,7 +35,7 @@ export default class ListAssetsView extends ListModelView<Asset, ListAssetViewPr
     }
 
     getInstanceValues(instance: Asset): string[] {
-        return [instance.id!.split("-")[0], instance.name, instance.category!.name, instance.currentOwner?.name ?? "No Owner"];
+        return [instance.id!.split("-")[0], instance.name, instance.category!.name, instance.currentOwner?.name ?? "No Owner", instance.createDateTime.toLocaleDateString()];
     }
 
     getDetailLink(instance: Asset): string {
@@ -42,7 +43,7 @@ export default class ListAssetsView extends ListModelView<Asset, ListAssetViewPr
     }
 
     getHeadings(): string[] {
-        return ["ID", "Name", "Category", "Owner"];
+        return ["ID", "Name", "Category", "Owner", "Registered On"];
     }
 
     getAddInstanceLink(): string {

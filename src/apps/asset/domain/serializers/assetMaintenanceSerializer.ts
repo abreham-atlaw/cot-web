@@ -1,7 +1,10 @@
 import Serializer from "@/common/serializers/serializer";
 import AssetMaintenanceRequest from "../models/assetMaintenanceRequest";
+import TimeStampSerializer from "@/common/serializers/timestampSerializer";
 
 export default class AssetMaintenanceRequestSerializer extends Serializer<AssetMaintenanceRequest, Array<unknown>> {
+
+    private timeStampSerializer = new TimeStampSerializer();
 
     serialize(instance: AssetMaintenanceRequest): unknown[] {
         return [
@@ -21,7 +24,8 @@ export default class AssetMaintenanceRequestSerializer extends Serializer<AssetM
             data[2] as string,
             Number(data[3]) as number,
             data[4] as string,
-            data[5] as string
+            data[5] as string,
+            this.timeStampSerializer.deserialize(Number(data[6]))
         );
     }
 }

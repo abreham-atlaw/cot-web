@@ -6,12 +6,13 @@ import AssetRepository from "../../infrastructure/repositories/assetRepository";
 import EditAssetState from "../states/editAssetState";
 import AssetCategoryRepository from "../../infrastructure/repositories/assetCategoryRepository";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class CreateAssetViewModel extends EditModelViewModel<Asset, AssetForm>{
     
-    private categoryRepository = new AssetCategoryRepository();
-    private profileRepository = new ProfileRepository();
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
     protected async syncFormToModel(form: AssetForm, model: Asset): Promise<void> {
         model.name = form.name.getValue()!;
@@ -28,7 +29,7 @@ export default class CreateAssetViewModel extends EditModelViewModel<Asset, Asse
     }
 
     protected initRepository(): EthersModelRepository<Asset> {
-        return new AssetRepository();
+        return RepositoryProvider.provide(AssetRepository);
     }
 
     protected createInstance(): Asset {

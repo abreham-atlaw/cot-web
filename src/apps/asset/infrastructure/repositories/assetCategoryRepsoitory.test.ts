@@ -2,6 +2,7 @@ import AuthRepository from "@/apps/auth/infrastructure/repositories/authReposito
 import AssetCategory from "../../domain/models/assetCategory";
 import AssetCategoryRepository from "./assetCategoryRepository";
 import AssetRepository from "./assetRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 // Mock dependencies
 jest.mock("@/apps/auth/infrastructure/repositories/authRepository");
 jest.mock("./assetRepository");
@@ -15,7 +16,7 @@ describe("AssetCategoryRepository", () => {
 
         authRepositoryMock = AuthRepository.prototype as jest.Mocked<AuthRepository>;
         assetRepositoryMock = AssetRepository.prototype as jest.Mocked<AssetRepository>;        
-        assetCategoryRepository = new AssetCategoryRepository();
+        assetCategoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
     });
     it("should initialize correctly", () => {
         expect(assetCategoryRepository).toBeDefined();

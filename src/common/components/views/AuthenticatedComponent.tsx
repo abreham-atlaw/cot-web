@@ -7,6 +7,7 @@ import React from "react";
 import ViewModelView from "./ViewModelView";
 import RoutingUtils from "@/common/utils/routing";
 import LoadingView from "./LoadingView";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 class AuthenticatedComponentState extends AsyncState{
@@ -18,7 +19,7 @@ class AuthenticatedComponentState extends AsyncState{
 class AuthenticatedComponentViewModel extends AsyncViewModel<AuthenticatedComponentState>{
 
 
-	private repository: AuthRepository = new AuthRepository();
+	private repository: AuthRepository = RepositoryProvider.provide(AuthRepository);
 
 
 	public async onInit(){

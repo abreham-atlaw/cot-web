@@ -7,12 +7,13 @@ import InviteRequest from "../requests/inviteRequest";
 import DataConfigs from "@/configs/dataConfigs";
 import AuthRepository from "./authRepository";
 import OrganizationRepository from "@/apps/core/infrastructure/repositories/organizationRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class InvitationRepository extends EthersModelRepository<Invitation>{
 
     private networkClient = CoreProviders.provideNetworkClient();
-    private authRepository = new AuthRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
     private organizationRepository = new OrganizationRepository();
 
     constructor(){

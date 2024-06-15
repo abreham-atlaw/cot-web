@@ -10,6 +10,7 @@ import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import { Status } from "../../domain/models/assetRequest";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 interface ListAssetMaintenanceRequestsProps{
@@ -23,12 +24,12 @@ export default class ListAssetMaintenanceRequestsView extends ListModelView<Asse
         return `/base/asset-maintenance-request/detail?id=${instance.id}`
     }
 
-    getModalChild(modalClose: () => void, instance?: AssetMaintenanceRequest){
-        return <EditAssetMaintenanceRequestView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: AssetMaintenanceRequest,close?:()=>void){
+        return <EditAssetMaintenanceRequestView closeModal={modalClose} id={instance?.id} close={close}/>
     }
     
     onCreateRepository(): EthersModelRepository<AssetMaintenanceRequest> {
-        return new AssetMaintenanceRequestRepository();
+        return RepositoryProvider.provide(AssetMaintenanceRequestRepository);
     }
 
     onCreateViewModel(state: ModelListState<AssetMaintenanceRequest>): ModelListViewModel<AssetMaintenanceRequest> {
@@ -36,11 +37,11 @@ export default class ListAssetMaintenanceRequestsView extends ListModelView<Asse
     }
 
     getInstanceValues(instance: AssetMaintenanceRequest): string[] {
-        return [instance.id!.split("-")[0], instance.user!.name, instance.asset!.name, Status[instance.status].toUpperCase()];
+        return [instance.id!.split("-")[0], instance.user!.name, instance.asset!.name, Status[instance.status].toUpperCase(), instance.createDateTime.toLocaleDateString()];
     }
 
     getHeadings(): string[] {
-        return ["ID", "User Name", "Asset Category", "Status"];
+        return ["ID", "User Name", "Asset Category", "Status", "Date"];
     }
 
     getTitle(): string {

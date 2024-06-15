@@ -6,13 +6,14 @@ import contract from "@/assets/contactBuilds/asset/src_contracts_AssetRequest_so
 import AssetRequestSerializer from "../../domain/serializers/assetRequestSerializer";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class AssetRequestRepository extends EthersModelRepository<AssetRequest>{
 
-    private authRepository = new AuthRepository();
-    private categoryRepository = new AssetCategoryRepository();
-    private profileRepository = new ProfileRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
     public static readonly ADMIN_ROLES = [
         Role.admin,

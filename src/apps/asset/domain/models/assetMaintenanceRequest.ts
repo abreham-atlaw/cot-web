@@ -11,6 +11,7 @@ export default class AssetMaintenanceRequest implements EtherModel {
     status: Status;
     userId?: string;
     image: string;
+    createDateTime?: Date;
     
     user?: Profile;
     asset?: Asset;
@@ -21,7 +22,8 @@ export default class AssetMaintenanceRequest implements EtherModel {
         note: string, 
         status: Status,
         image: string,
-        userId?: string
+        userId?: string,
+        createDateTime?: Date
     ) {
         this.id = id;
         this.assetId = assetId;
@@ -29,5 +31,6 @@ export default class AssetMaintenanceRequest implements EtherModel {
         this.status = status;
         this.userId = userId;
         this.image = image;
+        this.createDateTime = createDateTime;
     }
 }
