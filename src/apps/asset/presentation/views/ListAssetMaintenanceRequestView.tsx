@@ -36,11 +36,11 @@ export default class ListAssetMaintenanceRequestsView extends ListModelView<Asse
     }
 
     getInstanceValues(instance: AssetMaintenanceRequest): string[] {
-        return [instance.id!.split("-")[0], instance.user!.name, instance.asset!.name, Status[instance.status].toUpperCase()];
+        return [instance.id!.split("-")[0], instance.user!.name, instance.asset!.name, Status[instance.status].toUpperCase(), instance.createDateTime.toLocaleDateString()];
     }
 
     getHeadings(): string[] {
-        return ["ID", "User Name", "Asset Category", "Status"];
+        return ["ID", "User Name", "Asset Category", "Status", "Date"];
     }
 
     getTitle(): string {

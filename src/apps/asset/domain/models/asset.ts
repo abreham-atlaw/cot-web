@@ -9,17 +9,19 @@ export default class Asset implements EtherModel {
     categoryId: string;
     ownersId: (string | null)[];
     orgId?: string;
+    createDateTime?: Date;
 
     category?: AssetCategory;
 
     currentOwner?: Profile;
 
-    constructor(id: string | undefined, name: string, categoryId: string, ownerId: (string|null)[], orgId?: string) {
+    constructor(id: string | undefined, name: string, categoryId: string, ownerId: (string|null)[],orgId?: string, createDateTime?: Date) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;
         this.ownersId = ownerId;
         this.orgId = orgId;
+        this.createDateTime = createDateTime;
     }
 
     get currentOwnerId(): string | null{

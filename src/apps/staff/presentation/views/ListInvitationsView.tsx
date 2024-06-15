@@ -26,11 +26,11 @@ export default class ListInvitationsView extends ListModelView<Invitation>{
     }
 
     getInstanceValues(instance: Invitation): string[] {
-        return [instance.id!.split("-")[0], instance.name, Role[instance.role].toUpperCase(), instance.to];
+        return [instance.id!.split("-")[0], instance.name, Role[instance.role].toUpperCase(), instance.to, instance.createDatetime.toLocaleDateString()];
     }
 
     getHeadings(): string[] {
-        return ["ID", "Name", "Role", "E-Mail"];
+        return ["ID", "Name", "Role", "E-Mail", "Date"];
     }
 
     getAddInstanceLink(): string {
