@@ -25,7 +25,7 @@ import About from "../components/About";
 function Home() {
   const services = [
     {
-      title: <TranslatedText text="Tracking proprty" />,
+      title: <TranslatedText text="Tracking Asset" />,
       icons: <MdEventNote />,
     },
     {
