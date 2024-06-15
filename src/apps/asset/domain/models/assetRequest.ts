@@ -20,6 +20,7 @@ export default class AssetRequest implements EtherModel {
     departmentStatus: Status;
     rejectionNote?: string;
     userId?: string;
+    createDateTime?: Date;
     
     user?: Profile;
     category?: AssetCategory;
@@ -31,7 +32,8 @@ export default class AssetRequest implements EtherModel {
         status: Status,
         departmentStatus: Status,
         rejectionNote: string | undefined,
-        userId?: string
+        userId?: string,
+        createDateTime?: Date
     ) {
         this.id = id;
         this.categoryId = categoryId;
@@ -40,5 +42,6 @@ export default class AssetRequest implements EtherModel {
         this.departmentStatus = departmentStatus;
         this.userId = userId;
         this.rejectionNote = rejectionNote;
+        this.createDateTime = createDateTime;
     }
 }

@@ -25,11 +25,11 @@ export default class ListProfilesView extends ListModelView<Profile>{
     }
 
     getInstanceValues(instance: Profile): string[] {
-        return [instance.id!.split("-")[0], instance.name, Role[instance.role].toUpperCase(), instance.department?.name ?? "Not Assigned"];
+        return [instance.id!.split("-")[0], instance.name, Role[instance.role].toUpperCase(), instance.department?.name ?? "Not Assigned", instance.createDateTime.toLocaleDateString()];
     }
 
     getHeadings(): string[] {
-        return ["ID", "Name", "Role", "Department"];
+        return ["ID", "Name", "Role", "Department", "Date"];
     }
 
     getAddInstanceLink(): string {

@@ -42,12 +42,13 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
             instance.category!.name,
             (this.state.me?.role === Role.department || instance.departmentStatus === Status.rejected)?
             Status[instance.departmentStatus].toUpperCase():
-            Status[instance.status].toUpperCase()
+            Status[instance.status].toUpperCase(),
+            instance.createDateTime.toLocaleDateString()
         ];
     }
 
     getHeadings(): string[] {
-        return ["ID", "User Name", "Asset Category", "Status"];
+        return ["ID", "User Name", "Asset Category", "Status", "Requested On"];
     }
 
 
