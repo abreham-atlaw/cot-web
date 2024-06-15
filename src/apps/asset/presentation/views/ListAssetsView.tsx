@@ -34,7 +34,7 @@ export default class ListAssetsView extends ListModelView<Asset, ListAssetViewPr
     }
 
     getInstanceValues(instance: Asset): string[] {
-        return [instance.id!.split("-")[0], instance.name, instance.category!.name, instance.currentOwner?.name ?? "No Owner"];
+        return [instance.id!.split("-")[0], instance.name, instance.category!.name, instance.currentOwner?.name ?? "No Owner", instance.createDateTime.toLocaleDateString()];
     }
 
     getDetailLink(instance: Asset): string {
@@ -42,7 +42,7 @@ export default class ListAssetsView extends ListModelView<Asset, ListAssetViewPr
     }
 
     getHeadings(): string[] {
-        return ["ID", "Name", "Category", "Owner"];
+        return ["ID", "Name", "Category", "Owner", "Registered On"];
     }
 
     getAddInstanceLink(): string {
