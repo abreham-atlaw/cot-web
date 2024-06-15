@@ -1,5 +1,5 @@
 import {
-  FaArrowCircleRight,
+  // FaArrowCircleRight,
   FaFacebook,
   FaInstagram,
   FaTelegram,
@@ -19,6 +19,7 @@ import "../../../../index.css";
 import NavBar from "../components/Navbar";
 import TranslatedText from "@/common/components/localization/TranslatedText";
 import Footer from "../components/Footer";
+import About from "../components/About";
 
 function Home() {
   const services = [
@@ -41,7 +42,7 @@ function Home() {
   ];
   const about = [
     {
-      title: <TranslatedText text="Property Management" />,
+      title: <TranslatedText text="Asset Management" />,
       desc: (
         <TranslatedText text="The assets that are owned by the company are effectively managed." />
       ),
@@ -82,7 +83,7 @@ function Home() {
               {" "}
               <TranslatedText text="Accelerated solution" />{" "}
             </h4>
-            <ul>
+            <ul className="name">
               <li style={{ width: "30rem", borderBottomRightRadius: "0" }}>
                 <TranslatedText text="Reliable" />
               </li>
@@ -96,12 +97,11 @@ function Home() {
             <p>
               <TranslatedText text="Struggling to keep tabs on your company's equipment, inventory, or even vehicles? Our webapp simplifies asset management, allowing you to track everything in one place. From adding detailed descriptions and assigning responsible parties to generating real-time location data, you'll have complete oversight and control over your assets, ensuring their optimal use and whereabouts." />
             </p>
-            <a href="/admin">
-              <button>
+            <a href="">
+              <button style={{ height: "50px" }}>
                 <p>
-                  <TranslatedText text="More about us" />
+                  <About />
                 </p>
-                <FaArrowCircleRight style={{ fontSize: "50px" }} />
               </button>
             </a>
           </div>
@@ -137,7 +137,7 @@ function Home() {
             ))}
           </div>
           <div className="content">
-            <h2 style={{ fontFamily: '"Lobster", cursive' }}>
+            <h2 style={{ fontFamily: '"Lobster", cursive', color: "#000f2c" }}>
               {" "}
               <TranslatedText text="Our Goals" />
             </h2>
@@ -147,7 +147,7 @@ function Home() {
           </div>
         </div>
 
-        <h1 className="about-title">
+        <h1 className="about-title" style={{ color: "#000f2c" }}>
           {" "}
           <TranslatedText text="About us" />{" "}
         </h1>
@@ -177,7 +177,9 @@ function Home() {
           <div className="footerContent">
             <div className="footerSection1">
               <div className="footerLogo">
-                <h1>
+                <h1
+                  style={{ fontFamily: "Lobster, cursive", fontSize: "2rem" }}
+                >
                   {" "}
                   <TranslatedText text="Chain of trust" />
                 </h1>

@@ -154,7 +154,7 @@ code {
   width: 22em;
   left: 0;
 }
-.home .part1 ul {
+.home .part1 .name {
   list-style: none;
   padding: 0;
   margin-left: 10rem;
@@ -362,7 +362,7 @@ code {
   background-color: #fff;
   /* margin-right: 50px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 3rem 3rem;
+  padding: 1.5rem 1.5rem;
   border-radius: 20px;
   text-align: center;
   align-self: center;
@@ -372,8 +372,8 @@ code {
   font-size: 22px;
 }
 .home .mapped span {
-  font-size: 40px;
-  color: gray;
+  font-size: 2rem;
+  color: #000f2c;
 }
 .home .services .content {
   display: flex;
@@ -470,7 +470,8 @@ code {
   margin-left: 6em;
 }
 .home .about .map span {
-  font-size: 2rem;
+  color: #000f2c;
+  font-size: 1.7rem;
   margin-right: 10px;
 }
 .home .about .detail {
