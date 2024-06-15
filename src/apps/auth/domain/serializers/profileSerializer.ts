@@ -1,10 +1,12 @@
 import Serializer from "@/common/serializers/serializer";
 import Profile from "../models/profile";
 import NullableSerializer from "@/common/serializers/nullSerializer";
+import TimeStampSerializer from "@/common/serializers/timestampSerializer";
 
 export default class ProfileSerializer extends Serializer<Profile, Array<unknown>> {
 
     private nullableStringSerializer = new NullableSerializer<string, string>();
+    private timestampSerializer = new TimeStampSerializer();
 
     serialize(instance: Profile): unknown[] {
 
@@ -27,7 +29,8 @@ export default class ProfileSerializer extends Serializer<Profile, Array<unknown
             data[4] as string,
             data[5] as string,
             data[1] as string,
-            this.nullableStringSerializer.deserialize(data[6] as string) ?? undefined
+            this.nullableStringSerializer.deserialize(data[6] as string) ?? undefined,
+            this.timestampSerializer.deserialize(Number(data[7]))
         );
     }
 }

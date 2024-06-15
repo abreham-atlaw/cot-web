@@ -23,10 +23,11 @@ export default class Profile implements EtherModel {
     email: string;
     departmentId?: string; 
     organizationId?: string;
+    createDateTime?: Date;
 
     department?: Department;
 
-    constructor(name: string, role: number, userKey: string, email: string, organizationId?: string, id?: string, department?: string) {
+    constructor(name: string, role: number, userKey: string, email: string, organizationId?: string, id?: string, department?: string, createDateTime?: Date) {
         this.name = name;
         this.role = role;
         this.userKey = userKey;
@@ -34,6 +35,7 @@ export default class Profile implements EtherModel {
         this.organizationId = organizationId;
         this.id = id;
         this.departmentId = department;
+        this.createDateTime = createDateTime;
     }
 
     get hasOrganization(): boolean {
