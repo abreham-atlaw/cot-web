@@ -21,8 +21,8 @@ interface ListAssetViewProps{
 
 export default class ListAssetsView extends ListModelView<Asset, ListAssetViewProps>{
 
-    getModalChild(modalClose: () => void, instance?: Asset):ReactNode {
-        return <EditAssetView closeModal={modalClose} id={instance?.id}/>
+    getModalChild(modalClose: () => void, instance?: Asset, close?:()=>void):ReactNode {
+        return <EditAssetView closeModal={modalClose} id={instance?.id} close={close}/>
     }
     
     onCreateRepository(): EthersModelRepository<Asset> {

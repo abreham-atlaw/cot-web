@@ -19,6 +19,7 @@ interface EditModelViewProps<M extends EtherModel, F extends Form> {
     onCreateViewModel?: (state: EditModelState<M, F>) =>  EditModelViewModel<M, F>;
     id?: string;
     closeModal?: ()=> void;
+    close?:()=>void;
 }
 
 export class EditModelView<M extends EtherModel, F extends Form> extends ViewModelView<EditModelViewModel<M, F>, EditModelViewProps<M, F>, EditModelState<M, F>>{
@@ -58,11 +59,15 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
 
     onCreateMain = (): ReactNode => {
         return (
-            <div className="p-8">
+            <div className="">
             <div className="flex justify-end">
-                <MdClose onClick={this.onDestroy} className="cursor-pointer" size={30}/>
+                <MdClose onClick={()=>{
+                
+                    this.onClose()
+
+                    }} className="cursor-pointer m-8" size={30}/>
                 </div>
-            <div className="mt-8 p-8 w-full  flex">
+            <div className="mt-4 md:px-24 p-8 w-full  flex">
                 
                
                 <div className="m-auto w-full">
@@ -78,7 +83,7 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
                     <div className="mt-10 flex gap-4">
                         <div className="mx-auto">
                           
-                                <BaseButton onClick={this.onDestroy}>
+                                <BaseButton onClick={this.onClose}>
                                     <TranslatedText text="CANCEL"/>
                                 </BaseButton>
                            
@@ -102,6 +107,12 @@ export class EditModelView<M extends EtherModel, F extends Form> extends ViewMod
         }
         
     }
+    onClose = ()=>{
+        if (this.state.status !== AsyncStatus.loading) {
+        return this.props.close();
+        }
+    }
+  
 
 }
 

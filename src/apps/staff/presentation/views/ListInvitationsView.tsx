@@ -7,15 +7,19 @@ import { ReactNode } from "react";
 import RegisterUserView from "./RegisterUserView";
 
 export default class ListInvitationsView extends ListModelView<Invitation>{
+    getModalChild(modalClose: () => void, instance?: Invitation, close?: () => void): ReactNode {
+        return <RegisterUserView onCloseModal={modalClose} close={close} />
+    }
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getDetailLink(_instance: Invitation): string {
         return "";
     }
     
-    getModalChild(modalClose: () => void): ReactNode {
-        return <RegisterUserView onCloseModal={modalClose}/>
-    }
+    // getModalChild(modalClose: () => void): ReactNode {
+    //     return <RegisterUserView onCloseModal={modalClose} />
+    // }
+
     
     onCreateRepository(): EthersModelRepository<Invitation> {
         return new InvitationRepository();

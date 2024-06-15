@@ -8,7 +8,15 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ bg = 'dark', children, className = '',onClick }) => {
-    const classes = `bg-${bg} py-4 px-12 rounded-full text-white ${className}`;
+    const classes = `
+    bg-${bg} 
+    py-4 px-8 text-md
+  sm:text-sm
+     md:text-base
+   lg:text-lg
+    xl:text-xl
+    rounded-full text-white 
+    ${className}`;
     return (
         <button className={classes} onClick={onClick}>
             {children}
