@@ -54,6 +54,8 @@ export default class CoTRouter extends React.Component{
 
 					<Route path="invitation/write" element={<RegisterUserView onCloseModal={function (): void {
 						throw new Error("Function not implemented.");
+					} } close={function (): void {
+						throw new Error("Function not implemented.");
 					} }/>}/>
 					<Route path="invitation/list" element={<ListInvitationsView/>}/>
 					
