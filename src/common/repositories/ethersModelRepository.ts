@@ -108,9 +108,9 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
         await Promise.all(instances.map(async instance => {
             await this.prepareInstance(instance);
-            await this.storeInstanceInCache(instance);
             if(await this.filterAll(instance)){
                 filtered.push(instance);
+                await this.storeInstanceInCache(instance);
             }
         }));
         // for(const instance of instances){
