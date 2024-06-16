@@ -51,7 +51,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         }
     }
 
-    private async clearCache(){
+    public async clearCache(){
         this.cache.clear();
         this.allCache = undefined;
     }
