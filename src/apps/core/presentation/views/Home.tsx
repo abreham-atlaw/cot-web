@@ -21,10 +21,12 @@ import TranslatedText from "@/common/components/localization/TranslatedText";
 import Footer from "../components/Footer";
 import About from "../components/About";
 
+
+
 function Home() {
   const services = [
     {
-      title: <TranslatedText text="Tracking proprty" />,
+      title: <TranslatedText text="Tracking Asset" />,
       icons: <MdEventNote />,
     },
     {
@@ -32,7 +34,7 @@ function Home() {
       icons: <RiAuctionFill />,
     },
     {
-      title: <TranslatedText text="Managing property" />,
+      title: <TranslatedText text="Managing Asset" />,
       icons: <ImTree />,
     },
     {
@@ -204,7 +206,13 @@ function Home() {
             </ul>
             <div className="footerSection2">
               <div className="col">
-                <h2>
+                <h2
+                  style={{
+                    alignItems: "center",
+                    fontSize: "1.5rem",
+                    color: "#000f2c",
+                  }}
+                >
                   {" "}
                   <TranslatedText text="Info" />{" "}
                 </h2>
@@ -215,7 +223,13 @@ function Home() {
                 ))}
               </div>
               <div className="col">
-                <h2>
+                <h2
+                  style={{
+                    alignItems: "center",
+                    fontSize: "1.5rem",
+                    color: "#000f2c",
+                  }}
+                >
                   {" "}
                   <TranslatedText text="Socials" />{" "}
                 </h2>

@@ -13,6 +13,15 @@ export class SignupForm extends Form{
             }
             return null;
         }
+    );
+    confirmPassword = new TextField(
+        true,
+        async (value: string | null) => {
+            if (value !== this.password.getValue()) {
+                return "Passwords do not match";
+            }
+            return null;
+        }
     )
 
     getFields(): Field<unknown>[] {

@@ -29,7 +29,7 @@ export class TextBoxComponent extends FieldComponent<string, FieldComponentProps
 	
 	protected constructInputNode(value: string | null, callback: (value: string) => void): ReactNode {
 		return (
-			<textarea className="flex-1 w-full h-32 px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-[#D6D6D6] border-[3px] rounded-lg appearance-none focus:outline-none focus:ring-2 form-textarea" name="comment" onChange={(e) => {callback(e.target.value)}} value={value??""}>
+			<textarea className="flex-1 w-full h-32 px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white rounded-lg appearance-none focus:outline-none focus:ring-2 form-textarea" name="comment" onChange={(e) => {callback(e.target.value)}} value={value??""}>
 			</textarea>
 		)
 	}
