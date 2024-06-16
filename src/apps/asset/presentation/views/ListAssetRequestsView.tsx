@@ -9,6 +9,7 @@ import ListAssetRequestsViewModel from "../../application/viewModels/listAssetRe
 import Profile, { Role } from "@/apps/auth/domain/models/profile";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 interface ListAssetRequestsProps{
@@ -27,7 +28,7 @@ export default class ListAssetRequestsView extends ListModelView<AssetRequest, L
     }
     
     onCreateRepository(): EthersModelRepository<AssetRequest> {
-        return new AssetRequestRepository();
+        return RepositoryProvider.provide(AssetRequestRepository);
     }
 
     onCreateViewModel(state: ModelListState<AssetRequest>): ModelListViewModel<AssetRequest> {

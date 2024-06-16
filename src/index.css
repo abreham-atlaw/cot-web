@@ -269,14 +269,15 @@ code {
 }
 
 .home .services .title {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	padding: 10px;
-	font-size: 1.5rem;
-	margin-bottom: 5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  font-size: 4rem;
+  margin-bottom: 5rem;
+  margin-top: 3rem;
 }
 .home .services .title h4 {
 	font-weight: 100;

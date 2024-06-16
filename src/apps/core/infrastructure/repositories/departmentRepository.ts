@@ -5,11 +5,12 @@ import DepartmentSerializer from "../../domain/serializers/departmentSerializer"
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import Profile from "@/apps/auth/domain/models/profile";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 export default class DepartmentRepository extends EthersModelRepository<Department>{
 
-    private authRepository = new AuthRepository();
-    private profileRepository = new ProfileRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
     constructor(){
         super(

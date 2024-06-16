@@ -5,6 +5,7 @@ import ModelDetailState from "@/common/state/modelDetailState";
 import AssetRequest, { Status } from "../../domain/models/assetRequest";
 import ModelDetailViewModel from "@/common/viewmodel/modelDetailVIewModel";
 import AssetRequestRepository from "../../infrastructure/repositories/assetRequestRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class AssetRequestDetailView extends React.Component{
@@ -12,7 +13,7 @@ export default class AssetRequestDetailView extends React.Component{
     onCreateViewModel = (state: ModelDetailState<AssetRequest>) => {
         return new ModelDetailViewModel<AssetRequest>(
             state, 
-            new AssetRequestRepository(),
+            RepositoryProvider.provide(AssetRequestRepository),
             this.setState.bind(this)
         );
     } 

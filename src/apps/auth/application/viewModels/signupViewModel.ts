@@ -5,15 +5,16 @@ import { Role } from "../../domain/models/profile";
 import Organization from "@/apps/core/domain/models/organization";
 import OrganizationRepository from "@/apps/core/infrastructure/repositories/organizationRepository";
 import InvitationRepository from "../../infrastructure/repositories/invitationRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class SignupViewModel extends AsyncViewModel<SignupState>{
 
 
-    private authRepository = new AuthRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
 
     private get invitationRepository(): InvitationRepository{
-        return new InvitationRepository();
+        return RepositoryProvider.provide(InvitationRepository);
     }
 
     public async onInit(): Promise<void> {

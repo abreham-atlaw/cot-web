@@ -3,6 +3,7 @@ import ModelListState from "@/common/state/modelListState";
 import Profile from "@/apps/auth/domain/models/profile";
 import AssetRequest from "../../domain/models/assetRequest";
 import AssetRequestRepository from "../../infrastructure/repositories/assetRequestRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -12,7 +13,7 @@ export default class ListAssetRequestsViewModel extends ModelListViewModel<Asset
     constructor(state: ModelListState<AssetRequest>, syncState: (state: ModelListState<AssetRequest>) => void){
         super(
             state,
-            new AssetRequestRepository(),
+            RepositoryProvider.provide(AssetRequestRepository),
             syncState
         );
     }

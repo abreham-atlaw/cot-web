@@ -4,6 +4,7 @@ import EthersModelRepository from "../repositories/ethersModelRepository";
 import { AsyncStatus } from "../state/asyncState";
 import type ModelListState from "../state/modelListState";
 import AsyncViewModel from "./asyncViewModel";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -12,7 +13,7 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
 
     protected repository: EthersModelRepository<M>;
 
-    private authRepository = new AuthRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
 
     constructor(state: ModelListState<M>, repository: EthersModelRepository<M>, syncState: (state: ModelListState<M>) => void){
         super(state, syncState);

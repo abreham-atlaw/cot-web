@@ -10,6 +10,7 @@ import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import { Status } from "../../domain/models/assetRequest";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 interface ListAssetMaintenanceRequestsProps{
@@ -28,7 +29,7 @@ export default class ListAssetMaintenanceRequestsView extends ListModelView<Asse
     }
     
     onCreateRepository(): EthersModelRepository<AssetMaintenanceRequest> {
-        return new AssetMaintenanceRequestRepository();
+        return RepositoryProvider.provide(AssetMaintenanceRequestRepository);
     }
 
     onCreateViewModel(state: ModelListState<AssetMaintenanceRequest>): ModelListViewModel<AssetMaintenanceRequest> {

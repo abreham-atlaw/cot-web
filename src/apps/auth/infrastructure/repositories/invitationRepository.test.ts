@@ -6,6 +6,7 @@ import InviteRequest from "../requests/inviteRequest";
 import DataConfigs from "@/configs/dataConfigs";
 import Invitation from "../../domain/models/invitation";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 // Mock dependencies
@@ -35,7 +36,7 @@ describe("InvitationRepository", () => {
 
     (CoreProviders.provideNetworkClient as jest.Mock).mockReturnValue(networkClientMock);
 
-    invitationRepository = new InvitationRepository();
+    invitationRepository = RepositoryProvider.provide(InvitationRepository);
     invitationRepository["authRepository"] = authRepositoryMock;
     invitationRepository["organizationRepository"] = organizationRepositoryMock;
   });

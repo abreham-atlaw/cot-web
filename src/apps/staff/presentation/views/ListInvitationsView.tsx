@@ -5,6 +5,7 @@ import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import { ReactNode } from "react";
 import RegisterUserView from "./RegisterUserView";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 export default class ListInvitationsView extends ListModelView<Invitation>{
     getModalChild(modalClose: () => void, instance?: Invitation, close?: () => void): ReactNode {
@@ -22,7 +23,7 @@ export default class ListInvitationsView extends ListModelView<Invitation>{
 
     
     onCreateRepository(): EthersModelRepository<Invitation> {
-        return new InvitationRepository();
+        return RepositoryProvider.provide(InvitationRepository);
     }
 
     getInstanceValues(instance: Invitation): string[] {
