@@ -75,6 +75,12 @@ code {
 }
 .menu.open {
 	display: flex;
+  position: absolute;
+  margin-left: 9em;
+  top: 3em;
+}
+.menu.open li a{
+  font-size: 9px;
 }
 .menu-icon {
 	display: block;
