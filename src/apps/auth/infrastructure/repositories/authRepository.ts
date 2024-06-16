@@ -10,6 +10,7 @@ import RequestPasswordResetRequest from "../requests/requestPasswordResetRequest
 import VerifyResetTokenRequest from "../requests/verifyResetTokenRequest";
 import ResetPasswordRequest from "../requests/resetPasswordRequest";
 import ChangePasswordReqeust from "../requests/changePasswordRequest";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class AuthRepository{
@@ -20,11 +21,11 @@ export default class AuthRepository{
     private orgId?: string;
 
     get profileRepository(): ProfileRepository{
-        return new ProfileRepository();
+        return RepositoryProvider.provide(ProfileRepository);
     }
 
     get departmentRepository(): DepartmentRepository{
-        return new DepartmentRepository();
+        return RepositoryProvider.provide(DepartmentRepository);
     }
 
     async login(username: string, password: string){

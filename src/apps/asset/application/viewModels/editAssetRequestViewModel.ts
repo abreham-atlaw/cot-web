@@ -7,6 +7,7 @@ import AssetRequestRepository from "../../infrastructure/repositories/assetReque
 import AssetCategoryRepository from "../../infrastructure/repositories/assetCategoryRepository";
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import { Role } from "@/apps/auth/domain/models/profile";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -14,8 +15,8 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
     
     private static readonly RESOLVE_ROLES = [Role.admin, Role.inventory, Role.department];    
 
-    private categoryRepository = new AssetCategoryRepository();
-    private authRepository = new AuthRepository();
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
+    private authRepository = RepositoryProvider.provide(AuthRepository);
 
     protected async syncFormToModel(form: AssetRequestForm, model: AssetRequest): Promise<void> {
         model.category = form.category.getValue()!;
@@ -37,7 +38,7 @@ export default class EditAssetRequestViewModel extends EditModelViewModel<AssetR
     }
     
     protected initRepository(): EthersModelRepository<AssetRequest> {
-        return new AssetRequestRepository();
+        return RepositoryProvider.provide(AssetRequestRepository);
     }
     
     protected createInstance(): AssetRequest {

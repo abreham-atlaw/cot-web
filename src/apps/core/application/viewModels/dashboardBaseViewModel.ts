@@ -2,12 +2,13 @@ import AsyncViewModel from "@/common/viewmodel/asyncViewModel";
 import DashboardBaseState from "../states/dashboardBaseState";
 import AuthRepository from "@/apps/auth/infrastructure/repositories/authRepository";
 import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class DashboardBaseViewModel extends AsyncViewModel<DashboardBaseState>{
 
-    private authRepository = new AuthRepository();
+    private authRepository = RepositoryProvider.provide(AuthRepository);
 
     public async onInit(): Promise<void> {
         await super.onInit();

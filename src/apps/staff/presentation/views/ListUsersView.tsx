@@ -4,6 +4,7 @@ import ListModelView from "@/apps/core/presentation/views/ListModelView";
 import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import RegisterUserView from "./RegisterUserView";
 import EditUserView from "./EditUserView";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
@@ -21,7 +22,7 @@ export default class ListProfilesView extends ListModelView<Profile>{
     }
   
     onCreateRepository(): EthersModelRepository<Profile> {
-        return new ProfileRepository();
+        return RepositoryProvider.provide(ProfileRepository);
     }
 
     getInstanceValues(instance: Profile): string[] {

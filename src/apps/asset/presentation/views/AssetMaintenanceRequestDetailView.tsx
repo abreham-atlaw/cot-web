@@ -6,6 +6,7 @@ import RoutedModelDetailView from "@/apps/core/presentation/views/ModelDetailVie
 import { Status } from "../../domain/models/assetRequest";
 import { Link } from "react-router-dom";
 import React from "react";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 export default class AssetMaintenanceRequestDetailView extends React.Component{
@@ -13,7 +14,7 @@ export default class AssetMaintenanceRequestDetailView extends React.Component{
     onCreateViewModel = (state: ModelDetailState<AssetMaintenanceRequest>) => {
         return new ModelDetailViewModel<AssetMaintenanceRequest>(
             state, 
-            new AssetMaintenanceRequestRepository(),
+            RepositoryProvider.provide(AssetMaintenanceRequestRepository),
             this.setState.bind(this)
         );
     } 

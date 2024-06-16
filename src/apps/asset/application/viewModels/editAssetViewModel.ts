@@ -11,8 +11,8 @@ import RepositoryProvider from "@/di/repositoryProviders";
 
 export default class CreateAssetViewModel extends EditModelViewModel<Asset, AssetForm>{
     
-    private categoryRepository = new AssetCategoryRepository();
-    private profileRepository = new ProfileRepository();
+    private categoryRepository = RepositoryProvider.provide(AssetCategoryRepository)
+    private profileRepository = RepositoryProvider.provide(ProfileRepository);
 
     protected async syncFormToModel(form: AssetForm, model: Asset): Promise<void> {
         model.name = form.name.getValue()!;

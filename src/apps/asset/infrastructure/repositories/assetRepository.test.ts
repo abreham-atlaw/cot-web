@@ -7,6 +7,7 @@ import AssetRepository from "./assetRepository";
 import AssetMaintenanceRequestRepository from "./assetMaintenanceRequestRepository";
 import ProfileRepository from "@/apps/auth/infrastructure/repositories/profileRepossitory";
 import AssetMaintenanceRequest from "../../domain/models/assetMaintenanceRequest";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 // Mock dependencies
 jest.mock("@/apps/auth/infrastructure/repositories/authRepository");
@@ -27,7 +28,7 @@ describe("AssetRepository", () => {
         profileRepositoryMock = ProfileRepository.prototype as jest.Mocked<ProfileRepository>;
         maintenanceRequestRepositoryMock = AssetMaintenanceRequestRepository.prototype as jest.Mocked<AssetMaintenanceRequestRepository>;
 
-        assetRepository = new AssetRepository();
+        assetRepository = RepositoryProvider.provide(AssetRepository);
     });
 
     it("should initialize correctly", () => {

@@ -1,12 +1,13 @@
 import AsyncViewModel from "@/common/viewmodel/asyncViewModel";
 import LoginState from "../states/loginState";
 import AuthRepository from "../../infrastructure/repositories/authRepository";
+import RepositoryProvider from "@/di/repositoryProviders";
 
 
 
 export default class LoginViewModel extends AsyncViewModel<LoginState>{
 
-    private repository = new AuthRepository();
+    private repository = RepositoryProvider.provide(AuthRepository);
 
     async login(){
         await this.asyncCall(
