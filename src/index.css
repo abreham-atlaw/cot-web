@@ -75,12 +75,6 @@ code {
 }
 .menu.open {
 	display: flex;
-  position: absolute;
-  margin-left: 9em;
-  top: 3em;
-}
-.menu.open li a{
-  font-size: 9px;
 }
 .menu-icon {
 	display: block;
@@ -1583,7 +1577,7 @@ input:focus {
 }
 .modal-content {
 	background-color: white;
-	padding: 5rem;
+	/* padding: 5rem; */
 	/* margin: 5rem; */
 	/* padding-bottom: 8rem; */
 	border-radius: 10px;
@@ -2453,25 +2447,26 @@ height: 100%;
 /* Medium screens (tablets, 768px and above) */
 @media (min-width: 768px) {
 	.navbar {
-		padding: 10px 5em;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+		gap: 5rem;
+		padding: 0 5em;
 	}
 	.logo {
 		width: 10em;
 	}
 	.logo h1 {
-		font-size: 44px;
+		font-size: 24px;
 	}
 	.logo h1 span {
-		font-size: 28px;
+		font-size: 14px;
 	}
 	.menu {
 		display: flex;
 		flex-direction: row;
-    margin-left: 20em;
-    margin-top: 20px;
+		gap: 2rem;
+		position: static;
+		background-color: transparent;
+		box-shadow: none;
+		padding: 0;
 	}
 	.menu-icon {
 		display: none;
@@ -2481,6 +2476,7 @@ height: 100%;
 		font-size: 17px;
 	}
 	.home .content {
+		/* padding: 40px ; */
 		display: flex;
 		justify-content: space-between;
 		box-sizing: border-box;
@@ -2489,9 +2485,14 @@ height: 100%;
 	.home .part1 {
 		display: flex;
 		flex-direction: column;
+		/* flex: 1 1; */
+		/* padding: 30px; */
 		position: absolute;
+		/* margin-top: 15px;
+		  margin-left: 3em; */
 		margin: 3rem;
 		margin-top: 10rem;
+		/* margin-left: 10rem; */
 		z-index: 5;
 		gap: 3rem;
 	}
