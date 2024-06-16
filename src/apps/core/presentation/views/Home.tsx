@@ -125,10 +125,6 @@ function Home() {
                 <TranslatedText text="For companies" />{" "}
               </h3>
             </h4>
-            <span>
-              <TranslatedText text="View services" />
-              {/* <FaArrowRight style={{ marginLeft: "20px", color: "grey" }} /> */}
-            </span>
           </div>
           <div className="lists">
             {services.map((item) => (
