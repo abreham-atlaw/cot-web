@@ -30,7 +30,7 @@ export default class DashboardBaseView extends ViewModelView<DashboardBaseViewMo
             <AuthenticatedComponent validStatus={Object.values(AuthenticationStatus).filter(status => status !== AuthenticationStatus.none) as AuthenticationStatus[]}>
 
                 <div className="flex">
-                    <SideBar status={this.state.status!}/>
+                    <SideBar status={this.state.status!} organization={this.state.org!}/>
                     <Content>
                         <DashboardNavBar user={this.state.user!}/>
                         <div className="mt-24">
