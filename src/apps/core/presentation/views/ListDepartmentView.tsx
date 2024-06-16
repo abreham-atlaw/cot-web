@@ -26,7 +26,7 @@ export default class ListDepartmentsView extends ListModelView<Department>{
     }
 
     getInstanceValues(instance: Department): string[] {
-        return [instance.id!.split("-")[0], instance.name, instance.head!.name];
+        return [instance.id!.split("-")[0], instance.name, instance.head?.name??"No head"];
     }
 
     getHeadings(): string[] {

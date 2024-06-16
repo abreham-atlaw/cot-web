@@ -5,6 +5,8 @@ import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import RegisterUserView from "./RegisterUserView";
 import EditUserView from "./EditUserView";
 import RepositoryProvider from "@/di/repositoryProviders";
+import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 
 
 
@@ -44,6 +46,10 @@ export default class ListProfilesView extends ListModelView<Profile>{
 
     getTitle(): string {
         return "Employees"
+    }
+
+    getAllowedAuthenticationStatus(): AuthenticationStatus[] {
+        return PermissionConfigs.VISIT_PERMISSIONS[Pages.staff]!;
     }
 
 

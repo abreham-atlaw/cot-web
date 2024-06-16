@@ -29,6 +29,7 @@ export default class ModelListViewModel<M extends EtherModel> extends AsyncViewM
 
     async refresh(){
         this.state.initState.status = AsyncStatus.none;
+        await this.repository.clearCache();
         this.initialize();
     }
 

@@ -6,6 +6,8 @@ import EthersModelRepository from "@/common/repositories/ethersModelRepository";
 import { ReactNode } from "react";
 import RegisterUserView from "./RegisterUserView";
 import RepositoryProvider from "@/di/repositoryProviders";
+import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
+import AuthenticationStatus from "@/apps/auth/domain/models/authenticationStatus";
 
 export default class ListInvitationsView extends ListModelView<Invitation>{
     getModalChild(modalClose: () => void, instance?: Invitation, close?: () => void): ReactNode {
@@ -50,6 +52,10 @@ export default class ListInvitationsView extends ListModelView<Invitation>{
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     allowDetail(_instance: Invitation, _me: Profile): boolean {
         return false;
+    }
+
+    getAllowedAuthenticationStatus(): AuthenticationStatus[] {
+        return PermissionConfigs.VISIT_PERMISSIONS[Pages.staff]!;
     }
 
 }
