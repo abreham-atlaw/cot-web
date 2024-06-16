@@ -35,7 +35,7 @@ export default class DepartmentRepository extends EthersModelRepository<Departme
         for(const user of (await this.profileRepository.filterByDepartment(instance))){
             user.department = undefined;
             user.departmentId = undefined;
-            this.profileRepository.update(user);
+            await this.profileRepository.update(user);
         }
     }
 
