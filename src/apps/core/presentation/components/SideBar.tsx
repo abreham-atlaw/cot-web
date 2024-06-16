@@ -17,12 +17,14 @@ import BaseButton from "@/common/components/buttons/BaseButton";
 import PermissionConfigs, { Pages } from "@/configs/permissionConfigs";
 import Modal from "react-modal";
 import TranslatedText from "@/common/components/localization/TranslatedText";
+import Organization from "../../domain/models/organization";
 
 interface SideBarProps {
   status: AuthenticationStatus;
+  organization: Organization;
 }
 
-const SideBar: FC<SideBarProps> = ({ status }) => {
+const SideBar: FC<SideBarProps> = ({ status, organization }) => {
   const [activeLink, setActiveLink] = useState<string>("/admin");
   const handleNavLinkClick = (path: string) => {
     setActiveLink(path);
@@ -108,12 +110,13 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
         <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-300 mt-8">
         <img src="/icon.jpeg" alt="" className="object-cover w-full h-full " />
         </div>
-
-        <h1 className="text-4xl text-center font-bold mt-8">
-          <TranslatedText text="Chain of"></TranslatedText>
-          <br />
-          <TranslatedText text="Trust"></TranslatedText>
-        </h1>
+        <div className="w-48">
+      <h2 className="text-4xl text-center font-bold mt-8 truncate capitalize">
+        <TranslatedText text= {organization.name}/>
+     
+      </h2>
+    </div>
+        
         </div>
        
       )}
@@ -195,7 +198,7 @@ const SideBar: FC<SideBarProps> = ({ status }) => {
            
     
         <h1 className="text-2xl text-center font-bold mt-6">
-          <TranslatedText text="Chain of Trust"></TranslatedText>
+          {organization.name}
         </h1>
   
     </div>

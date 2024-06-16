@@ -11,7 +11,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     public attachMode: boolean = true;
 
     private cache: Map<string, M> = new Map();
-    private isCacheComplete = false;
+    private allCache?: string[]; 
 
     constructor(abi: object[], address: string, serializer: Serializer<M, Array<unknown>>){
         super(abi, address);
@@ -34,9 +34,26 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         this.cache.set(instance.id!, instance);
     }
 
-    private async clearCache(){
+    private async getAllFromCache(): Promise<M[]>{
+
+        const all: M[] = [];
+        for(const id of this.allCache!){
+            all.push(await this.getById(id));
+        }
+        return all;
+    }
+
+
+    private async storeAllToCache(all: M[]){
+        this.allCache = all.map(instance => instance.id!);
+        for(const instance of all){
+            this.cache.set(instance.id!, instance);
+        }
+    }
+
+    public async clearCache(){
         this.cache.clear();
-        this.isCacheComplete = false;
+        this.allCache = undefined;
     }
 
     async create(instance: M){
@@ -96,9 +113,9 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     }
 
     async getAll(): Promise<M[]>{
-        if(this.isCacheComplete){
+        if(this.allCache !== undefined){
             console.log("Returning complete from cache...");
-            return Array.from(this.cache.values());
+            return await this.getAllFromCache();
         }
         const contract = await this.getReadContract()
         console.log("Fetching all...");
@@ -108,9 +125,9 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
         await Promise.all(instances.map(async instance => {
             await this.prepareInstance(instance);
-            await this.storeInstanceInCache(instance);
             if(await this.filterAll(instance)){
                 filtered.push(instance);
+                await this.storeInstanceInCache(instance);
             }
         }));
         // for(const instance of instances){
@@ -120,7 +137,7 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         //         filtered.push(instance);
         //     }
         // }
-        this.isCacheComplete = true;
+        await this.storeAllToCache(filtered);
         return filtered;
     }
 

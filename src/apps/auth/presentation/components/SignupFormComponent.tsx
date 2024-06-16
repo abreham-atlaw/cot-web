@@ -50,38 +50,39 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props: SignupFo
                 ] 
                 ).map(
                     (field) => (
-                  
                         <div className="mt-10" key={field[0] as string}>
-                        <LabeledInputField label={field[0] as string}>
-                            <div className="relative">
-                                <TextFieldComponent 
-                                    field={field[1] as Field<string>} 
-                                    type={
-                                        field[0] === "Password" 
-                                        ? (showPassword ? "text" : "password") 
-                                        : (showConfirmPassword ? "text" : "password")
-                                    }
-                                />
-                                {field[2] === "password" && (
-                                    <button 
-                                        type="button" 
-                                        className="absolute inset-y-0 right-0 pr-8 flex items-center text-md leading-5" 
-                                        onClick={
-                                            field[0] === "Password" 
-                                            ? togglePasswordVisibility 
-                                            : toggleConfirmPasswordVisibility
+                            <LabeledInputField label={field[0] as string}>
+                                <div className="relative">
+                                    <TextFieldComponent 
+                                        field={field[1] as Field<string>} 
+                                        type={
+                                            field[2] === "password" 
+                                            ? (field[0] === "Password" 
+                                                ? (showPassword ? "text" : "password") 
+                                                : (showConfirmPassword ? "text" : "password")
+                                              )
+                                            : "text"
                                         }
-                                    >
-                                        {field[0] === "Password" 
-                                            ? (showPassword ? '🙈' : '👁️') 
-                                            : (showConfirmPassword ? '🙈' : '👁️')
-                                        }
-                                    </button>
-                                )}
-                            </div>
-                        </LabeledInputField>
-                    </div>
-                  
+                                    />
+                                    {field[2] === "password" && (
+                                        <button 
+                                            type="button" 
+                                            className="absolute inset-y-0 right-0 pr-8 flex items-center text-md leading-5" 
+                                            onClick={
+                                                field[0] === "Password" 
+                                                ? togglePasswordVisibility 
+                                                : toggleConfirmPasswordVisibility
+                                            }
+                                        >
+                                            {field[0] === "Password" 
+                                                ? (showPassword ? '🙈' : '👁️') 
+                                                : (showConfirmPassword ? '🙈' : '👁️')
+                                            }
+                                        </button>
+                                    )}
+                                </div>
+                            </LabeledInputField>
+                        </div>
                     )
                 )
             }
