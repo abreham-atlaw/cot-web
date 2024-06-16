@@ -2453,26 +2453,25 @@ height: 100%;
 /* Medium screens (tablets, 768px and above) */
 @media (min-width: 768px) {
 	.navbar {
-		gap: 5rem;
-		padding: 0 5em;
+		padding: 10px 5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 	}
 	.logo {
 		width: 10em;
 	}
 	.logo h1 {
-		font-size: 24px;
+		font-size: 44px;
 	}
 	.logo h1 span {
-		font-size: 14px;
+		font-size: 28px;
 	}
 	.menu {
 		display: flex;
 		flex-direction: row;
-		gap: 2rem;
-		position: static;
-		background-color: transparent;
-		box-shadow: none;
-		padding: 0;
+    margin-left: 20em;
+    margin-top: 20px;
 	}
 	.menu-icon {
 		display: none;
@@ -2482,7 +2481,6 @@ height: 100%;
 		font-size: 17px;
 	}
 	.home .content {
-		/* padding: 40px ; */
 		display: flex;
 		justify-content: space-between;
 		box-sizing: border-box;
@@ -2491,14 +2489,9 @@ height: 100%;
 	.home .part1 {
 		display: flex;
 		flex-direction: column;
-		/* flex: 1 1; */
-		/* padding: 30px; */
 		position: absolute;
-		/* margin-top: 15px;
-		  margin-left: 3em; */
 		margin: 3rem;
 		margin-top: 10rem;
-		/* margin-left: 10rem; */
 		z-index: 5;
 		gap: 3rem;
 	}
