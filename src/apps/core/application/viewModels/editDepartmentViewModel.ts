@@ -38,7 +38,7 @@ export default class EditDepartmentViewModel extends EditModelViewModel<Departme
 
     public async onInit(): Promise<void> {
         await super.onInit();
-        (this.state as EditDepartmentState).users = await this.profileRepository.filterByRole(Role.department);
+        (this.state as EditDepartmentState).users = await this.profileRepository.filterByAvailableHead();
     }
 
 }

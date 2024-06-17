@@ -61,6 +61,16 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
         );
     }
 
+    async filterByAvailableHead(): Promise<Profile[]>{
+
+        const headsIds = (await this.departmentRepository.getAll()).map(
+            (department) => department.headId
+        );
+        return (await this.filterByRole(Role.department)).filter(
+            (profile) => !headsIds.includes(profile.id)
+        );
+    }
+
     async filterByDepartment(department: Department): Promise<Profile[]>{
         return (await this.getAll()).filter(
             (profile) => profile.departmentId === department.id

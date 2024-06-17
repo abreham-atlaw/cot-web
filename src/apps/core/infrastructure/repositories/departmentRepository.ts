@@ -53,6 +53,11 @@ export default class DepartmentRepository extends EthersModelRepository<Departme
         return departments[0];
     }
 
+    async clearCache(): Promise<void> {
+        await super.clearCache();
+        await this.profileRepository.clearCache();
+    }
+
     
 
 }

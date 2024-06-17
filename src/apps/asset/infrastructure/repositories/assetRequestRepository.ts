@@ -41,7 +41,7 @@ export default class AssetRequestRepository extends EthersModelRepository<AssetR
         return (
             (instance.category!.orgId === (await this.authRepository.getOrgId())) &&
             (
-                (me.role === Role.department && instance.user!.departmentId === me.departmentId) ||
+                (me.role === Role.department && me.departmentId !== undefined && instance.user!.departmentId === me.departmentId) ||
                 (AssetRequestRepository.ADMIN_ROLES.includes(me.role) && instance.departmentStatus === Status.approved) ||
                 (instance.userId === me.id)
             )
