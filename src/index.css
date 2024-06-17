@@ -76,14 +76,14 @@ code {
   z-index: 9999;
 }
 .menu.open {
-  display: flex;
-  position: absolute;
-  left: 19.5em;
-  top: 40px;
+	display: flex;
+	position: absolute;
+	top: 35px;
+	left: 19em;
 }
-.menu.open li a {
-  font-size: 9px;
-  padding: 1px 5px;
+.menu.open li a{
+font-size: 9px;
+padding: 1px 4px ;
 }
 .menu-icon {
   display: block;
