@@ -1,6 +1,8 @@
+import CoreProviders from "@/di/coreProviders";
 import EtherModel from "../model/model";
 import Serializer from "../serializers/serializer";
 import EthersRepository from "./ethersRepository";
+import Encryptor from "../utils/encryptor";
 
 
 
@@ -12,10 +14,21 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
 
     private cache: Map<string, M> = new Map();
     private allCache?: string[]; 
+    private localStorage = CoreProviders.provideLocalStorage();
+    private encryptionKeyName?: string;
+    private encryptor = new Encryptor();
 
-    constructor(abi: object[], address: string, serializer: Serializer<M, Array<unknown>>){
+    constructor(abi: object[], address: string, serializer: Serializer<M, Array<unknown>>, keyName?: string){
         super(abi, address);
         this.serializer = serializer;
+        this.encryptionKeyName = keyName;
+    }
+
+    get encryptionKey(): Promise<string | undefined>{
+        if(this.encryptionKeyName === undefined){
+            return undefined;
+        }
+        return this.localStorage.get(`KEY_${this.encryptionKeyName}`)
     }
 
     async generateId(): Promise<string> {
@@ -51,9 +64,45 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         }
     }
 
+    protected async encrypt(fields: unknown[]){
+        const encrypted = fields.map((value) => value);
+        for(const field of this.getEncryptFields()){
+            encrypted[field] = this.encryptor.encrypt(fields[field] as string, await this.encryptionKey);
+        }
+        return encrypted;
+    }
+
+    protected async decrypt(fields: unknown[]){
+        const decrypted = fields.map((value) => value);
+        for(const field of this.getDecryptFields()){
+            decrypted[field] = this.encryptor.decrypt(fields[field] as string, await this.encryptionKey);
+        }
+        return decrypted;
+    }
+
+    protected async decryptAll(instances: unknown[][]){
+        const decrypted = [];
+        for(const instance of instances){
+            decrypted.push(await this.decrypt(instance));
+        }
+        return decrypted;
+    }
+
     public async clearCache(){
         this.cache.clear();
         this.allCache = undefined;
+    }
+
+    protected getEncryptedFields(): number[]{
+        return [];
+    }
+
+    protected getEncryptFields(): number[]{
+        return this.getEncryptedFields();
+    }
+
+    protected getDecryptFields(): number[]{
+        return this.getEncryptFields();
     }
 
     async create(instance: M){
@@ -62,8 +111,10 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         }
         await this.preSave(instance);
         const contract = await this.getWriteContract();
+        const serialized = this.serializer.serialize(instance);
+        const encrypted = await this.encrypt(serialized);
         const transaction = await contract.create(
-            ...this.serializer.serialize(instance), 
+            ...encrypted, 
             {
                 gasPrice: 0
             }
@@ -76,8 +127,9 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
     async update(instance: M){
         await this.preSave(instance);
         const serialized = this.serializer.serialize(instance);
+        const encrypted = await this.encrypt(serialized);
         const transaction = await (await this.getWriteContract()).update(
-            ...serialized,
+            ...encrypted,
             {
                 gasPrice: 0
             }
@@ -106,7 +158,8 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         }
         const contract = await this.getReadContract();
         const response = await contract.getById(id);
-        const instance = this.serializer.deserialize(response);
+        const decrypted = await this.decrypt(response);
+        const instance = this.serializer.deserialize(decrypted);
         await this.prepareInstance(instance);
         await this.storeInstanceInCache(instance);
         return instance;
@@ -120,7 +173,8 @@ export default class EthersModelRepository<M extends EtherModel> extends EthersR
         const contract = await this.getReadContract()
         console.log("Fetching all...");
         const response = await contract.getAll();
-        const instances = this.serializer.deserializeMany(response);
+        const decrypted = await this.decryptAll(response);
+        const instances = this.serializer.deserializeMany(decrypted);
         const filtered = [];
 
         await Promise.all(instances.map(async instance => {

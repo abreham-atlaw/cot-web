@@ -47,9 +47,9 @@ export default class ListProfilesView extends ListModelView<Profile>{
     getTitle(): string {
         return "Employees"
     }
-
+    
     getAllowedAuthenticationStatus(): AuthenticationStatus[] {
-        return PermissionConfigs.VISIT_PERMISSIONS[Pages.staff]!;
+        return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.staff)!;
     }
 
 

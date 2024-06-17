@@ -55,7 +55,7 @@ export default class ListInvitationsView extends ListModelView<Invitation>{
     }
 
     getAllowedAuthenticationStatus(): AuthenticationStatus[] {
-        return PermissionConfigs.VISIT_PERMISSIONS[Pages.staff]!;
+        return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.staff)!;
     }
 
 }

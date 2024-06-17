@@ -13,6 +13,7 @@ export default class AssetCategorySelectionFieldComponent extends FieldComponent
         if(value === ''){
             return null;
         }
+        console.log(value, " Selected");
         return this.props.categories.filter(
             (category) => category.id! === value
         )[0] ?? null;
@@ -26,6 +27,9 @@ export default class AssetCategorySelectionFieldComponent extends FieldComponent
     }
 
     protected constructInputNode(value: AssetCategory | null, callback: (value: AssetCategory | null) => void): React.ReactNode {
+        if(value == null && !this.props.nullable){
+            callback(this.props.categories[0]);
+        }
         return (
 
             
