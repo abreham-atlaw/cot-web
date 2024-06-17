@@ -77,4 +77,8 @@ export default class ListAssetCategoriesView extends ListModelView<AssetCategory
         return PermissionConfigs.VISIT_PERMISSIONS.get(Pages.category)!;
     }
 
+    getDeleteWarning(): string {
+        return "Deleting this will delete all assets under this category. Are you sure you want to continue?"
+    }
+
 }

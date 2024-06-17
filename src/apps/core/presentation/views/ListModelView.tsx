@@ -124,6 +124,10 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
         return 1;
     }
 
+    getDeleteWarning(): string{
+        return "";
+    }
+
     onCreateMain(): ReactNode {
         const cols = this.getHeadings().length + 1;
         const allowedStatus = this.getAllowedAuthenticationStatus();
@@ -259,6 +263,8 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
                     )
                     }
                   </ul>
+                  <p className="mt-5"><TranslatedText text={this.getDeleteWarning()}/></p>
+
                   
 
                   <div className="mt-10 flex gap-4">
