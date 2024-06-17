@@ -110,10 +110,13 @@ const SideBar: FC<SideBarProps> = ({ status, organization }) => {
         <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-300 mt-8">
         <img src="/icon.jpeg" alt="" className="object-cover w-full h-full " />
         </div>
-
-        <h1 className="text-4xl text-center font-bold mt-8 w-50">
-          {organization.name}
-        </h1>
+        <div className="w-48">
+      <h2 className="text-4xl text-center font-bold mt-8 truncate capitalize">
+        <TranslatedText text= {organization.name}/>
+     
+      </h2>
+    </div>
+        
         </div>
        
       )}
