@@ -2488,7 +2488,7 @@ input:focus {
   .menu li a {
     color: #000f2c;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1.4rem;
     position: relative;
     display: flex;
   }
@@ -2519,7 +2519,7 @@ input:focus {
   .signin {
     padding: 12px 40px;
     color: white;
-    font-size: 18px;
+    font-size: 1.6rem;
     background-color: #000f2c;
     border-radius: 30px;
     /* margin-left: 35em; */
