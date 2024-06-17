@@ -77,6 +77,13 @@ code {
 }
 .menu.open {
   display: flex;
+  position: absolute;
+  left: 19.5em;
+  top: 40px;
+}
+.menu.open li a {
+  font-size: 9px;
+  padding: 1px 5px;
 }
 .menu-icon {
   display: block;
