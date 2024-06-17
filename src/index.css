@@ -2642,7 +2642,7 @@ input:focus {
   .home .column2 {
     position: relative;
     min-width: 20rem;
-    max-width: 40rem;
+    max-width: 33rem;
     height: 580px;
     min-height: 50rem;
     border-radius: 50px;
