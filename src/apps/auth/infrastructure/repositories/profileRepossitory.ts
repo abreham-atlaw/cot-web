@@ -19,7 +19,8 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
         super(
             contract.abi,
             contract.address,
-            new ProfileSerializer()
+            new ProfileSerializer(),
+            "profile"
         );
     }
 
@@ -43,7 +44,8 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
 
     async getByUserKey(key: string): Promise<Profile>{
         const response = await (await this.getReadContract()).getByUserKey(key);
-        const instance = this.serializer.deserialize(response);
+        const decrypted = await this.decrypt(response);
+        const instance = this.serializer.deserialize(decrypted);
         await this.attachForeignKeys(instance);
         return instance;
     }
@@ -86,6 +88,10 @@ export default class ProfileRepository extends EthersModelRepository<Profile>{
         for(const request of (await this.assetMaintenanceRequestRepository.filterByUser(instance))){
             await this.assetMaintenanceRequestRepository.delete(request);
         }
+    }
+
+    protected getEncryptedFields(): number[] {
+        return [2, 4];
     }
 
 }

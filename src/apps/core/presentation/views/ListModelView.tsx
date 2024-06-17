@@ -126,9 +126,10 @@ export default abstract class ListModelView<M extends EtherModel, P=unknown> ext
 
     onCreateMain(): ReactNode {
         const cols = this.getHeadings().length + 1;
+        const allowedStatus = this.getAllowedAuthenticationStatus();
         return (
             <AuthenticatedComponent
-                validStatus={this.getAllowedAuthenticationStatus()}
+                validStatus={allowedStatus}
                 >
                     <>
             <div className="p-10">

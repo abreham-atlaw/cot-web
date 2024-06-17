@@ -25,7 +25,8 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
         super(
             contract.abi,
             contract.address,
-            new AssetSerializer()
+            new AssetSerializer(),
+            "asset"
         );
     }
 
@@ -69,6 +70,10 @@ export default class AssetRepository extends EthersModelRepository<Asset>{
         return (await this.getAll()).filter(
             (asset: Asset) => asset.currentOwnerId === owner.id
         );
+    }
+
+    protected getEncryptedFields(): number[] {
+        return [1]
     }
 
 

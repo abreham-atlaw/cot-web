@@ -36,11 +36,12 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
                         null,
                         this.state.invitationId!,
                         this.state.form.password.getValue()!
-                    )
+                    );
                 }
                 if(!this.state.adminMode){
                     this.state.invitation = await this.invitationRepository.getById(this.state.invitationId!);
                     this.state.organizationId = this.state.invitation.orgId;
+                    await this.authRepository.getOrgKeys(this.state.organizationId!);
                 }
                 if(this.state.organizationId === undefined){
                     this.state.stage = Stage.organization;
@@ -62,9 +63,10 @@ export default class SignupViewModel extends AsyncViewModel<SignupState>{
                 const org = new Organization(this.state.orgForm.name.getValue()!);
                 await orgRepository.create(org);
                 this.state.organizationId = org.id;
+                await this.authRepository.createOrgKeys(this.state.organizationId!);
                 await this.completeSignup();
             }
-        )
+        );
     }
 
     private async completeSignup(){

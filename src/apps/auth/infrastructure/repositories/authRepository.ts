@@ -11,6 +11,9 @@ import VerifyResetTokenRequest from "../requests/verifyResetTokenRequest";
 import ResetPasswordRequest from "../requests/resetPasswordRequest";
 import ChangePasswordReqeust from "../requests/changePasswordRequest";
 import RepositoryProvider from "@/di/repositoryProviders";
+import CreateOrgKeysRequest from "../requests/createOrgKeysRequest";
+import SymmetricKey from "../../domain/models/symmetricKey";
+import GetOrgKeysRequest from "../requests/getOrgKeysRequest";
 
 
 export default class AuthRepository{
@@ -19,6 +22,7 @@ export default class AuthRepository{
     private readonly networkClient = CoreProviders.provideNetworkClient();
     private readonly keyPairStorage = AuthProviders.provideKeyPairStorage();
     private orgId?: string;
+    private readonly storage = CoreProviders.provideLocalStorage();
 
     get profileRepository(): ProfileRepository{
         return RepositoryProvider.provide(ProfileRepository);
@@ -28,9 +32,16 @@ export default class AuthRepository{
         return RepositoryProvider.provide(DepartmentRepository);
     }
 
+    private async storeOrgKeys(keys: SymmetricKey[]){
+        for(const key of keys){
+            await this.storage.store(`KEY_${key.contract}`, key.key);
+        }
+    }
+
     async login(username: string, password: string){
-        const keyPair = await this.networkClient.execute(new LoginRequest(username, password));
+        const { keyPair, contractKeys } = await this.networkClient.execute(new LoginRequest(username, password));
         await this.keyPairStorage.store(keyPair);
+        await this.storeOrgKeys(contractKeys);
     }
 
     async logout(){
@@ -124,6 +135,16 @@ export default class AuthRepository{
     async changePassword(old_password: string, new_password: string){
         const profile = await this.whoAmI();
         return await this.networkClient.execute(new ChangePasswordReqeust(profile.email, old_password, new_password));
+    }
+
+    async createOrgKeys(orgId: string){
+        const keys = await this.networkClient.execute(new CreateOrgKeysRequest(orgId));
+        await this.storeOrgKeys(keys);
+    }
+
+    async getOrgKeys(orgId: string){
+        const keys = await this.networkClient.execute(new GetOrgKeysRequest(orgId));
+        await this.storeOrgKeys(keys);
     }
 
 }
